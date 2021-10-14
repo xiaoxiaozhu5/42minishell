@@ -8,7 +8,10 @@ CFLAGS = -Wall -Wextra -Werror -pthread -I$(INC) -I$(LIBFT_FOLDER)
 
 NAME = minishell
 
-SRCS = srcs/ft_main.c
+SRCS = srcs/ft_main.c \
+	srcs/ft_parser.c \
+	srcs/ft_history.c \
+	srcs/ft_process.c
 
 OBJS = $(SRCS:%.c=%.o)
 

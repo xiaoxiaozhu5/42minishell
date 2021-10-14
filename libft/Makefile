@@ -6,7 +6,7 @@
 #    By: kricky <kricky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/16 14:16:38 by kricky            #+#    #+#              #
-#    Updated: 2021/09/01 10:36:57 by kricky           ###   ########.fr        #
+#   Updated: 2021/10/14 16:22:56 by                  ###   ########.fr         #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,20 +55,18 @@ SRCS = ft_memccpy.c\
 		get_next_line.c\
 		ft_wdcounter.c\
 		ft_abs.c\
-		ft_nbrcmp.c
-
-SRCS_BONUSES = ft_lstnew.c\
-	  			ft_lstadd_front.c\
-	  			ft_lstsize.c\
-	  			ft_lstlast.c\
-	  			ft_lstadd_back.c\
-	  			ft_lstdelone.c\
-	  			ft_lstclear.c\
-	  			ft_lstiter.c\
-	  			ft_lstmap.c
+		ft_nbrcmp.c\
+		ft_lstnew.c\
+		ft_lstadd_front.c\
+		ft_lstsize.c\
+		ft_lstlast.c\
+		ft_lstadd_back.c\
+		ft_lstdelone.c\
+		ft_lstclear.c\
+		ft_lstiter.c\
+		ft_lstmap.c
 
 OBJS = ${SRCS:.c=.o}
-OBJS_BONUSES = ${SRCS_BONUSES:.c=.o}
 
 %.o: %.c $(INCLUDES)
 	$(CC) $(CFLAGS) -c $<
@@ -83,8 +81,5 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-
-bonus: $(OBJS) $(OBJS_BONUSES)
-	ar rcs $(NAME) $^
 
 re: clean all

@@ -6,7 +6,7 @@
 /*   By:  <kricky@student.21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:31 by                   #+#    #+#             */
-/*   Updated: 2021/10/14 13:17:54 by                  ###   ########.fr       */
+/*   Updated: 2021/10/14 16:17:36 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -26,11 +28,19 @@
 // Typedefs
 
 // Structures
-typedef struct s_default
+typedef struct s_env
 {
 	int	def;
-}	t_default;
+}	t_env;
 
-// Main functions
+// History
+void	ft_init_history();
+void	ft_add_history(char *line);
+
+// Parser
+t_env	*ft_parser(const char *input);
+
+// Process
+void	ft_process(t_env *env);
 
 #endif

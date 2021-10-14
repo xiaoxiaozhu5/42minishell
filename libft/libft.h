@@ -70,7 +70,7 @@ int		ft_nbrcmp(const int n1, const int n2);
 
 int		get_next_line(int fd, char **line);
 
-// Lists
+// Singlelist
 
 typedef struct s_list
 {
