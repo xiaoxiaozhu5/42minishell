@@ -17,7 +17,8 @@ OBJS = $(SRCS:%.c=%.o)
 	@echo "Building: \033[0;34m$<\033[0m"
 
 $(NAME): $(INC)/$(INCLUDES) $(OBJS)
-	@make -C libft
+	@echo "Building: \033[0;34m$>$(LIBFT_ARCHIVE)\033[0m"
+	@make -s -C libft
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
 	@echo "Binary \033[0;32m$(NAME)\033[0m successfully linked!"
 
