@@ -6,7 +6,7 @@
 /*   By:  <kricky@student.21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:31 by                   #+#    #+#             */
-/*   Updated: 2021/10/14 13:32:32 by                  ###   ########.fr       */
+/*   Updated: 2021/10/14 13:56:38 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 int main(void)
 {
-	ft_putstr_fd("Hello world!\n", 1);
-	return (1);
+	char *input;
+
+	while (1)
+	{
+		input = readline("\033[0;34m42minishell\033[0m: ");
+		add_history(input);
+		printf("%s", input);
+		printf("\n");
+	}
 }
