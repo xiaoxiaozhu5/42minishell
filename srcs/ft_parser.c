@@ -75,13 +75,11 @@ char	*ft_double_quotes(char *input, int *i)
 	return (tmp);
 }
 
-t_env	*ft_parser(char *input)
+char	*ft_parser(char *input)
 {
 	int		i;
-	t_env	*env;
 
 	i = 0;
-	env = malloc(sizeof(t_env));
 	while (input[i])
 	{
 		if (input[i] == '\'')
@@ -92,6 +90,6 @@ t_env	*ft_parser(char *input)
 			input = ft_double_quotes(input, &i);
 		i++;
 	}
-	printf("Result parser: %s\n", input);
-	return (env);
+	printf("Спарсилось как: [%s]\n", input);
+	return (input);
 }
