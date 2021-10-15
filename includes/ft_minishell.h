@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minishell.h                                  :+:      :+:    :+:   	  */
+/*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <kricky@student.21-school.ru>             +#+  +:+       +#+        */
+/*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:31 by                   #+#    #+#             */
-/*   Updated: 2021/10/14 16:17:36 by                  ###   ########.fr       */
+/*   Updated: 2021/10/15 13:20:28 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -31,6 +31,7 @@
 typedef struct s_env
 {
 	int	def;
+	int	numb_pipes;
 }	t_env;
 
 // History
