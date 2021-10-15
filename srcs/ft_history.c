@@ -31,8 +31,6 @@ void	ft_init_history(void)
 
 	history_file = open(".history", O_RDWR | O_CREAT, 0666);
 	if (history_file != -1)
-	{
 		ft_history_old_fill(history_file);
-	}
 	close(history_file);
 }

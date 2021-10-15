@@ -63,7 +63,7 @@ char	*ft_double_quotes(char *input, int *i)
 	}
 	tmp = ft_substr(input, 0, j);
 	tmp2 = ft_substr(input, j + 1, *i - j - 1);
-	tmp3 = ft_strdup(input + *i + 1);
+	tmp3 = ft_strdup(input + (*i)-- + 1);
 	tmp4 = ft_strjoin(tmp, tmp2);
 	free(tmp);
 	free(tmp2);
@@ -71,7 +71,6 @@ char	*ft_double_quotes(char *input, int *i)
 	free(tmp3);
 	free(tmp4);
 	free(input);
-	(*i) -= 1;
 	return (tmp);
 }
 
