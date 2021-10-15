@@ -63,7 +63,7 @@ char	*ft_double_quotes(char *input, int *i)
 	}
 	tmp = ft_substr(input, 0, j);
 	tmp2 = ft_substr(input, j + 1, *i - j - 1);
-	tmp3 = ft_strdup(input + *i + 1);
+	tmp3 = ft_strdup(input + (*i)-- + 1);
 	tmp4 = ft_strjoin(tmp, tmp2);
 	free(tmp);
 	free(tmp2);
@@ -71,17 +71,14 @@ char	*ft_double_quotes(char *input, int *i)
 	free(tmp3);
 	free(tmp4);
 	free(input);
-	(*i) -= 1;
 	return (tmp);
 }
 
-t_env	*ft_parser(char *input)
+char	*ft_parser(char *input)
 {
 	int		i;
-	t_env	*env;
 
 	i = 0;
-	env = malloc(sizeof(t_env));
 	while (input[i])
 	{
 		if (input[i] == '\'')
@@ -92,6 +89,6 @@ t_env	*ft_parser(char *input)
 			input = ft_double_quotes(input, &i);
 		i++;
 	}
-	printf("Result parser: %s\n", input);
-	return (env);
+	printf("Спарсилось как: [%s]\n", input);
+	return (input);
 }

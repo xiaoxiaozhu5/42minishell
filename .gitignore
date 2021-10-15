@@ -2,3 +2,6 @@
 *.o
 minishell
 .history
+1
+a.out
+.vscode
