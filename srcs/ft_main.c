@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-int main(void)
+int	main(void)
 {
 	char	*input;
 	t_env	*env;

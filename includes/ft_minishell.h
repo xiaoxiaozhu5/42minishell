@@ -39,7 +39,7 @@ void	ft_init_history();
 void	ft_add_history(char *line);
 
 // Parser
-t_env	*ft_parser(const char *input);
+t_env	*ft_parser(char *input);
 
 // Process
 void	ft_process(t_env *env);
