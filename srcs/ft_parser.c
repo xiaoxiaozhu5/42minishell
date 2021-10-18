@@ -1,5 +1,24 @@
 #include "ft_minishell.h"
 
+char	*ft_dollar(char *input, char **envp, int *i)
+{
+	int		start;
+	char	*tmp;
+
+	(void)envp;
+	start = *i;
+	while (input[++(*i)])
+	{
+		if (!(input[*i] == '_' || ft_isalnum(input[*i])))
+			break ;
+	}
+	if (*i == start + 1)
+		return (input);
+	tmp = ft_substr(input, start + 1, *i - start - 1);
+	printf("key = %s\n", tmp);
+	return (input);
+}
+
 char	*ft_slash(char *input, int *i)
 {
 	char	*tmp;
@@ -74,7 +93,7 @@ char	*ft_double_quotes(char *input, int *i)
 	return (tmp);
 }
 
-char	*ft_parser(char *input)
+char	*ft_parser(char *input, char **envp)
 {
 	int		i;
 
@@ -87,6 +106,8 @@ char	*ft_parser(char *input)
 			input = ft_slash(input, &i);
 		if (input[i] == '\"')
 			input = ft_double_quotes(input, &i);
+		if (input[i] == '$')
+			input = ft_dollar(input, envp, &i);
 		i++;
 	}
 	printf("Спарсилось как: [%s]\n", input);

@@ -5,11 +5,13 @@
 // Результат должен быть:
 // comman\nndd000'00comm"andddda
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_env	*env;
 
+	(void)argc;
+	(void)argv;
 	env = malloc(sizeof(t_env));
 	ft_init_history();
 	while (1)
@@ -18,7 +20,7 @@ int	main(void)
 		ft_add_history(input);
 		if (ft_preparser(input) == 0)
 		{
-			input = ft_parser(input);
+			input = ft_parser(input, envp);
 			ft_process(env);
 		}
 		free(input);

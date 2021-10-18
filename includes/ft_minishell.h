@@ -1,7 +1,7 @@
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -30,7 +30,7 @@ void	ft_add_history(char *line);
 
 // Parser
 int		ft_preparser(char *input);
-char	*ft_parser(char *input);
+char	*ft_parser(char *input, char **envp);
 
 // Process
 void	ft_process(t_env *env);
