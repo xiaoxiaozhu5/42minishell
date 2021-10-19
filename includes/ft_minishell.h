@@ -31,6 +31,7 @@ void	ft_add_history(char *line);
 // Parser
 int		ft_preparser(char *input);
 char	*ft_parser(char *input, char **envp);
+char	*ft_get_value(const char *key, char **envp);
 
 // Process
 void	ft_process(t_env *env);

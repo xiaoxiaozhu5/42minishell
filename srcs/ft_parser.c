@@ -3,10 +3,13 @@
 char	*ft_dollar(char *input, char **envp, int *i)
 {
 	int		start;
+	int		j;
 	char	*tmp;
+	char	*value;
 
 	(void)envp;
 	start = *i;
+	j = -1;
 	while (input[++(*i)])
 	{
 		if (!(input[*i] == '_' || ft_isalnum(input[*i])))
@@ -15,7 +18,9 @@ char	*ft_dollar(char *input, char **envp, int *i)
 	if (*i == start + 1)
 		return (input);
 	tmp = ft_substr(input, start + 1, *i - start - 1);
-	printf("key = %s\n", tmp);
+	value = ft_get_value(tmp, envp);
+	free(tmp);
+	free(value);
 	return (input);
 }
 
