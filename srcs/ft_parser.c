@@ -3,13 +3,12 @@
 char	*ft_dollar(char *input, char **envp, int *i)
 {
 	int		start;
-	int		j;
-	char	*tmp;
+	char	*key;
+	char	*key_with_dollar;
 	char	*value;
 
 	(void)envp;
 	start = *i;
-	j = -1;
 	while (input[++(*i)])
 	{
 		if (!(input[*i] == '_' || ft_isalnum(input[*i])))
@@ -17,9 +16,13 @@ char	*ft_dollar(char *input, char **envp, int *i)
 	}
 	if (*i == start + 1)
 		return (input);
-	tmp = ft_substr(input, start + 1, *i - start - 1);
-	value = ft_get_value(tmp, envp);
-	free(tmp);
+	// TODO echo $USE segmentation fault
+	key = ft_substr(input, start + 1, *i - start - 1);
+	value = ft_get_value(key, envp);
+	free(key);
+	key_with_dollar = ft_substr(input, start, *i - start);
+	ft_str_replace(&input, key_with_dollar, value);
+	free(key_with_dollar);
 	free(value);
 	return (input);
 }

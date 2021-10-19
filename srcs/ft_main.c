@@ -21,9 +21,11 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_preparser(input) == 0)
 		{
 			input = ft_parser(input, envp);
+			//ft_build_cmds(env, input);
 			ft_process(env);
 		}
 		free(input);
 	}
 	free(env);
+	// TODO free(env->cmds);
 }

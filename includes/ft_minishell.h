@@ -18,11 +18,24 @@
 // Typedefs
 
 // Structures
+typedef struct s_node
+{
+	void	*next;
+	char	*command;
+	char	*flags;
+	char	*args;
+	char	c_end;
+} t_node;
+
 typedef struct s_env
 {
-	int	def;
-	int	numb_pipes;
+	t_node	**cmds;
+	int		def;
+	int		numb_pipes;
 }	t_env;
+
+// Lists
+t_node	*ft_list_create_back(t_node **lst);
 
 // History
 void	ft_init_history();
@@ -32,6 +45,9 @@ void	ft_add_history(char *line);
 int		ft_preparser(char *input);
 char	*ft_parser(char *input, char **envp);
 char	*ft_get_value(const char *key, char **envp);
+
+// Builder
+void	ft_build_cmds(t_env *env, char *input);
 
 // Process
 void	ft_process(t_env *env);
