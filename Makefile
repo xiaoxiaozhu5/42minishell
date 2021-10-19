@@ -4,7 +4,7 @@ INC = includes
 INCLUDES = ft_minishell.h
 LIBFT_FOLDER = libft
 LIBFT_ARCHIVE = libft.a
-CFLAGS = -Wall -Wextra -Werror -pthread -I$(INC) -I$(LIBFT_FOLDER)
+CFLAGS = -pthread -I$(INC) -I$(LIBFT_FOLDER)
 
 NAME = minishell
 
@@ -14,7 +14,9 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_process.c \
 	srcs/ft_preparser.c \
 	srcs/ft_errors.c \
-	srcs/ft_environment.c
+	srcs/ft_environment.c \
+	srcs/ft_list_builder.c \
+	srcs/ft_list.c
 
 OBJS = $(SRCS:%.c=%.o)
 
