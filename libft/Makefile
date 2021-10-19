@@ -54,6 +54,7 @@ SRCS = ft_memccpy.c\
 		ft_putnbr_fd.c\
 		get_next_line.c\
 		ft_wdcounter.c\
+		ft_str_replace.c\
 		ft_abs.c\
 		ft_nbrcmp.c\
 		ft_lstnew.c\
