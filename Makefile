@@ -31,12 +31,14 @@ $(NAME): $(INC)/$(INCLUDES) $(OBJS)
 all: $(NAME)
 
 clean:
-	@make -C libft clean
-	$(RM) $(OBJS)
+	@make -C libft clean -s
+	@$(RM) $(OBJS)
+	@echo "Cleanup: \033[0;34mobject files\033[0m"
 
 fclean: clean
-	@make -C libft fclean
-	$(RM) $(NAME)
+	@make -C libft fclean -s
+	@$(RM) $(NAME)
+	@echo "Cleanup: \033[0;34mlinked files\033[0m"
 
 re: clean all
 
