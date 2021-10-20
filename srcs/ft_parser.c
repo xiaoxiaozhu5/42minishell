@@ -7,13 +7,17 @@ char	*ft_dollar(char *input, char **envp, int *i)
 	char	*key_with_dollar;
 	char	*value;
 
-	(void)envp;
 	start = *i;
-	while (input[++(*i)])
+	if (!ft_isdigit(input[(*i) + 1]))
 	{
-		if (!(input[*i] == '_' || ft_isalnum(input[*i])))
-			break ;
+		while (input[++(*i)])
+		{
+			if (!(input[*i] == '_' || ft_isalnum(input[*i])))
+				break ;
+		}
 	}
+	else
+		return (ft_digit_dollar(input, i));
 	if (*i == start + 1)
 		return (input);
 	key = ft_substr(input, start + 1, *i - start - 1);
@@ -21,11 +25,7 @@ char	*ft_dollar(char *input, char **envp, int *i)
 	free(key);
 	key_with_dollar = ft_substr(input, start, *i - start);
 	if (value)
-	{
-		ft_str_replace(&input, key_with_dollar, value);
-		free(value);
-	}
-	free(key_with_dollar);
+		ft_str_replace_free(&input, key_with_dollar, value);
 	return (input);
 }
 

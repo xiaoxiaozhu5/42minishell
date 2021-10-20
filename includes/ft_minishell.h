@@ -45,6 +45,7 @@ void	ft_add_history(char *line);
 int		ft_preparser(char *input);
 char	*ft_parser(char *input, char **envp);
 char	*ft_get_value(const char *key, char **envp);
+char	*ft_digit_dollar(char *input, int *i);
 
 // Builder
 void	ft_build_cmds(t_env *env, char *input);

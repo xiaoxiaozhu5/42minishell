@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/10/19 17:59:02 by                  ###   ########.fr       */
+/*   Updated: 2021/10/20 14:24:04 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		ft_wdcounter(const char *str, char separator);
 int		ft_abs(int value);
 int		ft_nbrcmp(const int n1, const int n2);
 void	ft_str_replace(char **str, const char *replace, const char *insert);
+void	ft_str_replace_free(char **str, char *replace, char *insert);
 
 // Files Functions
 
