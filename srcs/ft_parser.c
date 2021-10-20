@@ -69,15 +69,16 @@ char	*ft_quotes(char *input, int *i)
 	free(tmp3);
 	free(tmp4);
 	free(input);
-	(*i) -= 1;
+	(*i) = (*i) - 2;
 	return (tmp);
 }
 
-char	*ft_double_quotes(char *input, int *i)
+char	*ft_double_quotes(char *input, t_env *env, char **envp, int *i)
 {
 	char	*result;
 	int		j;
 	int		index_dollar;
+	int		rollback_index;
 
 	j = *i;
 	while (input[++(*i)])
@@ -89,9 +90,14 @@ char	*ft_double_quotes(char *input, int *i)
 			break ;
 	}
 	result = ft_dq_util(input, j, i);
+	rollback_index = *i;
 	index_dollar = ft_str_find(input, '$', j, *i);
 	if (index_dollar)
+	{
 		*i = index_dollar - 1;
+		result = ft_dollar(input, env, envp, i);
+		*i = rollback_index;
+	}
 	return (result);
 }
 
@@ -107,7 +113,7 @@ char	*ft_parser(char *input, t_env *env, char **envp)
 		if (input[i] == '\\')
 			input = ft_slash(input, &i);
 		if (input[i] == '\"')
-			input = ft_double_quotes(input, &i);
+			input = ft_double_quotes(input, env, envp, &i);
 		if (input[i] == '$')
 			input = ft_dollar(input, env, envp, &i);
 		i++;
