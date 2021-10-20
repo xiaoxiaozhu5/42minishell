@@ -75,11 +75,9 @@ char	*ft_quotes(char *input, int *i)
 
 char	*ft_double_quotes(char *input, int *i)
 {
+	char	*result;
 	int		j;
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-	char	*tmp4;
+	int		index_dollar;
 
 	j = *i;
 	while (input[++(*i)])
@@ -90,17 +88,11 @@ char	*ft_double_quotes(char *input, int *i)
 		if (input[*i] == '\"')
 			break ;
 	}
-	tmp = ft_substr(input, 0, j);
-	tmp2 = ft_substr(input, j + 1, *i - j - 1);
-	tmp3 = ft_strdup(input + (*i)-- + 1);
-	tmp4 = ft_strjoin(tmp, tmp2);
-	free(tmp);
-	free(tmp2);
-	tmp = ft_strjoin(tmp4, tmp3);
-	free(tmp3);
-	free(tmp4);
-	free(input);
-	return (tmp);
+	result = ft_dq_util(input, j, i);
+	index_dollar = ft_str_find(input, '$', j, *i);
+	if (index_dollar)
+		*i = index_dollar - 1;
+	return (result);
 }
 
 char	*ft_parser(char *input, t_env *env, char **envp)
@@ -120,6 +112,7 @@ char	*ft_parser(char *input, t_env *env, char **envp)
 			input = ft_dollar(input, env, envp, &i);
 		i++;
 	}
+	// В двойных ковычках работает доллар
 	printf("Спарсилось как: [%s]\n", input);
 	return (input);
 }

@@ -55,6 +55,7 @@ int		ft_preparser(char *input);
 char	*ft_parser(char *input, t_env *env, char **envp);
 char	*ft_get_value(const char *key, char **envp);
 char	*ft_unusual_dollar(char *input, t_env *env, int *i);
+char	*ft_dq_util(char *input, int j, int *i);
 
 // Builder
 void	ft_build_cmds(t_env *env, char *input);

@@ -13,7 +13,7 @@ void	ft_build_cmd(t_node **list, char *input, int *i)
 
 int	ft_issplit(char c)
 {
-	if (c == ';' || c == '|' || c == '\0')
+	if (c == '|' || c == '\0')
 		return (1);
 	return (0);
 }

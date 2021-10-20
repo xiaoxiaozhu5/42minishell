@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_history();
 	while (1)
 	{
-		input = readline("\033[0;34m42minishell\033[0m: ");
+		input = readline("42minishell$ ");
 		ft_add_history(input);
 		if (ft_preparser(input) == 0)
 		{
@@ -28,4 +28,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free(env);
 	// TODO free(env->cmds);
+	// TODO bug  echo '$USER' "'$USER'"
 }
