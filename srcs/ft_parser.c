@@ -16,14 +16,16 @@ char	*ft_dollar(char *input, char **envp, int *i)
 	}
 	if (*i == start + 1)
 		return (input);
-	// TODO echo $USE segmentation fault
 	key = ft_substr(input, start + 1, *i - start - 1);
 	value = ft_get_value(key, envp);
 	free(key);
 	key_with_dollar = ft_substr(input, start, *i - start);
-	ft_str_replace(&input, key_with_dollar, value);
+	if (value)
+	{
+		ft_str_replace(&input, key_with_dollar, value);
+		free(value);
+	}
 	free(key_with_dollar);
-	free(value);
 	return (input);
 }
 
