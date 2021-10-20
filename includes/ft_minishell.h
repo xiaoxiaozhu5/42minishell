@@ -24,6 +24,17 @@ typedef struct s_env
 	int	numb_pipes;
 }	t_env;
 
+typedef struct s_echo_data
+{
+	char	*cmd;
+	char	*flag;
+	char	*str;
+	char	*redirr_type;
+	char	*file_name;
+	int		pipe;
+}t_data;
+
+
 // History
 void	ft_init_history();
 void	ft_add_history(char *line);
@@ -38,5 +49,10 @@ void	ft_process(t_env *env);
 // Utils
 int		ft_error_unexpected_token(char token);
 void	ft_error_cmd_fail(const char *cmd_name);
+
+// Redir utils
+int		ft_cmp(char *s1, char *s2);
+//echo
+char	*ft_echo(t_data *data);
 
 #endif
