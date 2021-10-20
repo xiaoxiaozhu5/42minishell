@@ -30,7 +30,7 @@ typedef struct s_node
 typedef struct s_env
 {
 	t_node	**cmds;
-	int		def;
+	int		last_status;
 	int		numb_pipes;
 }	t_env;
 
@@ -43,9 +43,9 @@ void	ft_add_history(char *line);
 
 // Parser
 int		ft_preparser(char *input);
-char	*ft_parser(char *input, char **envp);
+char	*ft_parser(char *input, t_env *env, char **envp);
 char	*ft_get_value(const char *key, char **envp);
-char	*ft_digit_dollar(char *input, int *i);
+char	*ft_unusual_dollar(char *input, t_env *env, int *i);
 
 // Builder
 void	ft_build_cmds(t_env *env, char *input);

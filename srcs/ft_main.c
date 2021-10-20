@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_add_history(input);
 		if (ft_preparser(input) == 0)
 		{
-			input = ft_parser(input, envp);
+			input = ft_parser(input, env, envp);
 			//ft_build_cmds(env, input);
 			ft_process(env);
 		}

@@ -32,6 +32,35 @@ char	*ft_digit_dollar(char *input, int *i)
 	return (result);
 }
 
+char	*ft_question_dollar(char *input, t_env *env, int *i)
+{
+	int		start;
+	char	*begin;
+	char	*end;
+	char	*result;
+
+	start = *i;
+	(*i) += 2;
+	begin = ft_substr(input, 0, start);
+	result = ft_itoa(env->last_status);
+	end = ft_strdup(input + *i);
+	free(input);
+	input = ft_strjoin(begin, result);
+	free(begin);
+	free(result);
+	result = ft_strjoin(input, end);
+	free(end);
+	free(input);
+	return (result);
+}
+
+char	*ft_unusual_dollar(char *input, t_env *env, int *i)
+{
+	if (input[*i] == '?')
+		return (ft_digit_dollar(input, i));
+	return (ft_question_dollar(input, env, i));
+}
+
 char	*ft_get_value(const char *key, char **envp)
 {
 	int		i;

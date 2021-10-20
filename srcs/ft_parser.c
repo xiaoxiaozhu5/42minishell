@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-char	*ft_dollar(char *input, char **envp, int *i)
+char	*ft_dollar(char *input, t_env *env, char **envp, int *i)
 {
 	int		start;
 	char	*key;
@@ -8,7 +8,7 @@ char	*ft_dollar(char *input, char **envp, int *i)
 	char	*value;
 
 	start = *i;
-	if (!ft_isdigit(input[(*i) + 1]))
+	if (!(ft_isdigit(input[(*i) + 1]) || input[(*i) + 1] == '?'))
 	{
 		while (input[++(*i)])
 		{
@@ -17,7 +17,7 @@ char	*ft_dollar(char *input, char **envp, int *i)
 		}
 	}
 	else
-		return (ft_digit_dollar(input, i));
+		return (ft_unusual_dollar(input, env, i));
 	if (*i == start + 1)
 		return (input);
 	key = ft_substr(input, start + 1, *i - start - 1);
@@ -103,7 +103,7 @@ char	*ft_double_quotes(char *input, int *i)
 	return (tmp);
 }
 
-char	*ft_parser(char *input, char **envp)
+char	*ft_parser(char *input, t_env *env, char **envp)
 {
 	int		i;
 
@@ -117,7 +117,7 @@ char	*ft_parser(char *input, char **envp)
 		if (input[i] == '\"')
 			input = ft_double_quotes(input, &i);
 		if (input[i] == '$')
-			input = ft_dollar(input, envp, &i);
+			input = ft_dollar(input, env, envp, &i);
 		i++;
 	}
 	printf("Спарсилось как: [%s]\n", input);
