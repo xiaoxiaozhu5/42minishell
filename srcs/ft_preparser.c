@@ -55,14 +55,15 @@ char	ft_check_start(const char *input, char c)
 	return (0);
 }
 
-int	ft_check_slash(const char *input)
+char	ft_check_slash(const char *input)
 {
 	int	i;
 
 	i = 0;
 	while (input[i] != '\0')
 	{
-		if (input[i] == '\\' && (size_t) i + 1 >= ft_strlen(input))
+		if (input[i] == '\\' && (size_t) i + 1 >= ft_strlen(input)
+				&& (i - 1 < 0 || input[i - 1] != '\\'))
 			return ('\\');
 		i++;
 	}
@@ -71,7 +72,7 @@ int	ft_check_slash(const char *input)
 
 int	ft_preparser(char *input)
 {
-	char	error;
+	int	error;
 
 	error = 0;
 	error |= ft_error_unexpected_token(ft_check_single(input, '\'', '\"'));

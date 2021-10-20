@@ -1,5 +1,34 @@
 #include "ft_minishell.h"
 
+char	*ft_dollar(char *input, t_env *env, char **envp, int *i)
+{
+	int		start;
+	char	*key;
+	char	*key_with_dollar;
+	char	*value;
+
+	start = *i;
+	if (!(ft_isdigit(input[(*i) + 1]) || input[(*i) + 1] == '?'))
+	{
+		while (input[++(*i)])
+		{
+			if (!(input[*i] == '_' || ft_isalnum(input[*i])))
+				break ;
+		}
+	}
+	else
+		return (ft_unusual_dollar(input, env, i));
+	if (*i == start + 1)
+		return (input);
+	key = ft_substr(input, start + 1, *i - start - 1);
+	value = ft_get_value(key, envp);
+	free(key);
+	key_with_dollar = ft_substr(input, start, *i - start);
+	if (value)
+		ft_str_replace_free(&input, key_with_dollar, value);
+	return (input);
+}
+
 char	*ft_slash(char *input, int *i)
 {
 	char	*tmp;
@@ -74,7 +103,7 @@ char	*ft_double_quotes(char *input, int *i)
 	return (tmp);
 }
 
-char	*ft_parser(char *input)
+char	*ft_parser(char *input, t_env *env, char **envp)
 {
 	int		i;
 
@@ -87,6 +116,8 @@ char	*ft_parser(char *input)
 			input = ft_slash(input, &i);
 		if (input[i] == '\"')
 			input = ft_double_quotes(input, &i);
+		if (input[i] == '$')
+			input = ft_dollar(input, env, envp, &i);
 		i++;
 	}
 	printf("Спарсилось как: [%s]\n", input);
