@@ -1,5 +1,28 @@
 #include "ft_minishell.h"
 
+void	ft_list_print(t_node **lst)
+{
+	int		i;
+	t_node	*iter;
+
+	if (*lst != 0)
+	{
+		i = 1;
+		iter = *lst;
+		while (iter != 0)
+		{
+			printf("-------------------- Команда #%d --------------------\n", i);
+			printf("Выполнить: %s\n", iter->command);
+			printf("Флаги: %s\n", iter->flags);
+			printf("Аргументы: %s\n", iter->args);
+			printf("Оканчивается: %c\n", iter->c_end);
+			printf("----------------------------------------------------\n");
+			i++;
+			iter = iter->next;
+		}
+	}
+}
+
 char *ft_dq_util(char *input, int j, int *i)
 {
 	char *tmp;

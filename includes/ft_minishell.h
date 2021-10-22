@@ -21,11 +21,19 @@
 typedef struct s_node
 {
 	void	*next;
+	void	*redirs;
 	char	*command;
 	char	*flags;
 	char	*args;
 	char	c_end;
 } t_node;
+
+typedef struct s_redir
+{
+	void	*next;
+	int		type;
+	char	*value;
+} t_redir;
 
 typedef struct s_env
 {
@@ -43,8 +51,12 @@ typedef struct s_echo_data
 	char	*file_name;
 	int		pipe;
 }t_data;
+
 // Lists
-t_node	*ft_list_create_back(t_node **lst);
+t_node	*ft_node_create();
+t_redir	*ft_node_redir_create();
+void	*ft_list_create_back(void **lst, void *new);
+void	ft_list_print(t_node **list);
 
 // History
 void	ft_init_history();

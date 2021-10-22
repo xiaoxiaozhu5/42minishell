@@ -27,3 +27,19 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)(s + i));
 	return (0);
 }
+
+int	ft_strchr_i(const char *s, int c)
+{
+	int		i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (unsigned char)c)
+			return (i);
+		i++;
+	}
+	if (s[i] == (unsigned char)c)
+		return (i);
+	return (0);
+}
