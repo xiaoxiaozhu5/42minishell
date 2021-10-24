@@ -7,6 +7,20 @@ int	ft_issplit(const char *input, int i)
 	return (0);
 }
 
+int	ft_args_end(const char *input, int start, int end)
+{
+	int	i;
+
+	i = start;
+	while (i <= end)
+	{
+		if ((input[i] == ' ' || input[i] == '\t') && (input[i + 1] == '>' || input[i + 1] == '<'))
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
 int	ft_next_redir(const char *input, int start, int end)
 {
 	int	i;
@@ -102,16 +116,16 @@ int	ft_find_flags(t_node *new_node, char *input, int *start, int *end)
 int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 {
 	int k;
+	int	l;
 
 	k = *start;
 	while (k <= *end)
 	{
 		if (input[k] && input[k] != ' ' && input[k] != '\t')
 		{
-			if (ft_next_redir(input, k, *end - k))
-				new_node->args = ft_substr(input, k, ft_next_redir(input, k, *end - k) - k);
-			else
-				new_node->args = ft_substr(input, k, *end - k);
+			l = ft_args_end(input, *start, *end);
+			printf("args start: %d, args end: %d\n", k, l);
+			new_node->args = ft_substr(input, k, l - k);
 			return (*end);
 		}
 		k++;
@@ -148,11 +162,11 @@ void	ft_build_cmd(t_node **list, char *input, int *start, int *end)
 	*start = ft_find_command(new_node, input, start, end);
 	*start = ft_find_flags(new_node, input, start, end);
 	//*start = ft_str_find_alnum(input, *start);
-	printf("start after flags: %d\n", *start);
 	if (!ft_next_redir(input, *start, *end))
 		*start = ft_find_args(new_node, input, start, end);
 	*start = ft_find_redirs(new_node, input, start, end);
 	*start = ft_str_find_alnum(input, *end + 1);
+	new_node->c_end = input[*end];
 }
 
 void	ft_build_cmds(t_env *env, char *input)
