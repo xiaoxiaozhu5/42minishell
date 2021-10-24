@@ -17,14 +17,14 @@ int	ft_next_redir(const char *input, int start, int end)
 		if (input[i] == ' ' || input[i] == '\t')
 			i++;
 		else if (input[i] == '<' || input[i] == '>')
-			return (1);
+			return (i);
 		else
 			return (0);
 	}
 	while (i <= end)
 	{
 		if (input[i] == '<' || input[i] == '>')
-			return (1);
+			return (i);
 		else if (input[i] != ' ' && input[i] != '\t')
 			return (0);
 		i++;
@@ -47,7 +47,6 @@ int	ft_find_flags_length(const char *str, int i)
 		{
 			onFlag = 0;
 			result = k - 1;
-			printf("result: %d;\n", result);
 		}
 		if (!onFlag && str[i] == '-' && (str[i + 1] && str[i + 1] != ' ' && str[i + 1] != '\t'))
 			onFlag = 1;
@@ -89,7 +88,6 @@ int	ft_find_flags(t_node *new_node, char *input, int *start, int *end)
 			if (!(input[k + 1] == ' ' || input[k + 1] == '\t'))
 			{
 				l = ft_find_flags_length(input , k);
-				printf("Flags start: %d; Flags length: %d\n", k, l);
 				new_node->flags = ft_substr(input, k, l);
 				return (k + l);
 			}
@@ -108,10 +106,33 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 	k = *start;
 	while (k <= *end)
 	{
-		if (!input[k] || input[k] == ' ')
+		if (input[k] && input[k] != ' ' && input[k] != '\t')
 		{
-			new_node->args = ft_substr(input, *start, k - *start + 1);
-			return (k);
+			if (ft_next_redir(input, k, *end - k))
+				new_node->args = ft_substr(input, k, ft_next_redir(input, k, *end - k) - k);
+			else
+				new_node->args = ft_substr(input, k, *end - k);
+			return (*end);
+		}
+		k++;
+	}
+	return (*start);
+}
+
+int	ft_find_redirs(t_node *new_node, char *input, int *start, int *end)
+{
+	int k;
+
+	if (!ft_next_redir(input, *start, *end))
+		return (*start);
+	k = *start;
+	while (k <= *end)
+	{
+		if (input[k] && input[k] != ' ' && input[k] != '\t')
+		{
+			//new_node->args = ft_substr(input, k, *end);
+			(void)new_node;
+			return (*end);
 		}
 		k++;
 	}
@@ -126,8 +147,11 @@ void	ft_build_cmd(t_node **list, char *input, int *start, int *end)
 	*start = ft_str_find_alnum(input, *start);
 	*start = ft_find_command(new_node, input, start, end);
 	*start = ft_find_flags(new_node, input, start, end);
+	//*start = ft_str_find_alnum(input, *start);
+	printf("start after flags: %d\n", *start);
 	if (!ft_next_redir(input, *start, *end))
 		*start = ft_find_args(new_node, input, start, end);
+	*start = ft_find_redirs(new_node, input, start, end);
 	*start = ft_str_find_alnum(input, *end + 1);
 }
 
