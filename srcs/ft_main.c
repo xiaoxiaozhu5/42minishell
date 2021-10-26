@@ -14,6 +14,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = malloc(sizeof(t_env));
 	ft_init_history();
+	char *res = ft_rm_whitespace(ft_strdup("     Hello                   'world!'            "));
+	printf("new: [%s]\n", res);
+	free(res);
+	exit(1);
 	while (1)
 	{
 		input = readline("42minishell:~$ ");
@@ -28,6 +32,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free(env);
 	// TODO free(env->cmds);
-	// TODO bug  echo '$USER' "'$USER'"
+	// TODO bug echo '$USER' "'$USER'"
 	// TODO if no leaks (remove -g)
 }

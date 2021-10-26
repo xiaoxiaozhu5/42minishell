@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/10/22 22:15:42 by                  ###   ########.fr       */
+/*   Updated: 2021/10/26 15:51:35 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_str_replace_free(char **str, char *replace, char *insert);
 int		ft_str_find(char *str, char c, int index_start, int index_end);
 int		ft_str_find_next(char *str, char c, int index_start);
 int		ft_str_find_alnum(char *str, int index_start);
-void	ft_rm_whitespace(char **input, const char *ignore_set);
+char	*ft_rm_whitespace(char *input);
 
 // Files Functions
 

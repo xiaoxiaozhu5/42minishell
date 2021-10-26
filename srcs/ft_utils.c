@@ -11,7 +11,7 @@ void	ft_list_print(t_node **lst)
 		iter = *lst;
 		while (iter != 0)
 		{
-			printf("-------------------- Команда #%d --------------------\n", i);
+			printf("-------------------- \033[0;32mКоманда #%d\033[0m --------------------\n", i);
 			printf("Выполнить: %s\n", iter->command);
 			printf("Флаги: %s\n", iter->flags);
 			printf("Аргументы: %s\n", iter->args);
@@ -39,6 +39,5 @@ char *ft_dq_util(char *input, int j, int *i)
 	tmp = ft_strjoin(tmp4, tmp3);
 	free(tmp3);
 	free(tmp4);
-	free(input);
 	return (tmp);
 }

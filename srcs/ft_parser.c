@@ -91,12 +91,13 @@ char	*ft_double_quotes(char *input, t_env *env, char **envp, int *i)
 	}
 	result = ft_dq_util(input, j, i);
 	rollback_index = *i;
+	printf("rollback_index: %d\n", *i);
 	index_dollar = ft_str_find(input, '$', j, *i);
 	if (index_dollar)
 	{
-		*i = index_dollar - 1;
+		*i = index_dollar;
 		result = ft_dollar(input, env, envp, i);
-		*i = rollback_index;
+		*i = rollback_index - 1;
 	}
 	return (result);
 }
