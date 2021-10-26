@@ -32,4 +32,3 @@ char	*ft_strdup(const char *s1)
 	wer[i] = '\0';
 	return (wer);
 }
-

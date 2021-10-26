@@ -71,6 +71,7 @@ void	ft_str_replace_free(char **str, char *replace, char *insert);
 int		ft_str_find(char *str, char c, int index_start, int index_end);
 int		ft_str_find_next(char *str, char c, int index_start);
 int		ft_str_find_alnum(char *str, int index_start);
+void	ft_rm_whitespace(char **input, const char *ignore_set);
 
 // Files Functions
 
