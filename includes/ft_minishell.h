@@ -1,7 +1,7 @@
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -9,6 +9,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/param.h>
 
 // Constants
 # define SHELL_NAME "42minishell"
@@ -42,6 +43,18 @@ typedef struct s_echo_data
 	char	*redirr_type;
 	char	*file_name;
 	int		pipe;
+	int		fd;
+
+	char	**path;
+	char	**flags;
+	char	**env;
+	int		fds[2];
+	pid_t	pid;
+
+	//cd
+	char	**args;
+	char	*pwd_old;
+	char	*pwd_cur;
 }t_data;
 // Lists
 t_node	*ft_list_create_back(t_node **lst);
@@ -70,5 +83,14 @@ void	ft_error_cmd_fail(const char *cmd_name);
 int		ft_cmp(char *s1, char *s2);
 //echo
 char	*ft_echo(t_data *data);
+
+
+int		fill_env_path(t_data *data, char **env);
+
+//		PIPE
+void	ft_pipe(t_data *data);
+//*********************
+int	ft_get_env(t_data *data);
+int	ft_get_pwd(t_data *data);
 
 #endif

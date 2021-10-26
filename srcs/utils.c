@@ -1,5 +1,6 @@
 #include "../includes/ft_minishell.h"
 
+
 int	ft_cmp(char *s1, char *s2)
 {
 	int i;
@@ -15,7 +16,3 @@ int	ft_cmp(char *s1, char *s2)
 		return (1);
 	return (0);
 }
-
-//dup порсто сохр
-// 2 меняет
-//проверить
