@@ -6,7 +6,7 @@
 #    By: kricky <kricky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/16 14:16:38 by kricky            #+#    #+#              #
-#   Updated: 2021/10/14 16:22:56 by                  ###   ########.fr         #
+#   Updated: 2021/10/22 16:11:46 by                  ###   ########.fr       # #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ SRCS = ft_memccpy.c\
 		ft_lstdelone.c\
 		ft_lstclear.c\
 		ft_lstiter.c\
-		ft_lstmap.c
+		ft_lstmap.c\
+		ft_strfind.c
 
 OBJS = ${SRCS:.c=.o}
 

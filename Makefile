@@ -16,7 +16,9 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_errors.c \
 	srcs/ft_environment.c \
 	srcs/ft_list_builder.c \
-	srcs/ft_list.c
+	srcs/ft_list_builder_utils.c \
+	srcs/ft_list.c \
+	srcs/ft_utils.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -27,7 +29,7 @@ OBJS = $(SRCS:%.c=%.o)
 $(NAME): $(INC)/$(INCLUDES) $(OBJS)
 	@echo "Building: \033[0;34m$>$(LIBFT_ARCHIVE)\033[0m"
 	@make -s -C libft
-	@$(CC) -lreadline $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
+	@$(CC) -lreadline $(CFLAGS) $(OBJS) -o $(NAME) -lreadline $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
 	@echo "Binary \033[0;32m$(NAME)\033[0m successfully linked!"
 
 all: $(NAME)

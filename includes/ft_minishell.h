@@ -22,11 +22,19 @@
 typedef struct s_node
 {
 	void	*next;
+	void	*redirs;
 	char	*command;
 	char	*flags;
 	char	*args;
 	char	c_end;
 } t_node;
+
+typedef struct s_redir
+{
+	void	*next;
+	int		type;
+	char	*value;
+} t_redir;
 
 typedef struct s_env
 {
@@ -56,8 +64,12 @@ typedef struct s_echo_data
 	char	*pwd_old;
 	char	*pwd_cur;
 }t_data;
+
 // Lists
-t_node	*ft_list_create_back(t_node **lst);
+t_node	*ft_node_create();
+t_redir	*ft_node_redir_create();
+void	*ft_list_create_back(void **lst, void *new);
+void	ft_list_print(t_node **list);
 
 // History
 void	ft_init_history();
@@ -68,6 +80,7 @@ int		ft_preparser(char *input);
 char	*ft_parser(char *input, t_env *env, char **envp);
 char	*ft_get_value(const char *key, char **envp);
 char	*ft_unusual_dollar(char *input, t_env *env, int *i);
+char	*ft_dq_util(char *input, int j, int *i);
 
 // Builder
 void	ft_build_cmds(t_env *env, char *input);

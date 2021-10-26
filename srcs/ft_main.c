@@ -16,16 +16,18 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_history();
 	while (1)
 	{
-		input = readline("\033[0;34m42minishell\033[0m: ");
+		input = readline("42minishell:~$ ");
 		ft_add_history(input);
 		if (ft_preparser(input) == 0)
 		{
 			input = ft_parser(input, env, envp);
-			//ft_build_cmds(env, input);
+			ft_build_cmds(env, input);
 			ft_process(env);
 		}
 		free(input);
 	}
 	free(env);
 	// TODO free(env->cmds);
+	// TODO bug  echo '$USER' "'$USER'"
+	// TODO if no leaks (remove -g)
 }

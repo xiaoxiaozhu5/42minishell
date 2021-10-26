@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/10/20 14:24:04 by                  ###   ########.fr       */
+/*   Updated: 2021/10/22 22:15:42 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_strcpy(char *dst, const char *src);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strchr(const char *s, int c);
+int		ft_strchr_i(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -67,6 +68,9 @@ int		ft_abs(int value);
 int		ft_nbrcmp(const int n1, const int n2);
 void	ft_str_replace(char **str, const char *replace, const char *insert);
 void	ft_str_replace_free(char **str, char *replace, char *insert);
+int		ft_str_find(char *str, char c, int index_start, int index_end);
+int		ft_str_find_next(char *str, char c, int index_start);
+int		ft_str_find_alnum(char *str, int index_start);
 
 // Files Functions
 
