@@ -4,7 +4,7 @@ INC = includes
 INCLUDES = ft_minishell.h
 LIBFT_FOLDER = libft
 LIBFT_ARCHIVE = libft.a
-CFLAGS = -Wall -Wextra -Werror -g -pthread -I$(INC) -I$(LIBFT_FOLDER)
+CFLAGS = -Wall -Wextra -Werror -g -I$(INC) -I$(LIBFT_FOLDER)
 
 NAME = minishell
 

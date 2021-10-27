@@ -39,5 +39,6 @@ char *ft_dq_util(char *input, int j, int *i)
 	tmp = ft_strjoin(tmp4, tmp3);
 	free(tmp3);
 	free(tmp4);
+	free(input);
 	return (tmp);
 }

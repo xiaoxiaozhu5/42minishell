@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-char	*ft_dollar(char *input, t_env *env, char **envp, int *i)
+char	*ft_dollar(char *input, t_env *env, int *i)
 {
 	int		start;
 	char	*key;
@@ -8,20 +8,17 @@ char	*ft_dollar(char *input, t_env *env, char **envp, int *i)
 	char	*value;
 
 	start = *i;
-	if (!(ft_isdigit(input[(*i) + 1]) || input[(*i) + 1] == '?'))
-	{
-		while (input[++(*i)])
-		{
-			if (!(input[*i] == '_' || ft_isalnum(input[*i])))
-				break ;
-		}
-	}
-	else
+	if (ft_isdigit(input[(*i) + 1]) || input[(*i) + 1] == '?')
 		return (ft_unusual_dollar(input, env, i));
+	while (input[++(*i)])
+	{
+		if (!(input[*i] == '_' || ft_isalnum(input[*i])))
+			break ;
+	}
 	if (*i == start + 1)
 		return (input);
 	key = ft_substr(input, start + 1, *i - start - 1);
-	value = ft_get_value(key, envp);
+	value = ft_get_value(key, env->envp);
 	free(key);
 	key_with_dollar = ft_substr(input, start, *i - start);
 	if (value)
@@ -73,12 +70,11 @@ char	*ft_quotes(char *input, int *i)
 	return (tmp);
 }
 
-char	*ft_double_quotes(char *input, t_env *env, char **envp, int *i)
+char	*ft_double_quotes(char *input, t_env *env, int *i)
 {
 	char	*result;
 	int		j;
 	int		index_dollar;
-	int		rollback_index;
 
 	j = *i;
 	while (input[++(*i)])
@@ -86,23 +82,26 @@ char	*ft_double_quotes(char *input, t_env *env, char **envp, int *i)
 		if (input[*i] == '\\' && (input[*i + 1] == '\"'
 				|| input[*i + 1] == '$' || input[*i + 1] == '\\'))
 			input = ft_slash(input, i);
+		if (input[*i] == '$')
+		{
+			index_dollar = ft_str_find(input, '$', j, *i);
+			if (index_dollar) {
+				*i = index_dollar;
+				printf("Изначальнл: %s\n", input);
+				printf("Индекс доллара: %d\n", *i);
+				input = ft_dollar(input, env, i);
+				printf("Распаршен доллар: %s\n", input);
+				printf("Индекс после доллара: %d\n", *i);
+			}
+		}
 		if (input[*i] == '\"')
 			break ;
 	}
 	result = ft_dq_util(input, j, i);
-	rollback_index = *i;
-	printf("rollback_index: %d\n", *i);
-	index_dollar = ft_str_find(input, '$', j, *i);
-	if (index_dollar)
-	{
-		*i = index_dollar;
-		result = ft_dollar(input, env, envp, i);
-		*i = rollback_index - 1;
-	}
 	return (result);
 }
 
-char	*ft_parser(char *input, t_env *env, char **envp)
+char	*ft_parser(char *input, t_env *env)
 {
 	int		i;
 
@@ -114,12 +113,10 @@ char	*ft_parser(char *input, t_env *env, char **envp)
 		if (input[i] == '\\')
 			input = ft_slash(input, &i);
 		if (input[i] == '\"')
-			input = ft_double_quotes(input, env, envp, &i);
+			input = ft_double_quotes(input, env, &i);
 		if (input[i] == '$')
-			input = ft_dollar(input, env, envp, &i);
+			input = ft_dollar(input, env, &i);
 		i++;
 	}
-	// В двойных ковычках работает доллар
-	printf("Спарсилось как: [%s]\n", input);
 	return (input);
 }

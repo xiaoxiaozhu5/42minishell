@@ -124,7 +124,6 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 		if (input[k] && input[k] != ' ' && input[k] != '\t')
 		{
 			l = ft_args_end(input, *start, *end);
-			printf("args start: %d, args end: %d\n", k, l);
 			new_node->args = ft_substr(input, k, l - k);
 			return (*end);
 		}

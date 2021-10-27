@@ -38,6 +38,7 @@ typedef struct s_redir
 
 typedef struct s_env
 {
+	char	**envp;
 	t_node	**cmds;
 	int		last_status;
 	int		numb_pipes;
@@ -77,7 +78,7 @@ void	ft_add_history(char *line);
 
 // Parser
 int		ft_preparser(char *input);
-char	*ft_parser(char *input, t_env *env, char **envp);
+char	*ft_parser(char *input, t_env *env);
 char	*ft_get_value(const char *key, char **envp);
 char	*ft_unusual_dollar(char *input, t_env *env, int *i);
 char	*ft_dq_util(char *input, int j, int *i);
