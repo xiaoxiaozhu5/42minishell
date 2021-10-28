@@ -86,6 +86,6 @@ char	*ft_get_value(const char *key, char **envp)
 			break ;
 	}
 	if (!svalue)
-		svalue = ft_strdup("");
+		svalue = ft_strdup(" ");
 	return (svalue);
 }

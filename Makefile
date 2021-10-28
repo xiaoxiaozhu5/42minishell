@@ -5,6 +5,7 @@ INCLUDES = ft_minishell.h
 LIBFT_FOLDER = libft
 LIBFT_ARCHIVE = libft.a
 CFLAGS = -Wall -Wextra -Werror -g -I$(INC) -I$(LIBFT_FOLDER)
+LFLAGS = -lreadline
 
 NAME = minishell
 
@@ -29,7 +30,7 @@ OBJS = $(SRCS:%.c=%.o)
 $(NAME): $(INC)/$(INCLUDES) $(OBJS)
 	@echo "Building: \033[0;34m$>$(LIBFT_ARCHIVE)\033[0m"
 	@make -s -C libft
-	@$(CC) -lreadline $(CFLAGS) $(OBJS) -o $(NAME) -lreadline $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS) $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
 	@echo "Binary \033[0;32m$(NAME)\033[0m successfully linked!"
 
 all: $(NAME)

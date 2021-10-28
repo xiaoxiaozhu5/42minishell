@@ -17,6 +17,7 @@ t_env	*ft_init_env(char **envp)
 	env = malloc(sizeof(t_env));
 	env->envp = envp;
 	env->last_status = 0;
+	env->username = ft_get_value("USER", envp);
 	return (env);
 }
 
@@ -32,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 //	char *str = ft_rm_whitespace(ft_strdup("hello            world   jsad sadj asj dksajd aks d         sadsa"));
 //	printf("res: [%s]\n", str);
 //	exit(1);
+	input = 0;
 	while (1)
 	{
 		input = readline("42minishell:~$ ");
@@ -42,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("Отформатировано: [%s]\n", input);
 			input = ft_parser(input, env);
 			printf("Спарсилось как: [%s]\n", input);
-			//ft_build_cmds(env, input);
+			ft_build_cmds(env, input);
 			ft_process(env);
 		}
 		free(input);

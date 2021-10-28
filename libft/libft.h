@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/10/26 15:51:35 by                  ###   ########.fr       */
+/*   Updated: 2021/10/28 14:53:28 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 // Functions
 
 size_t	ft_strlen(const char *s);
+int		ft_strlen_cmp(const char *s1, const char *s2);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n);
@@ -66,6 +67,7 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_wdcounter(const char *str, char separator);
 int		ft_abs(int value);
 int		ft_nbrcmp(const int n1, const int n2);
+int		ft_nbrncmp(const int n1, const int n2);
 void	ft_str_replace(char **str, const char *replace, const char *insert);
 void	ft_str_replace_free(char **str, char *replace, char *insert);
 int		ft_str_find(char *str, char c, int index_start, int index_end);

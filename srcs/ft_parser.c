@@ -22,7 +22,10 @@ char	*ft_dollar(char *input, t_env *env, int *i)
 	free(key);
 	key_with_dollar = ft_substr(input, start, *i - start);
 	if (value)
+	{
+		*i = *i - ft_strlen_cmp(key_with_dollar, value);
 		ft_str_replace_free(&input, key_with_dollar, value);
+	}
 	return (input);
 }
 
@@ -66,7 +69,7 @@ char	*ft_quotes(char *input, int *i)
 	free(tmp3);
 	free(tmp4);
 	free(input);
-	(*i) = (*i) - 2;
+	*i = *i - 2;
 	return (tmp);
 }
 
@@ -87,7 +90,7 @@ char	*ft_double_quotes(char *input, t_env *env, int *i)
 			index_dollar = ft_str_find(input, '$', j, *i);
 			if (index_dollar) {
 				*i = index_dollar;
-				printf("Изначальнл: %s\n", input);
+				printf("Изначально: %s\n", input);
 				printf("Индекс доллара: %d\n", *i);
 				input = ft_dollar(input, env, i);
 				printf("Распаршен доллар: %s\n", input);
@@ -98,6 +101,7 @@ char	*ft_double_quotes(char *input, t_env *env, int *i)
 			break ;
 	}
 	result = ft_dq_util(input, j, i);
+	*i = *i - 2;
 	return (result);
 }
 
