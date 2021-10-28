@@ -63,6 +63,15 @@ typedef struct s_echo_data
 	char	**args;
 	char	*pwd_old;
 	char	*pwd_cur;
+
+	int		count_pipes;
+
+	//temp variables for tests pipe
+	char	***commands;
+	int 	exit;
+
+	int		redirect_1;
+	int		redirect_0;
 }t_data;
 
 // Lists
@@ -101,9 +110,13 @@ char	*ft_echo(t_data *data);
 int		fill_env_path(t_data *data, char **env);
 
 //		PIPE
-void	ft_pipe(t_data *data);
+void	ft_pipe(t_data *data, char ***args);
 //*********************
 int	ft_get_env(t_data *data);
 int	ft_get_pwd(t_data *data);
+
+
+static int	**arr_of_fd_and_pids(int count_pipes, int **arr_pid);
+
 
 #endif
