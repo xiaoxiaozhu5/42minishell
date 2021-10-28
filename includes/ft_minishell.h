@@ -12,9 +12,13 @@
 # include <sys/param.h>
 
 // Constants
-# define SHELL_NAME "42minishell"
-# define ERROR_UNEXPECTED_TOKEN "syntax error near unexpected token"
-# define ERROR_CMD_FAIL "command not found"
+# define SHELL_NAME				"42minishell"
+# define ERROR_UNEXPECTED_TOKEN	"syntax error near unexpected token"
+# define ERROR_CMD_FAIL			"command not found"
+# define REDIRECT_LEFT			0b00000001
+# define REDIRECT_RIGHT 		0b00000010
+# define REDIRECT_DOUBLE_LEFT	0b00000100
+# define REDIRECT_DOUBLE_RIGHT	0b00001000
 
 // Typedefs
 
@@ -27,18 +31,20 @@ typedef struct s_node
 	char	*flags;
 	char	*args;
 	char	c_end;
-} t_node;
+}	t_node;
 
 typedef struct s_redir
 {
 	void	*next;
 	int		type;
 	char	*value;
-} t_redir;
+}	t_redir;
 
 typedef struct s_env
 {
+	char	**envp;
 	t_node	**cmds;
+	char	*username;
 	int		last_status;
 	int		numb_pipes;
 }	t_env;
@@ -59,7 +65,7 @@ typedef struct s_echo_data
 	int		fds[2];
 	pid_t	pid;
 
-	//cd
+	// cd
 	char	**args;
 	char	*pwd_old;
 	char	*pwd_cur;
@@ -86,10 +92,9 @@ void	ft_add_history(char *line);
 
 // Parser
 int		ft_preparser(char *input);
-char	*ft_parser(char *input, t_env *env, char **envp);
+char	*ft_parser(char *input, t_env *env);
 char	*ft_get_value(const char *key, char **envp);
 char	*ft_unusual_dollar(char *input, t_env *env, int *i);
-char	*ft_dq_util(char *input, int j, int *i);
 
 // Builder
 void	ft_build_cmds(t_env *env, char *input);
@@ -100,6 +105,7 @@ void	ft_process(t_env *env);
 // Utils
 int		ft_error_unexpected_token(char token);
 void	ft_error_cmd_fail(const char *cmd_name);
+char	*ft_dq_util(char *input, int j, int *i);
 
 // Redir utils
 int		ft_cmp(char *s1, char *s2);

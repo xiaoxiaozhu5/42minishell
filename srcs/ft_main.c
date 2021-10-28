@@ -5,6 +5,22 @@
 // Результат должен быть:
 // comman\nndd000'00comm"andddda
 
+void	ft_destroy_env(t_env *env)
+{
+	free(env);
+}
+
+t_env	*ft_init_env(char **envp)
+{
+	t_env	*env;
+
+	env = malloc(sizeof(t_env));
+	env->envp = envp;
+	env->last_status = 0;
+	env->username = ft_get_value("USER", envp);
+	return (env);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -12,25 +28,28 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	env = malloc(sizeof(t_env));
+	env = ft_init_env(envp);
 	ft_init_history();
-	char *res = ft_rm_whitespace(ft_strdup("     Hello                   'world!'            "));
-	printf("new: [%s]\n", res);
-	free(res);
-	exit(1);
+//	char *str = ft_rm_whitespace(ft_strdup("hello            world   jsad sadj asj dksajd aks d         sadsa"));
+//	printf("res: [%s]\n", str);
+//	exit(1);
+	input = 0;
 	while (1)
 	{
 		input = readline("42minishell:~$ ");
 		ft_add_history(input);
 		if (ft_preparser(input) == 0)
 		{
-			input = ft_parser(input, env, envp);
+			input = ft_rm_whitespace(input);
+			printf("Отформатировано: [%s]\n", input);
+			input = ft_parser(input, env);
+			printf("Спарсилось как: [%s]\n", input);
 			ft_build_cmds(env, input);
 			ft_process(env);
 		}
 		free(input);
 	}
-	free(env);
+	ft_destroy_env(env);
 	// TODO free(env->cmds);
 	// TODO bug echo '$USER' "'$USER'"
 	// TODO if no leaks (remove -g)
