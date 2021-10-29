@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/10/28 14:53:28 by                  ###   ########.fr       */
+/*   Updated: 2021/10/28 18:35:49 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ int		ft_wdcounter(const char *str, char separator);
 int		ft_abs(int value);
 int		ft_nbrcmp(const int n1, const int n2);
 int		ft_nbrncmp(const int n1, const int n2);
-void	ft_str_replace(char **str, const char *replace, const char *insert);
-void	ft_str_replace_free(char **str, char *replace, char *insert);
+void	ft_str_replace(char **str, const char *replace, const char *insert, int start);
 int		ft_str_find(char *str, char c, int index_start, int index_end);
 int		ft_str_find_next(char *str, char c, int index_start);
 int		ft_str_find_alnum(char *str, int index_start);

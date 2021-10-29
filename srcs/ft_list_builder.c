@@ -135,11 +135,27 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 	return (*start);
 }
 
-void	ft_add_redir(t_redir **list, int type, char *value)
+void	ft_add_redir(t_redir **list, char *input, int *k, int *end)
 {
 	t_redir	*new_node;
+	int		type;
+	char	*value;
 
 	new_node = ft_list_create_back((void**)list, ft_node_redir_create());
+	if (input[*k] == '<' && input[*k + 1] == '<')
+		type = REDIRECT_DOUBLE_LEFT;
+	else if (input[*k] == '>' && input[*k + 1] == '>')
+		type = REDIRECT_DOUBLE_RIGHT;
+	else if (input[*k] == '<')
+		type = REDIRECT_LEFT;
+	else if (input[*k] == '>')
+		type = REDIRECT_RIGHT;
+	while (*k < *end && (input[*k] == ' ' || input[*k] == '\t'
+		|| input[*k] == '<' || input[*k] == '>'))
+	{
+		(*k)++;
+	}
+	value = ft_substr(input, *k, *end - *k + 1);
 	new_node->type = type;
 	new_node->value = value;
 }
@@ -153,11 +169,10 @@ int	ft_find_redirs(t_node *new_node, char *input, int *start, int *end)
 	k = *start;
 	while (k < *end)
 	{
-		if (input[k] && input[k] != ' ' && input[k] != '\t')
+		if (input[k] && (input[k] != ' ' && input[k] != '\t') && (input[k] == '<' || input[k] == '>'))
 		{
 			printf("EST REDIR\n");
-			ft_add_redir((t_redir **)&(new_node->redirs), REDIRECT_LEFT, ft_strdup("Hello world"));
-			return (*end);
+			ft_add_redir((t_redir **)&(new_node->redirs), input, &k, end);
 		}
 		k++;
 	}

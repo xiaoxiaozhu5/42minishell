@@ -1,5 +1,12 @@
 #include "ft_minishell.h"
 
+void	ft_str_replace_free(char **str, char *replace, char *insert, int *i)
+{
+	ft_str_replace(str, replace, insert, *i);
+	free(replace);
+	free(insert);
+}
+
 char	*ft_dollar(char *input, t_env *env, int *i)
 {
 	int		start;
@@ -22,104 +29,50 @@ char	*ft_dollar(char *input, t_env *env, int *i)
 	free(key);
 	key_with_dollar = ft_substr(input, start, *i - start);
 	if (value)
-	{
-		*i = *i - ft_strlen_cmp(key_with_dollar, value);
-		ft_str_replace_free(&input, key_with_dollar, value);
-	}
+		ft_str_replace_free(&input, key_with_dollar, value, &start);
 	return (input);
 }
 
-char	*ft_slash(char *input, int *i)
-{
-	char	*tmp;
-	char	*tmp2;
-	char	*result;
-
-	tmp = ft_substr(input, 0, *i);
-	tmp2 = ft_strdup(input + *i + 1);
-	result = ft_strjoin(tmp, tmp2);
-	free(tmp);
-	free(tmp2);
-	free(input);
-	++(*i);
-	return (result);
-}
-
-char	*ft_quotes(char *input, int *i)
+void	ft_quotes(char *input, const char c, int *i)
 {
 	int		start;
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-	char	*tmp4;
 
 	start = *i;
+	input[start] = STRING_QUOTE;
 	while (input[++(*i)])
 	{
-		if (input[*i] == '\'')
+		if (input[*i] == c)
 			break ;
 	}
-	tmp = ft_substr(input, 0, start);
-	tmp2 = ft_substr(input, start + 1, *i - start - 1);
-	tmp3 = ft_strdup(input + *i + 1);
-	tmp4 = ft_strjoin(tmp, tmp2);
-	free(tmp);
-	free(tmp2);
-	tmp = ft_strjoin(tmp4, tmp3);
-	free(tmp3);
-	free(tmp4);
-	free(input);
-	*i = *i - 2;
-	return (tmp);
-}
-
-char	*ft_double_quotes(char *input, t_env *env, int *i)
-{
-	char	*result;
-	int		j;
-	int		index_dollar;
-
-	j = *i;
-	while (input[++(*i)])
-	{
-		if (input[*i] == '\\' && (input[*i + 1] == '\"'
-				|| input[*i + 1] == '$' || input[*i + 1] == '\\'))
-			input = ft_slash(input, i);
-		if (input[*i] == '$')
-		{
-			index_dollar = ft_str_find(input, '$', j, *i);
-			if (index_dollar) {
-				*i = index_dollar;
-				printf("Изначально: %s\n", input);
-				printf("Индекс доллара: %d\n", *i);
-				input = ft_dollar(input, env, i);
-				printf("Распаршен доллар: %s\n", input);
-				printf("Индекс после доллара: %d\n", *i);
-			}
-		}
-		if (input[*i] == '\"')
-			break ;
-	}
-	result = ft_dq_util(input, j, i);
-	*i = *i - 2;
-	return (result);
+	input[*i] = STRING_QUOTE;
 }
 
 char	*ft_parser(char *input, t_env *env)
 {
 	int		i;
+	int		in_qts;
+	int		in_d_qts;
 
+	i = 0;
+	in_qts = 0;
+	in_d_qts = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'')
+			in_qts = !in_qts;
+		else if (input[i] == '\"')
+			in_d_qts = !in_d_qts;
+		else if (input[i] == '$' && (!in_qts || in_d_qts))
+			input = ft_dollar(input, env, &i);
+		i++;
+	}
 	i = 0;
 	while (input[i])
 	{
 		if (input[i] == '\'')
-			input = ft_quotes(input, &i);
-		if (input[i] == '\\')
-			input = ft_slash(input, &i);
-		if (input[i] == '\"')
-			input = ft_double_quotes(input, env, &i);
-		if (input[i] == '$')
-			input = ft_dollar(input, env, &i);
+			ft_quotes(input, '\'', &i);
+		else if (input[i] == '\"')
+			ft_quotes(input, '\"', &i);
 		i++;
 	}
 	return (input);

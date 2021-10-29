@@ -15,6 +15,7 @@
 # define SHELL_NAME				"42minishell"
 # define ERROR_UNEXPECTED_TOKEN	"syntax error near unexpected token"
 # define ERROR_CMD_FAIL			"command not found"
+# define STRING_QUOTE			'\"'
 # define REDIRECT_LEFT			0b00000001
 # define REDIRECT_RIGHT 		0b00000010
 # define REDIRECT_DOUBLE_LEFT	0b00000100

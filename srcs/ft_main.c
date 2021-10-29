@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("Отформатировано: [%s]\n", input);
 			input = ft_parser(input, env);
 			printf("Спарсилось как: [%s]\n", input);
-			ft_build_cmds(env, input);
+			//ft_build_cmds(env, input);
 			ft_process(env);
 		}
 		free(input);
