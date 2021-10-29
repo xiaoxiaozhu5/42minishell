@@ -2,113 +2,127 @@
 #include <string.h>
 #include <sys/stat.h>
 
-void	exec_pipe(t_data *data, char *cmd)
+void	exec_pipe(t_data *data, int	**ar_fds, int i, char **cmd, char *cmde)
 {
-	close(data->fds[0]);
-	dup2(data->fds[1], 1);
-	execve(cmd, data->args, data->env);
-	почти реализовал пайпы
+	if (i == 0)
+	{
+		close(data->fds[0]);
+		dup2(data->fds[1], 1);
+	}
+	else if (i < 1)
+	{
+		close(ar_fds[i - 1][1]);
+		dup2(ar_fds[i - 1][0], 0);
+		close(ar_fds[i][0]);
+		dup2(ar_fds[i][1], 1);
+	}
+	else
+	{
+		close(ar_fds[i - 1][1]);
+		dup2(ar_fds[i - 1][0], 0);
+	}
+	execve(cmde, cmd, data->env);
 }
 
-void	pipe_realise(t_data *data)
+void	pipe_realise(t_data *data, char **cmd, int pipes, int **arfds)
 {
 	int			res;
-	int			i, ew;
-	char		needed_cmd;
+	int			i, ew, k;
+	char		*needed_cmd;
 	struct stat	buff;
-	char		*sec_cmd = "cat";
-	char **sec_cmd = malloc(sizeof(char **) * 3);
-	sec_cmd [0] = malloc(10);
-	sec_cmd[0] = "ls\0";
-	sec_cmd[1] = NULL;
+
 
 	i = 0;
+	k = 0;
+
 	while (data->path[i])
 	{
-		needed_cmd = ft_strjoin(data->path[i], data->cmd);
+		needed_cmd = ft_strjoin(data->path[i], cmd[0]);
 		puts(data->flags[0]);
 
 		res = stat(needed_cmd, &buff);
 		if (res == 0 && (buff.st_mode))
-			exec_pipe(data, needed_cmd);
-		//free(needed_cmd);
-		printf("%d\n", ew);
+			exec_pipe(data, arfds, pipes, cmd, needed_cmd);
+		i++;
 	}
 }
 
-void	ft_pipe(t_data *data)
+
+void	ft_pipe(t_data *data, char ***arg)
 {
-	char **args;
-	char *a = "ls";
-	args = malloc(sizeof(char **) * 3);
-	args[0] = "ls";
-	args[1] = NULL;
-	data->args = malloc(sizeof(char **) * 3);
-	data->args[0] = ft_strdup(args[0]);
+
+
+	int	**arfds;
+	int	*pid_s;
+	int pipes;
+	int	al_pipes = 1;
+
+	pipes = 0;
 	if (data->pipe != 0)
 	{
-		if (pipe(data->fds) == -1)
-			printf("errrrror pipe");
-		data->pid = fork();
-		if (data->pid == -1)
-			printf("error pid");
-		if (data->pid > 0)
+		arfds = arr_of_fd_and_pids(1, &pid_s);
+		while (pipes < al_pipes)
 		{
-			close (data->fds[1]);
+			pid_s[pipes] = fork();
+			if (pid_s[pipes] > 0 && pipes != al_pipes)
+				close(arfds[pipes][1]);
+			else if (arfds[pipes][1] == 0)
+				pipe_realise(data, arg[pipes], pipes, arfds);
+			pipes++;
+			dup2(data->fds[0], 0);
+			dup2(data->fds[1], 1);
 		}
-		else
-			pipe_realise(data);
-		dup2(data->fds[0], 0);
-		dup2(data->fds[1], 1);
 	}
 }
 
 int main (int ac, char **av, char **env)
 {
-	t_data data;
+	// t_data data;
+	// char ***args;
 
-	fill_env_path(&data, env);
-	ft_pipe(&data);
+	// args = malloc(sizeof (char ***));
+	// args[0] = malloc (sizeof (char **) * 10);
+	// args[1] = malloc (sizeof (char **));
+	// args[2] = malloc (sizeof (char **));
+
+	// //args[0][0] = ft_strdup("ls");
+	// args[0][0] = malloc(100);
+	// args[0][0] = "ls";
+	// args[0][1] = "ls";
+	// args[0][2] = NULL;
+
+	// args[1][0] = ft_strdup("cat");
+	// args[1][1] = ft_strdup("-e");
+	// args[1][2] = NULL;
+
+	// args[2] = NULL;
+
+	// data.pipe = 1;
+	//fill_env_path(&data, env);
+	//ft_pipe(&data, args);
+
+	char **asse = malloc(sizeof (char **) * 4);
+	asse[0] = ft_strdup("/bin/ls");
+	asse[1] = NULL;
+	execve(asse[0], asse, env);
+}
+static int	**arr_of_fd_and_pids(int count_pipes, int **arr_pid)
+{
+	int	**arr_fd;
+	int	i;
+
+	arr_fd = (int **)malloc(sizeof(int *) * (count_pipes + 1));
+	if (!arr_fd)
+		return (NULL);
+	i = -1;
+	while (++i < count_pipes)
+	{
+		arr_fd[i] = (int *)malloc(sizeof(int) * 2);
+
+		pipe(arr_fd[i]);
+	}
+	arr_fd[i] = 0;
+	*arr_pid = (int *)malloc(sizeof(int) * (count_pipes + 1));
+	return (arr_fd);
 }
 
-
-// int main(int argc, char *argv[])
-// {
-// 	int pipefd[2];
-//     pid_t cpid;
-//     char buf;
-
-//     if (argc != 2)
-// 	{
-//     	fprintf(stderr, "Usage: %s <string>\n", argv[0]);
-// 		exit(EXIT_FAILURE);
-//     }
-//     if (pipe(pipefd) == -1) 
-// 	{
-// 		perror("pipe");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	cpid = fork();
-// 	if (cpid == -1)
-// 	{
-// 		perror("fork");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (cpid == 0)
-// 	{    /* Child reads from pipe */
-// 		close(pipefd[1]);          /* Close unused write end */
-// 		while (read(pipefd[0], &buf, 1) > 0)
-// 			write(STDOUT_FILENO, &buf, 1);
-// 		write(STDOUT_FILENO, "\n", 1);
-// 		close(pipefd[0]);
-// 		_exit(EXIT_SUCCESS);
-//     }
-// 	else
-// 	{            /* Parent writes argv[1] to pipe */
-// 		close(pipefd[0]);          /* Close unused read end */
-//  		write(pipefd[1], argv[1], strlen(argv[1]));
-//                close(pipefd[1]);          /* Reader will see EOF */
-//                wait(NULL);                /* Wait for child */
-//                exit(EXIT_SUCCESS);
-//            }
-//        }
