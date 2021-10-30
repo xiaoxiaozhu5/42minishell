@@ -37,38 +37,45 @@ char	ft_check_single(const char *input, char quote, char in)
 char	ft_check_start(const char *input, char c)
 {
 	int	i;
-	int	in_qts;
 
 	i = 0;
-	in_qts = 0;
-	while (input[i] != '\0')
+	while (input[i] == ' ' || input[i] == '\t')
 	{
-		if (input[i] == '\"' || input[i] == '\'')
-			in_qts = !in_qts;
-		if (input[i] == c && !in_qts)
-			return (c);
-		else if (input[i] == '\"' || input[i] == '\'')
-			i++;
-		else
-			break ;
-	}
-	return (0);
-}
-
-char	ft_check_slash(const char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] != '\0')
-	{
-		if (input[i] == '\\' && (size_t) i + 1 >= ft_strlen(input)
-				&& (i - 1 < 0 || input[i - 1] != '\\'))
-			return ('\\');
 		i++;
 	}
+	if (input[i] == c)
+		return (c);
 	return (0);
 }
+
+char	ft_check_end(const char *input, char c)
+{
+	int	i;
+	int	founded;
+
+	i = 0;
+	founded = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == c)
+			founded = i;
+		i++;
+	}
+	if (founded)
+	{
+		i = founded;
+		while (input[i] != '\0')
+		{
+			if (input[i] != ' ' && input[i] != '\t' && input[i] != '|')
+				return (0);
+			i++;
+		}
+	}
+	if (!founded)
+		return (0);
+	return (c);
+}
+
 
 int	ft_preparser(char *input)
 {
@@ -78,7 +85,6 @@ int	ft_preparser(char *input)
 	error |= ft_error_unexpected_token(ft_check_single(input, '\'', '\"'));
 	error |= ft_error_unexpected_token(ft_check_single(input, '\"', '\''));
 	error |= ft_error_unexpected_token(ft_check_start(input, '|'));
-	error |= ft_error_unexpected_token(ft_check_start(input, ';'));
-	error |= ft_error_unexpected_token(ft_check_slash(input));
+	error |= ft_error_unexpected_token(ft_check_end(input, '|'));
 	return (error);
 }

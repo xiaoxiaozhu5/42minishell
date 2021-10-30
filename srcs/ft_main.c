@@ -30,9 +30,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = ft_init_env(envp);
 	ft_init_history();
-//	char *str = ft_rm_whitespace(ft_strdup("hello            world   jsad sadj asj dksajd aks d         sadsa"));
-//	printf("res: [%s]\n", str);
-//	exit(1);
 	input = 0;
 	while (1)
 	{
