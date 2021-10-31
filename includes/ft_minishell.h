@@ -12,6 +12,7 @@
 # include <sys/param.h>
 
 // Constants
+# define DEBUG_MODE				1
 # define SHELL_NAME				"42minishell"
 # define ERROR_UNEXPECTED_TOKEN	"syntax error near unexpected token"
 # define ERROR_CMD_FAIL			"command not found"
@@ -106,7 +107,8 @@ void	ft_process(t_env *env);
 // Utils
 int		ft_error_unexpected_token(char token);
 void	ft_error_cmd_fail(const char *cmd_name);
-char	*ft_dq_util(char *input, int j, int *i);
+char	*ft_string_quote(const char *str, int *i);
+int		ft_is_split(const char *input, int i);
 
 // Redir utils
 int		ft_cmp(char *s1, char *s2);

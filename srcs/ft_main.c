@@ -7,6 +7,7 @@
 
 void	ft_destroy_env(t_env *env)
 {
+	free(env->username);
 	free(env);
 }
 
@@ -38,9 +39,9 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_preparser(input) == 0)
 		{
 			input = ft_rm_whitespace(input);
-			printf("Отформатировано: [%s]\n", input);
+			printf("Formatted: [%s]\n", input);
 			input = ft_parser(input, env);
-			printf("Спарсилось как: [%s]\n", input);
+			printf("Parser: [%s]\n", input);
 			//ft_build_cmds(env, input);
 			ft_process(env);
 		}
