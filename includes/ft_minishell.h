@@ -101,6 +101,9 @@ char	*ft_unusual_dollar(char *input, t_env *env, int *i);
 // Builder
 void	ft_build_cmds(t_env *env, char *input);
 
+// Builder Utilities
+int		ft_find_flags_length(const char *str, int i);
+
 // Process
 void	ft_process(t_env *env);
 
@@ -110,7 +113,7 @@ void	ft_error_cmd_fail(const char *cmd_name);
 char	*ft_string_quote(const char *str, int *i);
 int		ft_is_split(const char *input, int i);
 
-// Redir utils
+// Redir utilities
 int		ft_cmp(char *s1, char *s2);
 //echo
 char	*ft_echo(t_data *data);

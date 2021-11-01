@@ -12,6 +12,7 @@ char	*ft_string_quote(const char *str, int *i)
 	while (str[*i] && str[*i] != STRING_QUOTE)
 		(*i)++;
 	result = ft_substr(str, start + 1, *i - start - 1);
+	(*i)++;
 	return (result);
 }
 

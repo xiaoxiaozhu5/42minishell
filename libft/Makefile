@@ -67,7 +67,8 @@ SRCS = ft_memccpy.c\
 		ft_lstiter.c\
 		ft_lstmap.c\
 		ft_strfind.c\
-		ft_rm_whitespace.c
+		ft_rm_whitespace.c\
+		ft_striclear.c
 
 OBJS = ${SRCS:.c=.o}
 

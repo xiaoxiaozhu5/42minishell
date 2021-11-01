@@ -7,6 +7,33 @@ void	ft_str_replace_free(char **str, char *replace, char *insert, int *i)
 	free(insert);
 }
 
+char	*ft_remove_clear_quotes(char *input, int start, int *end)
+{
+	int		i;
+	int		is_clear;
+	char	*result;
+
+	i = start + 1;
+	is_clear = 1;
+	while (input[i] && i < *end)
+	{
+		if (input[i] == ' ' || input[i] == '\t' || input[i] == '|')
+		{
+			is_clear = 0;
+			break ;
+		}
+		i++;
+	}
+	if (is_clear)
+	{
+		result = ft_striclear(input, start, *end);
+		free(input);
+		*end = *end - 2;
+		return (result);
+	}
+	return (input);
+}
+
 char	*ft_dollar(char *input, t_env *env, int *i)
 {
 	int		start;
@@ -33,10 +60,11 @@ char	*ft_dollar(char *input, t_env *env, int *i)
 	return (input);
 }
 
-void	ft_quotes(char *input, const char c, int *i)
+char*	ft_quotes(char *input, const char c, int *i)
 {
 	int		start;
 
+	// Если нет пробелов или табов или пайпов просто убрать а не менять
 	start = *i;
 	input[start] = STRING_QUOTE;
 	while (input[++(*i)])
@@ -45,6 +73,8 @@ void	ft_quotes(char *input, const char c, int *i)
 			break ;
 	}
 	input[*i] = STRING_QUOTE;
+	input = ft_remove_clear_quotes(input, start, i);
+	return (input);
 }
 
 char	*ft_parser(char *input, t_env *env)
@@ -70,9 +100,9 @@ char	*ft_parser(char *input, t_env *env)
 	while (input[i])
 	{
 		if (input[i] == '\'')
-			ft_quotes(input, '\'', &i);
+			input = ft_quotes(input, '\'', &i);
 		else if (input[i] == '\"')
-			ft_quotes(input, '\"', &i);
+			input = ft_quotes(input, '\"', &i);
 		i++;
 	}
 	return (input);
