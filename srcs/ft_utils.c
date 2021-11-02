@@ -1,35 +1,15 @@
 #include "ft_minishell.h"
 
-char	*ft_cut_quote(const char *str, int *i)
+int	ft_next_word_starts_with(const char *str, const char *set, int s)
 {
-	char	*result;
-	int		start;
+	int	i;
 
-	start = *i;
-	(*i)++;
-	if (!str || str[start] != STRING_QUOTE)
-		return (0);
-	while (str[*i] && str[*i] != STRING_QUOTE)
-		(*i)++;
-	result = ft_substr(str, start + 1, *i - start - 1);
-	(*i)++;
-	return (result);
-}
-
-char	*ft_string_quote(const char *str, int *i)
-{
-	char	*result;
-	int		start;
-
-	start = *i;
-	(*i)++;
-	if (!str || str[start] != STRING_QUOTE)
-		return (0);
-	while (str[*i] && str[*i] != STRING_QUOTE)
-		(*i)++;
-	result = ft_substr(str, start + 1, *i - start - 1);
-	(*i)++;
-	return (result);
+	i = s;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	if (ft_strchr(set, str[i]))
+		return (1);
+	return (0);
 }
 
 int	ft_is_split(const char *input, int i)

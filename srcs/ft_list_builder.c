@@ -57,8 +57,9 @@ int	ft_find_flags(t_node *new_node, char *input, int *start, int *end)
 
 int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 {
-	int k;
-	int	l;
+	int		k;
+	int		l;
+	char	*qt;
 
 	k = *start;
 	while (k < *end)
@@ -67,9 +68,14 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 		{
 			l = ft_args_end(input, *start, *end);
 			new_node->args = ft_substr(input, k, l - k);
-			while (ft_strchr(new_node->args, STRING_QUOTE))
-				ft_strpclear(new_node->args, ft_strchr(new_node->args, STRING_QUOTE));
-			return (*end);
+			qt = ft_strchr(new_node->args, STRING_QUOTE);
+			while (qt)
+			{
+				ft_strpclear(new_node->args, qt);
+				qt = ft_strchr(new_node->args, STRING_QUOTE);
+				*end = *end - 1;
+			}
+			return (l);
 		}
 		k++;
 	}
@@ -111,10 +117,7 @@ int	ft_find_redirs(t_node *new_node, char *input, int *start, int *end)
 	while (k < *end)
 	{
 		if (input[k] && (input[k] != ' ' && input[k] != '\t') && (input[k] == '<' || input[k] == '>'))
-		{
-			printf("EST REDIR\n");
 			ft_add_redir((t_redir **)&(new_node->redirs), input, &k, end);
-		}
 		k++;
 	}
 	return (*start);

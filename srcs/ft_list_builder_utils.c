@@ -60,9 +60,7 @@ int	ft_args_end(const char *input, int start, int end)
 	i = start;
 	while (i <= end)
 	{
-		if ((input[i] == ' ' || input[i] == '\t') && (input[i + 1] == '>'
-				|| input[i + 1] == '<' || input[i + 1] == '|'
-					|| input[i + 1] == '\0'))
+		if ((input[i] == '>' || input[i] == '<') || ((input[i] == ' ' || input[i] == '\t') && (ft_next_word_starts_with(input, "><|\0", i))))
 			return (i);
 		i++;
 	}

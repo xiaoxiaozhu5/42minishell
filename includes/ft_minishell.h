@@ -112,8 +112,8 @@ void	ft_process(t_env *env);
 // Utils
 int		ft_error_unexpected_token(char token);
 void	ft_error_cmd_fail(const char *cmd_name);
-char	*ft_string_quote(const char *str, int *i);
 int		ft_is_split(const char *input, int i);
+int		ft_next_word_starts_with(const char *str, const char *set, int s);
 
 // Redir utilities
 int		ft_cmp(char *s1, char *s2);
