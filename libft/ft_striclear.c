@@ -6,34 +6,46 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:36:15 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/01 17:12:26 by                  ###   ########.fr       */
+/*   Updated: 2021/11/02 02:08:24 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_striclear(char *str, int f, int s)
+void	ft_striclear(char *str, int index)
 {
-	int		i;
-	int		j;
-	char	*result;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	result = malloc(sizeof(char) * (ft_strlen(str) - 1));
-	if (result)
+	while (str[i] != '\0')
 	{
-		while (str[i] != '\0')
+		if (i != index)
 		{
-			if (i != f && i != s)
-			{
-				result[j] = str[i];
-				j++;
-			}
-			i++;
+			str[j] = str[i];
+			j++;
 		}
-		result[j] = '\0';
-		return (result);
+		i++;
 	}
-	return (0);
+	str[j] = '\0';
+}
+
+void	ft_strpclear(char *str, char *adress)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i] != '\0')
+	{
+		if ((str + i) != adress)
+		{
+			str[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
 }

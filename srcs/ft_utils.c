@@ -1,5 +1,21 @@
 #include "ft_minishell.h"
 
+char	*ft_cut_quote(const char *str, int *i)
+{
+	char	*result;
+	int		start;
+
+	start = *i;
+	(*i)++;
+	if (!str || str[start] != STRING_QUOTE)
+		return (0);
+	while (str[*i] && str[*i] != STRING_QUOTE)
+		(*i)++;
+	result = ft_substr(str, start + 1, *i - start - 1);
+	(*i)++;
+	return (result);
+}
+
 char	*ft_string_quote(const char *str, int *i)
 {
 	char	*result;

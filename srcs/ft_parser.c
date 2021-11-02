@@ -11,7 +11,6 @@ char	*ft_remove_clear_quotes(char *input, int start, int *end)
 {
 	int		i;
 	int		is_clear;
-	char	*result;
 
 	i = start + 1;
 	is_clear = 1;
@@ -26,10 +25,9 @@ char	*ft_remove_clear_quotes(char *input, int start, int *end)
 	}
 	if (is_clear)
 	{
-		result = ft_striclear(input, start, *end);
-		free(input);
+		ft_striclear(input, start);
+		ft_striclear(input, *end - 1);
 		*end = *end - 2;
-		return (result);
 	}
 	return (input);
 }

@@ -103,6 +103,8 @@ void	ft_build_cmds(t_env *env, char *input);
 
 // Builder Utilities
 int		ft_find_flags_length(const char *str, int i);
+int		ft_next_redir(const char *input, int start, int end);
+int		ft_args_end(const char *input, int start, int end);
 
 // Process
 void	ft_process(t_env *env);

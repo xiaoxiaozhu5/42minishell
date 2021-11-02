@@ -31,7 +31,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = ft_init_env(envp);
 	ft_init_history();
-	input = 0;
 	while (1)
 	{
 		input = readline("42minishell:~$ ");
