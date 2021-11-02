@@ -87,6 +87,7 @@ void	ft_add_redir(t_redir **list, char *input, int *k, int *end)
 	t_redir	*new_node;
 	int		type;
 	char	*value;
+	int		start;
 
 	new_node = ft_list_create_back((void**)list, ft_node_redir_create());
 	if (input[*k] == '<' && input[*k + 1] == '<')
@@ -102,7 +103,10 @@ void	ft_add_redir(t_redir **list, char *input, int *k, int *end)
 	{
 		(*k)++;
 	}
-	value = ft_substr(input, *k, *end - *k + 1);
+	start = *k;
+	while (*k < *end && input[*k] != ' ' && input[*k] != '\t')
+		(*k)++;
+	value = ft_substr(input, start, *k - start);
 	new_node->type = type;
 	new_node->value = value;
 }
