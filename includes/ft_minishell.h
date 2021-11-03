@@ -100,11 +100,13 @@ char	*ft_unusual_dollar(char *input, t_env *env, int *i);
 
 // Builder
 void	ft_build_cmds(t_env *env, char *input);
+t_node	*ft_build_cmd(char *input, int *start, int *end);
 
 // Builder Utilities
 int		ft_find_flags_length(const char *str, int i);
 int		ft_next_redir(const char *input, int start, int end);
 int		ft_args_end(const char *input, int start, int end);
+void	ft_add_redir(t_redir **list, char *input, int *k, int *end);
 
 // Process
 void	ft_process(t_env *env);

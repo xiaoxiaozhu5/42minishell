@@ -3,24 +3,24 @@
 int	ft_find_flags_length(const char *str, int i)
 {
 	int	k;
-	int result;
-	int	onFlag;
+	int	result;
+	int	on_flag;
 
 	k = 1;
 	result = 0;
-	onFlag = 1;
+	on_flag = 1;
 	while (str[i - 1] != '\0')
 	{
-		if (onFlag && (str[i] == ' ' || str[i] == '\t' || str[i] == '\0'
-			|| str[i] == '|'))
+		if (on_flag && (str[i] == ' ' || str[i] == '\t' || str[i] == '\0'
+				|| str[i] == '|'))
 		{
-			onFlag = 0;
+			on_flag = 0;
 			result = k - 1;
 		}
-		if (!onFlag && str[i] == '-' && (str[i + 1] && str[i + 1] != ' '
-										 && str[i + 1] != '\t'))
-			onFlag = 1;
-		if (!onFlag && str[i] != '-' && str[i] != ' ' && str[i] != '\t')
+		if (!on_flag && str[i] == '-' && (str[i + 1] && str[i + 1] != ' '
+				&& str[i + 1] != '\t'))
+			on_flag = 1;
+		if (!on_flag && str[i] != '-' && str[i] != ' ' && str[i] != '\t')
 			return (result);
 		k++;
 		i++;
@@ -53,6 +53,51 @@ int	ft_next_redir(const char *input, int start, int end)
 	return (0);
 }
 
+char	*ft_redir_value(char *input, int *k, int end)
+{
+	char	*value;
+	int		start;
+	int		in_qts;
+
+	start = *k;
+	in_qts = 0;
+	if (input[start] == STRING_QUOTE)
+		in_qts = !in_qts;
+	while (*k <= end && ((input[*k] && input[*k] != ' '
+				&& input[*k] != '\t' && input[*k] != '>'
+				&& input[*k] != '<' && input[*k] != '|') || in_qts))
+	{
+		(*k)++;
+		if (input[*k] == STRING_QUOTE)
+			in_qts = !in_qts;
+	}
+	value = ft_substr(input, start, *k - start);
+	while (ft_strchr(value, STRING_QUOTE))
+		ft_strpclear(value, ft_strchr(value, STRING_QUOTE));
+	return (value);
+}
+
+void	ft_add_redir(t_redir **list, char *input, int *k, int *end)
+{
+	t_redir	*new_node;
+	int		type;
+
+	new_node = ft_list_create_back((void **)list, ft_node_redir_create());
+	if (input[*k] == '<' && input[*k + 1] == '<')
+		type = REDIRECT_DOUBLE_LEFT;
+	else if (input[*k] == '>' && input[*k + 1] == '>')
+		type = REDIRECT_DOUBLE_RIGHT;
+	else if (input[*k] == '<')
+		type = REDIRECT_LEFT;
+	else if (input[*k] == '>')
+		type = REDIRECT_RIGHT;
+	while (*k < *end && (input[*k] == ' ' || input[*k] == '\t'
+			|| input[*k] == '<' || input[*k] == '>'))
+		(*k)++;
+	new_node->type = type;
+	new_node->value = ft_redir_value(input, k, *end);
+}
+
 int	ft_args_end(const char *input, int start, int end)
 {
 	int	i;
@@ -60,7 +105,9 @@ int	ft_args_end(const char *input, int start, int end)
 	i = start;
 	while (i <= end)
 	{
-		if ((input[i] == '>' || input[i] == '<') || ((input[i] == ' ' || input[i] == '\t') && (ft_next_word_starts_with(input, "><|\0", i))))
+		if ((input[i] == '>' || input[i] == '<')
+			|| ((input[i] == ' ' || input[i] == '\t')
+				&& (ft_next_word_starts_with(input, "><|\0", i))))
 			return (i);
 		i++;
 	}
