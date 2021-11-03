@@ -92,7 +92,7 @@ char	*ft_redir_value(char *input, int *k, int end)
 	in_qts = 0;
 	if (input[start] == STRING_QUOTE)
 		in_qts = !in_qts;
-	while (*k <= end && ((input[*k] != ' ' && input[*k] != '\t') || in_qts))
+	while (*k <= end && ((input[*k] != ' ' && input[*k] != '\t') || in_qts) && (input[*k] != '>' && input[*k] != '<'))
 	{
 		(*k)++;
 		if (input[*k] == STRING_QUOTE)
