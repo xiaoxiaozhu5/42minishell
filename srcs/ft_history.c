@@ -16,6 +16,8 @@ void	ft_add_history(char *line)
 {
 	int	history_file;
 
+	if (!line)
+		return ;
 	if (*line != '\0')
 	{
 		add_history(line);

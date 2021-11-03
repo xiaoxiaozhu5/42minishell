@@ -18,6 +18,15 @@ t_env	*ft_init_env(char **envp)
 	return (env);
 }
 
+void	ft_sigint(int signal)
+{
+	(void)signal;
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -27,9 +36,18 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = ft_init_env(envp);
 	ft_init_history();
+	signal(SIGINT, ft_sigint);
+	input = 0;
 	while (1)
 	{
 		input = readline("42minishell:~$ ");
+		if (!input)
+		{
+			ft_putchar_fd('\n', 1);
+			ft_clear_cmds(env);
+			ft_destroy_env(env);
+			exit(1);
+		}
 		ft_add_history(input);
 		if (ft_preparser(input) == 0)
 		{
