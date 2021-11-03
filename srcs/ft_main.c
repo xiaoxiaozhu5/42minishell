@@ -1,10 +1,5 @@
 #include "ft_minishell.h"
 
-// Для теста парсера:
-// comma'n\nn'dd000\'00co"mm\""an'dddd'a
-// Результат должен быть:
-// comman\nndd000'00comm"andddda
-
 void	ft_destroy_env(t_env *env)
 {
 	free(env->username);
@@ -50,7 +45,5 @@ int	main(int argc, char **argv, char **envp)
 		free(input);
 	}
 	ft_destroy_env(env);
-	// TODO free(env->cmds);
-	// TODO bug echo '$USER' "'$USER'"
-	// TODO if no leaks (remove -g)
+	// TODO remove -g
 }
