@@ -43,4 +43,5 @@ void	ft_clear_nodes(t_node **lst)
 void	ft_clear_cmds(t_env *env)
 {
 	ft_clear_nodes(&env->cmds);
+	env->cmds = 0;
 }
