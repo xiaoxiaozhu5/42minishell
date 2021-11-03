@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-t_node	*ft_node_create()
+t_node	*ft_node_create(void)
 {
 	t_node	*new;
 
@@ -16,7 +16,7 @@ t_node	*ft_node_create()
 	return (new);
 }
 
-t_redir	*ft_node_redir_create()
+t_redir	*ft_node_redir_create(void)
 {
 	t_redir	*new;
 
