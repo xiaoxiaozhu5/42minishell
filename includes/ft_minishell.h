@@ -12,7 +12,6 @@
 # include <sys/param.h>
 
 // Constants
-# define DEBUG_MODE				1
 # define SHELL_NAME				"42minishell"
 # define ERROR_UNEXPECTED_TOKEN	"syntax error near unexpected token"
 # define ERROR_CMD_FAIL			"command not found"
