@@ -17,6 +17,7 @@ t_env	*ft_init_env(char **envp)
 
 	env = malloc(sizeof(t_env));
 	env->envp = envp;
+	env->cmds = 0;
 	env->last_status = 0;
 	env->username = ft_get_value("USER", envp);
 	return (env);
@@ -41,7 +42,9 @@ int	main(int argc, char **argv, char **envp)
 			printf("Formatted: [%s]\n", input);
 			input = ft_parser(input, env);
 			printf("Parser: [%s]\n", input);
-			ft_build_cmds(env, input);
+			ft_build_cmds(&env->cmds, input);
+			ft_list_print(&env->cmds);
+			ft_clear_cmds(env);
 			ft_process(env);
 		}
 		free(input);

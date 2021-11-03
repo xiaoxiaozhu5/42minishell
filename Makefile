@@ -16,10 +16,11 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_preparser.c \
 	srcs/ft_errors.c \
 	srcs/ft_environment.c \
+	srcs/ft_list.c \
+	srcs/ft_list_clear.c \
 	srcs/ft_list_main.c \
 	srcs/ft_list_builder.c \
 	srcs/ft_list_builder_utils.c \
-	srcs/ft_list.c \
 	srcs/ft_utils.c
 
 OBJS = $(SRCS:%.c=%.o)

@@ -45,7 +45,7 @@ typedef struct s_redir
 typedef struct s_env
 {
 	char	**envp;
-	t_node	**cmds;
+	t_node	*cmds;
 	char	*username;
 	int		last_status;
 	int		numb_pipes;
@@ -99,8 +99,11 @@ char	*ft_get_value(const char *key, char **envp);
 char	*ft_unusual_dollar(char *input, t_env *env, int *i);
 
 // Builder
-void	ft_build_cmds(t_env *env, char *input);
+void	ft_build_cmds(t_node **cmds, char *input);
 t_node	*ft_build_cmd(char *input, int *start, int *end);
+
+// Builder Cleaner
+void	ft_clear_cmds(t_env *env);
 
 // Builder Utilities
 int		ft_find_flags_length(const char *str, int i);
