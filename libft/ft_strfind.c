@@ -45,36 +45,3 @@ int	ft_str_find_in_word(char *str, char c, int start)
 	}
 	return (0);
 }
-
-
-int	ft_str_find_next(char *str, char c, int index_start)
-{
-	int	i;
-
-	if (!str)
-		return (0);
-	i = index_start;
-	while (str[i] != '\0')
-	{
-		if (str[i] == c)
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-int	ft_str_find(char *str, char c, int index_start, int index_end)
-{
-	int	i;
-
-	if (!str)
-		return (0);
-	i = index_start;
-	while (str[i] != '\0' && i <= index_end)
-	{
-		if (str[i] == c)
-			return (i);
-		i++;
-	}
-	return (0);
-}

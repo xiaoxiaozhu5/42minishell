@@ -2,6 +2,7 @@
 
 void	ft_destroy_env(t_env *env)
 {
+	ft_strsfree(env->envp);
 	free(env->username);
 	free(env);
 }
@@ -11,7 +12,7 @@ t_env	*ft_init_env(char **envp)
 	t_env	*env;
 
 	env = malloc(sizeof(t_env));
-	env->envp = envp;
+	env->envp = ft_strscopy(envp);
 	env->cmds = 0;
 	env->last_status = 0;
 	env->username = ft_get_value("USER", envp);
@@ -57,8 +58,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("Parser: [%s]\n", input);
 			ft_build_cmds(&env->cmds, input);
 			ft_list_print(&env->cmds);
-			ft_clear_cmds(env);
 			ft_process(env);
+			ft_clear_cmds(env);
 		}
 		free(input);
 	}

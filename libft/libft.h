@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/02 17:20:22 by                  ###   ########.fr       */
+/*   Updated: 2021/11/07 16:46:57 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*ft_strchr(const char *s, int c);
 int		ft_strchr_i(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
 int		ft_isalpha(int c);
@@ -69,13 +70,15 @@ int		ft_abs(int value);
 int		ft_nbrcmp(const int n1, const int n2);
 int		ft_nbrncmp(const int n1, const int n2);
 void	ft_str_replace(char **str, const char *replace, const char *insert, int start);
-int		ft_str_find(char *str, char c, int index_start, int index_end);
-int		ft_str_find_next(char *str, char c, int index_start);
 int		ft_str_find_in_word(char *str, char c, int start);
 int		ft_str_find_alnum(char *str, int index_start);
 char	*ft_rm_whitespace(char *input);
 void	ft_striclear(char *str, int index);
-void	ft_strpclear(char *str, char *adress);
+void	ft_strpclear(char *str, char *address);
+char	**ft_strscopy(char **strs);
+char	**ft_strscopy_append(char **strs, const char *str);
+void	ft_strsfree(char **strs);
+void	ft_strssort(char **strs);
 
 // Files Functions
 

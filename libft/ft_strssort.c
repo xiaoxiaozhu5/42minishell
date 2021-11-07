@@ -1,51 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striclear.c                                     :+:      :+:    :+:   */
+/*   ft_strssort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/01 10:36:15 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/06 13:05:41 by                  ###   ########.fr       */
+/*   Created: 2021/09/01 10:36:28 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/06 16:46:47 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striclear(char *str, int index)
+void	ft_strssort(char **strs)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
-	j = 0;
-	while (str[i] != '\0')
+	while (strs[i])
 	{
-		if (i != index)
+		j = 0;
+		while (strs[j])
 		{
-			str[j] = str[i];
+			if (ft_strncmp(strs[i], strs[j], ft_strlen(strs[i])) < 0)
+			{
+				temp = strs[i];
+				strs[i] = strs[j];
+				strs[j] = temp;
+			}
 			j++;
 		}
 		i++;
 	}
-	str[j] = '\0';
-}
-
-void	ft_strpclear(char *str, char *address)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i] != '\0')
-	{
-		if ((str + i) != address)
-		{
-			str[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = '\0';
 }

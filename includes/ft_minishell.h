@@ -16,6 +16,7 @@
 # define SHELL_NAME				"42minishell"
 # define ERROR_UNEXPECTED_TOKEN	"syntax error near unexpected token"
 # define ERROR_CMD_FAIL			"command not found"
+# define ERROR_IDENTIFIER		"this is an invalid identifier"
 # define STRING_QUOTE			'*'
 # define REDIRECT_LEFT			0b00000001
 # define REDIRECT_RIGHT 		0b00000010
@@ -114,9 +115,18 @@ void	ft_add_redir(t_redir **list, char *input, int *k, int *end);
 // Process
 void	ft_process(t_env *env);
 
-// Utils
+// Build-in(s)
+void	ft_export(t_node *node, t_env *env);
+
+// Envp Utils
+void	ft_envp_add(char ***envp, const char *key_value);
+
+// Errors
 int		ft_error_unexpected_token(char token);
 void	ft_error_cmd_fail(const char *cmd_name);
+void	ft_error_identifier(const char *cmd_name, char identifier);
+
+// Utils
 int		ft_is_split(const char *input, int i);
 int		ft_next_word_starts_with(const char *str, const char *set, int s);
 
