@@ -32,7 +32,6 @@ int	ft_find_key(char **envp, const char *key_value)
 		envp_key = ft_get_key(envp[i]);
 		if (ft_strcmp(envp_key, key) == 0)
 		{
-			printf("Да, %s существует в env как %s\n", key_value, envp[i]);
 			free(key);
 			free(envp_key);
 			return (i);

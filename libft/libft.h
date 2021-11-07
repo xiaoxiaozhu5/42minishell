@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/07 16:46:57 by                  ###   ########.fr       */
+/*   Updated: 2021/11/07 18:33:09 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_wdcounter(const char *str, char separator);
 int		ft_abs(int value);
-int		ft_nbrcmp(const int n1, const int n2);
-int		ft_nbrncmp(const int n1, const int n2);
+int		ft_nbrcmp(int n1, int n2);
+int		ft_nbrncmp(int n1, int n2);
 void	ft_str_replace(char **str, const char *replace, const char *insert, int start);
 int		ft_str_find_in_word(char *str, char c, int start);
 int		ft_str_find_alnum(char *str, int index_start);
@@ -77,6 +77,7 @@ void	ft_striclear(char *str, int index);
 void	ft_strpclear(char *str, char *address);
 char	**ft_strscopy(char **strs);
 char	**ft_strscopy_append(char **strs, const char *str);
+char	**ft_strscopy_remove(char **strs, int index);
 void	ft_strsfree(char **strs);
 void	ft_strssort(char **strs);
 
