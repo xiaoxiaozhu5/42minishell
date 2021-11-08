@@ -53,26 +53,22 @@ void	ft_unset_env_string(char ***envp, const char *key_value)
 
 void	ft_unset(t_node *node, t_env *env)
 {
-	char	**args;
 	int		i;
 
 	if (node->args)
 	{
-		args = ft_split(*(node->args), ' ');
 		i = -1;
-		while (args[++i])
+		while (node->args[++i])
 		{
-			if (!ft_is_correct_unset(args[i]))
+			if (!ft_is_correct_unset(node->args[i]))
 			{
 				env->last_status = 1;
-				ft_strsfree(args);
 				return ;
 			}
 		}
 		i = -1;
-		while (args[++i])
-			ft_unset_env_string(&env->envp, args[i]);
-		ft_strsfree(args);
+		while (node->args[++i])
+			ft_unset_env_string(&env->envp, node->args[i]);
 		env->last_status = 0;
 	}
 }

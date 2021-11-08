@@ -77,28 +77,24 @@ int	ft_is_correct_import(const char *arg)
 
 void	ft_export(t_node *node, t_env *env)
 {
-	char	**args;
 	int		i;
 
 	if (!node->args)
 		env->last_status = ft_export_print(env->envp);
 	else
 	{
-		args = ft_split(*(node->args), ' ');
 		i = -1;
-		while (args[++i])
+		while (node->args[++i])
 		{
-			if (!ft_is_correct_import(args[i]))
+			if (!ft_is_correct_import(node->args[i]))
 			{
 				env->last_status = 1;
-				ft_strsfree(args);
 				return ;
 			}
 		}
 		i = -1;
-		while (args[++i])
-			ft_envp_add(&(env->envp), args[i]);
-		ft_strsfree(args);
+		while (node->args[++i])
+			ft_envp_add(&(env->envp), node->args[i]);
 		env->last_status = 0;
 	}
 }
