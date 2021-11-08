@@ -28,6 +28,27 @@ void	ft_sigint(int signal)
 	rl_redisplay();
 }
 
+void	ft_initter(t_env **env, char **envp, char **input)
+{
+	*env = ft_init_env(envp);
+	ft_init_history();
+	signal(SIGINT, ft_sigint);
+	*input = 0;
+}
+
+void ft_readline(char **input, t_env *env)
+{
+	*input = readline("42minishell:~$ ");
+	if (!*input)
+	{
+		ft_putchar_fd('\n', 1);
+		ft_clear_cmds(env);
+		ft_destroy_env(env);
+		exit(1);
+	}
+	ft_add_history(*input);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -35,21 +56,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	env = ft_init_env(envp);
-	ft_init_history();
-	signal(SIGINT, ft_sigint);
-	input = 0;
+	ft_initter(&env, envp, &input);
 	while (1)
 	{
-		input = readline("42minishell:~$ ");
-		if (!input)
-		{
-			ft_putchar_fd('\n', 1);
-			ft_clear_cmds(env);
-			ft_destroy_env(env);
-			exit(1);
-		}
-		ft_add_history(input);
+		ft_readline(&input, env);
 		if (ft_preparser(input) == 0)
 		{
 			input = ft_rm_whitespace(input);
