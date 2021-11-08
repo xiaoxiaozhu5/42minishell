@@ -58,11 +58,10 @@ char	*ft_dollar(char *input, t_env *env, int *i)
 	return (input);
 }
 
-char*	ft_quotes(char *input, const char c, int *i)
+char	*ft_quotes(char *input, const char c, int *i)
 {
 	int		start;
 
-	// Если нет пробелов или табов или пайпов просто убрать а не менять
 	start = *i;
 	input[start] = STRING_QUOTE;
 	while (input[++(*i)])
@@ -97,10 +96,8 @@ char	*ft_parser(char *input, t_env *env)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '\'')
-			input = ft_quotes(input, '\'', &i);
-		else if (input[i] == '\"')
-			input = ft_quotes(input, '\"', &i);
+		if (input[i] == '\'' || input[i] == '\"')
+			input = ft_quotes(input, input[i], &i);
 		i++;
 	}
 	return (input);
