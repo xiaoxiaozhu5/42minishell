@@ -50,6 +50,20 @@ static int	ft_nbr_args(const char *args)
 	return (j);
 }
 
+static char	*ft_substr_q(char const *s, unsigned int start, size_t len)
+{
+	char	*result;
+	char	*qt;
+	result = ft_substr(s, start, len);
+	qt = ft_strchr(result, STRING_QUOTE);
+	while (qt)
+	{
+		ft_strpclear(result, qt);
+		qt = ft_strchr(result, STRING_QUOTE);
+	}
+	return (result);
+}
+
 char	**ft_split_args(char const *args)
 {
 	int		i;
@@ -65,12 +79,12 @@ char	**ft_split_args(char const *args)
 	{
 		if (args[i] == STRING_QUOTE)
 		{
-			strs[j++] = ft_substr(args, i, ft_next_quote(args, i) - i + 1);
+			strs[j++] = ft_substr_q(args, i, ft_next_quote(args, i) - i + 1);
 			i += ft_next_quote(args, i) - i;
 		}
 		if (args[i] != ' ' && args[i] != '\t' && args[i] != STRING_QUOTE)
 		{
-			strs[j++] = ft_substr(args, i, ft_next_empty(args, i) - i);
+			strs[j++] = ft_substr_q(args, i, ft_next_empty(args, i) - i);
 			i += ft_next_empty(args, i) - i - 1;
 		}
 		i++;

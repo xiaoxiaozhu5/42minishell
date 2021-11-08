@@ -59,7 +59,6 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 	int		k;
 	int		l;
 	char	*args_not_splitted;
-//	char	*qt;
 
 	k = *start;
 	while (k < *end)
@@ -70,12 +69,6 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 			args_not_splitted = ft_substr(input, k, l - k);
 			new_node->args = ft_split_args(args_not_splitted);
 			free(args_not_splitted);
-//			qt = ft_strchr(new_node->args, STRING_QUOTE);
-//			while (qt)
-//			{
-//				ft_strpclear(new_node->args, qt);
-//				qt = ft_strchr(new_node->args, STRING_QUOTE);
-//			}
 			return (l);
 		}
 		k++;
