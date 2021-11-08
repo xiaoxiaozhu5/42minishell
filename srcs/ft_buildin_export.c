@@ -4,9 +4,11 @@ void	ft_print_declare(const char *str)
 {
 	int		i;
 	int		is_value_started;
+	int		exists_equal;
 
 	i = 0;
 	is_value_started = 0;
+	exists_equal = 0;
 	ft_putstr_fd("declare -x ", 1);
 	while (str[i])
 	{
@@ -15,12 +17,14 @@ void	ft_print_declare(const char *str)
 			ft_putchar_fd('=', 1);
 			i++;
 			ft_putchar_fd('\"', 1);
+			exists_equal = 1;
 			is_value_started = 1;
 		}
 		else
 			ft_putchar_fd(str[i++], 1);
 	}
-	ft_putchar_fd('\"', 1);
+	if (exists_equal)
+		ft_putchar_fd('\"', 1);
 	ft_putchar_fd('\n', 1);
 }
 
@@ -71,20 +75,30 @@ int	ft_is_correct_import(const char *arg)
 	return (1);
 }
 
-int	ft_import(t_node *node, t_env *env)
-{
-	if (ft_is_correct_import(node->args))
-	{
-		ft_envp_add(&(env->envp), node->args);
-		return (0);
-	}
-	return (1);
-}
-
 void	ft_export(t_node *node, t_env *env)
 {
+	char	**args;
+	int		i;
+
 	if (!node->args)
 		env->last_status = ft_export_print(env->envp);
 	else
-		env->last_status = ft_import(node, env);
+	{
+		args = ft_split(*(node->args), ' ');
+		i = -1;
+		while (args[++i])
+		{
+			if (!ft_is_correct_import(args[i]))
+			{
+				env->last_status = 1;
+				ft_strsfree(args);
+				return ;
+			}
+		}
+		i = -1;
+		while (args[++i])
+			ft_envp_add(&(env->envp), args[i]);
+		ft_strsfree(args);
+		env->last_status = 0;
+	}
 }

@@ -32,7 +32,7 @@ typedef struct s_node
 	void	*redirs;
 	char	*command;
 	char	*flags;
-	char	*args;
+	char	**args;
 	char	c_end;
 }	t_node;
 
@@ -111,6 +111,9 @@ int		ft_find_flags_length(const char *str, int i);
 int		ft_next_redir(const char *input, int start, int end);
 int		ft_args_end(const char *input, int start, int end);
 void	ft_add_redir(t_redir **list, char *input, int *k, int *end);
+
+// Builder Utilities Second
+char	**ft_split_args(char const *args);
 
 // Process
 void	ft_process(t_env *env);

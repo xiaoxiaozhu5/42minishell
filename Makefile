@@ -21,6 +21,7 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_list_main.c \
 	srcs/ft_list_builder.c \
 	srcs/ft_list_builder_utils.c \
+	srcs/ft_split_args.c \
 	srcs/ft_utils.c \
 	srcs/ft_envp_utils.c \
 	srcs/ft_buildin_export.c \

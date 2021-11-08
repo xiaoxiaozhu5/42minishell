@@ -41,6 +41,20 @@ void	ft_redirs_print(t_redir **lst)
 	}
 }
 
+void	ft_args_print(char **strs)
+{
+	int		i;
+
+	if (!strs)
+		return ;
+	i = 0;
+	while (strs[i])
+	{
+		printf("%d. [%s]\n", i, strs[i]);
+		i++;
+	}
+}
+
 void	ft_list_print(t_node **lst)
 {
 	int		i;
@@ -55,7 +69,8 @@ void	ft_list_print(t_node **lst)
 			printf("---- \033[0;32mКоманда #%d\033[0m ----\n", i);
 			printf("Выполнить: [%s]\n", iter->command);
 			printf("Флаги: [%s]\n", iter->flags);
-			printf("Аргументы: [%s]\n", iter->args);
+			printf("Аргументы: \n");
+			ft_args_print(iter->args);
 			printf("Оканчивается: [%c]\n", iter->c_end);
 			printf("Редиректы:\n");
 			ft_redirs_print((t_redir **) &(iter->redirs));

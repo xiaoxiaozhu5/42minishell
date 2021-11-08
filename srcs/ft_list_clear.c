@@ -33,7 +33,7 @@ void	ft_clear_nodes(t_node **lst)
 		if (temp->flags)
 			free(temp->flags);
 		if (temp->args)
-			free(temp->args);
+			ft_strsfree(temp->args);
 		free(temp);
 		temp = iter;
 	}

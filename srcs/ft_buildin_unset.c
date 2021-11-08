@@ -45,7 +45,6 @@ void	ft_unset_env_string(char ***envp, const char *key_value)
 	{
 		last_address = ft_last_address(*envp);
 		exists_address = *envp + exists_index;
-		printf("Мы уберем строчку: %s\n", *exists_address);
 		free(*exists_address);
 		*exists_address = *last_address;
 		*last_address = 0;
@@ -54,14 +53,26 @@ void	ft_unset_env_string(char ***envp, const char *key_value)
 
 void	ft_unset(t_node *node, t_env *env)
 {
-	if (ft_is_correct_unset(node->args))
+	char	**args;
+	int		i;
+
+	if (node->args)
 	{
-		if (node->args)
-			ft_unset_env_string(&env->envp, node->args);
+		args = ft_split(*(node->args), ' ');
+		i = -1;
+		while (args[++i])
+		{
+			if (!ft_is_correct_unset(args[i]))
+			{
+				env->last_status = 1;
+				ft_strsfree(args);
+				return ;
+			}
+		}
+		i = -1;
+		while (args[++i])
+			ft_unset_env_string(&env->envp, args[i]);
+		ft_strsfree(args);
 		env->last_status = 0;
-	}
-	else
-	{
-		env->last_status = 1;
 	}
 }
