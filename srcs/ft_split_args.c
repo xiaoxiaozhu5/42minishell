@@ -3,10 +3,16 @@
 static int	ft_next_empty(const char *str, int start)
 {
 	int	i;
+	int	in_qts;
 
+	in_qts = 0;
 	i = start + 1;
-	while (str[i] && str[i] != ' ' && str[i] != '\t')
+	while (str[i] && ((str[i] != ' ' && str[i] != '\t') || in_qts))
+	{
+		if (str[i] == STRING_QUOTE)
+			in_qts = !in_qts;
 		i++;
+	}
 	return (i);
 }
 
