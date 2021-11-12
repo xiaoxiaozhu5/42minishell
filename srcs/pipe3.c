@@ -27,7 +27,7 @@ void	some_inits(t_data *data)
 	data->commands[2][1] = "-e";
 	data->commands[2][2] = NULL;
 }
-char *find_path1(t_env *data)
+char *find_path1(t_env *data, t_node *iter)
 {
 	struct stat	buff;
 	char *needed_cmd;
@@ -37,7 +37,7 @@ char *find_path1(t_env *data)
 	while(data->execve_paths[i] != NULL)
 	{
 		needed_cmd = ft_strjoin(data->execve_paths[i], "/");
-		needed_cmd = ft_strjoin(needed_cmd, data->cmds->command);
+		needed_cmd = ft_strjoin(needed_cmd, iter->command);
 		res = stat(needed_cmd, &buff);
 		if (res == 0 && (buff.st_mode))
 			return needed_cmd;
@@ -63,11 +63,13 @@ void	ft_new_pipe(t_env *data)
 	int	i = 0;
 	char *cmd;
 	int		pipes;
+	t_node *iter;
 
+	iter = data->cmds;
 	pipes = data->n_pipes;
 	while(i <= pipes)
 	{
-		cmd = ft_strdup(find_path1(data));
+		cmd = ft_strdup(find_path1(data, iter));
 		pid[i] = fork();
 		if (pid[i] > 0)
 		{
@@ -92,12 +94,13 @@ void	ft_new_pipe(t_env *data)
 				close(p[i - 1][1]);
 				dup2(p[i - 1][0], 0);
 				//команда для чпроверки наша или нет
-				execve(cmd, data->cmds->args, data->envp);//ls, [{ls}]
+				execve(cmd, iter->args, data->envp);//ls, [{ls}]
 			}
-			if ((execve(cmd, data->cmds->args, data->envp)) == -1)
+			if ((execve(cmd, iter->args, data->envp)) == -1)
 				kill(pid[i], SIGTERM);
-			data->cmds->args = data->cmds->next;
+			// data->cmds->args = data->cmds->next;
 		}
+		iter = iter->next;
 		i++;
 	}
 // int ier = 0;
