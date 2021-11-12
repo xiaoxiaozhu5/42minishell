@@ -5,7 +5,7 @@ INCLUDES = ft_minishell.h
 LIBFT_FOLDER = libft
 LIBFT_ARCHIVE = libft.a
 CFLAGS = -Wall -Wextra -Werror -g -I$(INC) -I$(LIBFT_FOLDER)
-LFLAGS = -lreadline
+LFLAGS = -lreadline -L/Users/kricky/.brew/opt/readline/lib
 
 NAME = minishell
 
@@ -33,7 +33,7 @@ OBJS = $(SRCS:%.c=%.o)
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 	@echo "Building: \033[0;34m$<\033[0m"
 
-$(NAME): $(INC)/$(INCLUDES) $(OBJS)
+$(NAME): install $(INC)/$(INCLUDES) $(OBJS)
 	@echo "Building: \033[0;34m$>$(LIBFT_ARCHIVE)\033[0m"
 	@make -s -C libft
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS) $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
@@ -52,6 +52,9 @@ fclean: clean
 	@echo "Cleanup: \033[0;34mlinked files\033[0m"
 
 re: clean all
+
+install:
+	brew install readline || true
 
 norminette:
 	norminette $(SRCS)
