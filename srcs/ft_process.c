@@ -16,7 +16,8 @@ void	ft_process(t_env *env)
 	// printf("%s\n", env->cmds->args[0]);
 	// ft_new_pipe(env);
 	// t_node *iter;
-
+	if (env->cmds->command != NULL)
+		ft_new_pipe(env);
 	// iter = env->cmds;
 	// while (iter)
 	// {
