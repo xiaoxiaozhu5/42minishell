@@ -16,6 +16,7 @@ t_env	*ft_init_env(char **envp)
 	env->cmds = 0;
 	env->last_status = 0;
 	env->username = ft_get_value("USER", envp);
+	env->n_pipes = 0;
 	return (env);
 }
 
@@ -77,6 +78,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("Parser: [%s]\n", input);
 			ft_build_cmds(&env->cmds, input);
 			ft_list_print(&env->cmds);
+			ft_preprocess(env);
 			ft_process(env);
 			ft_clear_cmds(env);
 		}

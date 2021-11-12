@@ -49,7 +49,7 @@ typedef struct s_env
 	t_node	*cmds;
 	char	*username;
 	int		last_status;
-	int		numb_pipes;
+	int		n_pipes;
 }	t_env;
 
 typedef struct s_echo_data
@@ -118,6 +118,9 @@ void	ft_add_redir(t_redir **list, char *input, int *k, int *end);
 // Builder Utilities Second
 char	**ft_split_args(char const *args);
 
+// Preprocess
+void	ft_preprocess(t_env *env);
+
 // Process
 void	ft_process(t_env *env);
 
@@ -131,6 +134,7 @@ void	ft_cd(t_node *node, t_env *env);
 char	*ft_get_key(const char *key_value);
 int		ft_find_key(char **envp, const char *key_value);
 void	ft_envp_add(char ***envp, const char *key_value);
+void	ft_envp_update(char ***envp, const char *key_value);
 
 // Errors
 int		ft_error_unexpected_token(char token);

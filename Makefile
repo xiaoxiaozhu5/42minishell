@@ -12,6 +12,7 @@ NAME = minishell
 SRCS = srcs/ft_main.c \
 	srcs/ft_parser.c \
 	srcs/ft_history.c \
+	srcs/ft_preprocess.c \
 	srcs/ft_process.c \
 	srcs/ft_preparser.c \
 	srcs/ft_errors.c \
