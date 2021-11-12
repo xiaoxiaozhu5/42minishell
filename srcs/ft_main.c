@@ -50,7 +50,7 @@ void ft_readline(char **input, t_env *env)
 	*input = readline("42minishell:~$ ");
 	if (!*input)
 	{
-		ft_putchar_fd('\n', 1);
+		ft_putendl_fd("exit", 1);
 		ft_clear_cmds(env);
 		ft_destroy_env(env);
 		exit(1);
