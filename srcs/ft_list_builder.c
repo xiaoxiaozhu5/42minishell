@@ -110,8 +110,8 @@ t_node	*ft_build_cmd(char *input, int *start, int *end)
 	if (!new_node->args && new_node->command)
 	{
 		new_node->args = malloc(sizeof(char *) * 2);
-		new_node->args[0] = ft_strdup(new_node->command);
 		new_node->args[1] = 0;
 	}
+	new_node->args[0] = ft_strdup(new_node->command);
 	return (new_node);
 }

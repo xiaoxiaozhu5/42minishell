@@ -1,32 +1,27 @@
 #include "ft_minishell.h"
 
-void	ft_update_pwd(t_env *env)
+void	ft_update_pwd(t_env *env, char *path)
 {
 	char	*pwd;
 	char	*temp;
 	char	*temp2;
 	char	buffer[2048];
+	char	*error_msg;
 
 
-//	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
-//	{
-//		error_msg = ft_strjoin("cd: ", path);
-//		error_message(error_msg, strerror(errno), 1);
-//		free(error_msg);
-//		return ;
-//	}
+	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
+	{
+		error_msg = ft_strjoin("cd: ", path);
+		//error_message(error_msg, strerror(errno), 1);
+		free(error_msg);
+		return ;
+	}
 	pwd = getcwd(buffer, 2048);
 	temp = ft_strjoin("PWD", "=");
 	temp2 = ft_strjoin(temp, pwd);
 	free(temp);
 	ft_envp_add(&(env->envp), temp2);
 	free(temp2);
-}
-
-void	ft_change_directory(t_env *env, char *path)
-{
-	if (chdir(path) == 0)
-		ft_update_pwd(env);
 }
 
 void	ft_set_home(t_env *env)
@@ -40,18 +35,24 @@ void	ft_set_home(t_env *env)
 		free(path);
 		return ;
 	}
-	ft_change_directory(env, path);
+	ft_update_pwd(env, path);
 	free(path);
 }
 
 void	ft_cd(t_node *node, t_env *env)
 {
-	char	*arg;
-
 	(void)env;
-	if (node->args)
+	if ((!node->args[1]) || ft_strcmp(node->args[1], "~") == 0)
 	{
-		arg = node->args[0];
-		ft_change_directory(env, arg);
+		ft_set_home(env);
+		return ;
+	}
+	else if (ft_strcmp(node->args[1], "-") == 0)
+	{
+		ft_update_pwd(env, node->args[1]);
+	}
+	else if (node->args[1])
+	{
+		ft_update_pwd(env, node->args[1]);
 	}
 }
