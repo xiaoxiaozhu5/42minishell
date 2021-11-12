@@ -5,7 +5,7 @@ INCLUDES = ft_minishell.h
 LIBFT_FOLDER = libft
 LIBFT_ARCHIVE = libft.a
 CFLAGS = -Wall -Wextra -Werror -g -I$(INC) -I$(LIBFT_FOLDER)
-LFLAGS = -lreadline -L/Users/kricky/.brew/opt/readline/lib
+LFLAGS = -lreadline -L/Users/faggar/.brew/opt/readline/lib
 
 NAME = minishell
 
@@ -28,7 +28,8 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_buildin_export.c \
 	srcs/ft_buildin_unset.c \
 	srcs/ft_buildin_cd.c \
-	srcs/ft_buildin_pwd.c
+	srcs/ft_buildin_pwd.c\
+	srcs/pipe3.c
 
 OBJS = $(SRCS:%.c=%.o)
 

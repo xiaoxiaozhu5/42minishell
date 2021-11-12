@@ -12,15 +12,16 @@ void	ft_process(t_env *env)
 	if (env->cmds->command && !ft_strcmp(env->cmds->command, "cd"))
 		ft_cd(env->cmds, env);
 
-	printf("n pipes %d\n", env->n_pipes);
+	// printf("n pipes %d\n", env->n_pipes);
+	printf("%s\n", env->cmds->args[0]);
+	// ft_new_pipe(env);
+	// t_node *iter;
 
-	t_node *iter;
-
-	iter = env->cmds;
-	while (iter)
-	{
-		printf("%s\n", iter->command);
-		printf("%c\n", iter->c_end);
-		iter = iter->next;
-	}
+	// iter = env->cmds;
+	// while (iter)
+	// {
+	// 	printf("%s\n", iter->command);
+	// 	printf("%c\n", iter->c_end);
+	// 	iter = iter->next;
+	// }
 }

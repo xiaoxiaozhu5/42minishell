@@ -23,20 +23,21 @@ void	some_inits(t_data *data)
 	// data->commands[2][0] = "cat";
 	// data->commands[2][1] = "-e";
 	// data->commands[2][2] = NULL;
-	data->commands[2][0] = "pwd";
-	data->commands[2][1] = NULL;
+	data->commands[2][0] = "cat";
+	data->commands[2][1] = "-e";
 	data->commands[2][2] = NULL;
 }
-char *find_path1(t_data *data, int k)
+char *find_path1(t_env *data)
 {
 	struct stat	buff;
 	char *needed_cmd;
 	int	i;
 	int res;
 	i = 0;
-	while(data->path[i] != NULL)
+	while(data->execve_paths[i] != NULL)
 	{
-		needed_cmd = ft_strjoin(data->path[i], data->commands[k][0]);
+		needed_cmd = ft_strjoin(data->execve_paths[i], "/");
+		needed_cmd = ft_strjoin(needed_cmd, data->cmds->command);
 		res = stat(needed_cmd, &buff);
 		if (res == 0 && (buff.st_mode))
 			return needed_cmd;
@@ -52,31 +53,29 @@ typedef struct pid_s
 } pidt;
 
 
-void	ft_new_pipe(t_data *data, char **env)
+void	ft_new_pipe(t_env *data)
 {
-	fill_env_path(data, env);
-	some_inits(data);
 	int	p[2][2];
 
 	pipe(p[0]);
 	pipe(p[1]);
-	pidt	pid[2];
+	pid_t	pid[2];
 	int	i = 0;
 	char *cmd;
 	int		pipes;
 
-	pipes = 2;
+	pipes = data->n_pipes;
 	while(i <= pipes)
 	{
-		cmd = ft_strdup(find_path1(data, i));
-		pid[i].pid = fork();
-		if (pid[i].pid > 0)
+		cmd = ft_strdup(find_path1(data));
+		pid[i] = fork();
+		if (pid[i] > 0)
 		{
 			close(p[i][1]);
 		}
-		if (pid[i].pid == 0)
+		if (pid[i] == 0)
 		{	
-			if (pid[i].pid == 0 && i == 0)
+			if (pid[i] == 0 && i == 0)
 			{
 				close(p[i][0]);
 				dup2(p[i][1], 1);
@@ -92,11 +91,12 @@ void	ft_new_pipe(t_data *data, char **env)
 			{
 				close(p[i - 1][1]);
 				dup2(p[i - 1][0], 0);
-				
-				execve(cmd, data->commands[i], env);
+				//команда для чпроверки наша или нет
+				execve(cmd, data->cmds->args, data->envp);//ls, [{ls}]
 			}
-			if ((execve(cmd, data->commands[i], env)) == -1)
-				kill(pid[i].pid, SIGTERM);
+			if ((execve(cmd, data->cmds->args, data->envp)) == -1)
+				kill(pid[i], SIGTERM);
+			data->cmds->args = data->cmds->next;
 		}
 		i++;
 	}
@@ -111,10 +111,10 @@ void	ft_new_pipe(t_data *data, char **env)
 }
 
 
-int main (int ac, char **av, char **env)
-{
-	t_data data;
+// int main (int ac, char **av, char **env)
+// {
+// 	t_data data;
 
-	ft_new_pipe(&data, env);
-}
+// 	ft_new_pipe(&data, env);
+// }
 

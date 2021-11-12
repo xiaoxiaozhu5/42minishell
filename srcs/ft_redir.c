@@ -46,7 +46,10 @@ void	right_redirrect(t_env *a, t_data *data)
 		else
 			data->fd = open(data->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (exec_cmd(data) == 1)
+	{
 		write(fd, ft_echo(data), ft_strlen(data->str));
+		//сделать для пипов
+	}
 }
 
 
