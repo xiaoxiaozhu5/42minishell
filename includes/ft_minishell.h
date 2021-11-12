@@ -124,6 +124,8 @@ void	ft_process(t_env *env);
 // Build-in(s)
 void	ft_export(t_node *node, t_env *env);
 void	ft_unset(t_node *node, t_env *env);
+void	ft_pwd(t_env *env);
+void	ft_cd(t_node *node, t_env *env);
 
 // Envp Utils
 char	*ft_get_key(const char *key_value);
