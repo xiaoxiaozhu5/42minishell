@@ -25,7 +25,8 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_utils.c \
 	srcs/ft_envp_utils.c \
 	srcs/ft_buildin_export.c \
-	srcs/ft_buildin_unset.c
+	srcs/ft_buildin_unset.c \
+	srcs/ft_buildin_cd.c
 
 OBJS = $(SRCS:%.c=%.o)
 

@@ -22,6 +22,6 @@ void	ft_error_identifier(const char *cmd_name, const char identifier)
 {
 	printf("%s: ", SHELL_NAME);
 	printf("%s: ", cmd_name);
-	printf("%c: ", identifier);
+	printf("'%c': ", identifier);
 	printf("%s\n", ERROR_IDENTIFIER);
 }
