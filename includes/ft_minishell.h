@@ -83,7 +83,9 @@ typedef struct s_echo_data
 	int		redirect_0;
 }t_data;
 
+// External Libs
 void rl_replace_line(const char *text, int clear_undo);
+
 // Lists
 t_node	*ft_node_create();
 t_redir	*ft_node_redir_create();
