@@ -25,3 +25,10 @@ void	ft_error_identifier(const char *cmd_name, const char identifier)
 	printf("'%c': ", identifier);
 	printf("%s\n", ERROR_IDENTIFIER);
 }
+
+void	ft_error_homeless(const char *cmd_name)
+{
+	printf("%s: ", SHELL_NAME);
+	printf("%s: ", cmd_name);
+	printf("%s\n", ERROR_HOMELESS);
+}
