@@ -33,7 +33,7 @@ OBJS = $(SRCS:%.c=%.o)
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 	@echo "Building: \033[0;34m$<\033[0m"
 
-$(NAME): install $(INC)/$(INCLUDES) $(OBJS)
+$(NAME):  $(INC)/$(INCLUDES) $(OBJS)
 	@echo "Building: \033[0;34m$>$(LIBFT_ARCHIVE)\033[0m"
 	@make -s -C libft
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS) $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)

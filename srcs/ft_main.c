@@ -19,10 +19,18 @@ t_env	*ft_init_env(char **envp)
 	return (env);
 }
 
-void	ft_sigint(int signal)
+void	ft_sigint(int sig)
 {
-	(void)signal;
+	(void)sig;
 	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	ft_sigquit(int sig)
+{
+	(void)sig;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -33,6 +41,7 @@ void	ft_initter(t_env **env, char **envp, char **input)
 	*env = ft_init_env(envp);
 	ft_init_history();
 	signal(SIGINT, ft_sigint);
+	signal(SIGQUIT, ft_sigquit);
 	*input = 0;
 }
 
