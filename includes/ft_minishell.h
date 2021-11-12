@@ -47,7 +47,7 @@ typedef struct s_env
 {
 	char	**envp;
 	t_node	*cmds;
-	char	*username;
+	char	**execve_paths;
 	int		last_status;
 	int		n_pipes;
 }	t_env;

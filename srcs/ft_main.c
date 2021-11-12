@@ -3,8 +3,19 @@
 void	ft_destroy_env(t_env *env)
 {
 	ft_strsfree(env->envp);
-	free(env->username);
+	ft_strsfree(env->execve_paths);
 	free(env);
+}
+
+char	**ft_get_execve_paths(char **envp)
+{
+	char	**result;
+	char	*paths;
+
+	paths = ft_get_value("PATH", envp);
+	result = ft_split(paths, ':');
+	free(paths);
+	return (result);
 }
 
 t_env	*ft_init_env(char **envp)
@@ -15,7 +26,7 @@ t_env	*ft_init_env(char **envp)
 	env->envp = ft_strscopy(envp);
 	env->cmds = 0;
 	env->last_status = 0;
-	env->username = ft_get_value("USER", envp);
+	env->execve_paths = ft_get_execve_paths(envp);
 	env->n_pipes = 0;
 	return (env);
 }
