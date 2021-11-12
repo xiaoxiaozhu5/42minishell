@@ -17,6 +17,7 @@
 # define ERROR_UNEXPECTED_TOKEN	"syntax error near unexpected token"
 # define ERROR_CMD_FAIL			"command not found"
 # define ERROR_IDENTIFIER		"not a valid identifier"
+# define ERROR_HOMELESS			"home path does not exist"
 # define STRING_QUOTE			'*'
 # define REDIRECT_LEFT			0b00000001
 # define REDIRECT_RIGHT 		0b00000010
@@ -140,6 +141,7 @@ void	ft_envp_update(char ***envp, const char *key_value);
 int		ft_error_unexpected_token(char token);
 void	ft_error_cmd_fail(const char *cmd_name);
 void	ft_error_identifier(const char *cmd_name, char identifier);
+void	ft_error_homeless(const char *cmd_name);
 
 // Utils
 int		ft_is_split(const char *input, int i);
