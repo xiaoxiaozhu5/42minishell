@@ -79,11 +79,11 @@ void	ft_export(t_node *node, t_env *env)
 {
 	int		i;
 
-	if (!node->args)
+	if (!node->args[1])
 		env->last_status = ft_export_print(env->envp);
 	else
 	{
-		i = -1;
+		i = 0;
 		while (node->args[++i])
 		{
 			if (!ft_is_correct_import(node->args[i]))
@@ -92,7 +92,7 @@ void	ft_export(t_node *node, t_env *env)
 				return ;
 			}
 		}
-		i = -1;
+		i = 0;
 		while (node->args[++i])
 			ft_envp_add(&(env->envp), node->args[i]);
 		env->last_status = 0;
