@@ -17,7 +17,7 @@ void	ft_update_pwd(t_env *env, char *path)
 	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
 	{
 		error_msg = ft_strjoin("cd: ", path);
-		//error_message(error_msg, strerror(errno), 1);
+		ft_strerror(error_msg, strerror(errno));
 		free(error_msg);
 		return ;
 	}
@@ -59,6 +59,6 @@ void	ft_cd(t_node *node, t_env *env)
 		ft_update_pwd(env, path);
 		free(path);
 	}
-	else if (node->args[1])
+	else
 		ft_update_pwd(env, node->args[1]);
 }
