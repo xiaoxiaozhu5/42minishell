@@ -26,7 +26,7 @@ int	ft_is_correct_unset(const char *arg)
 
 char	**ft_last_address(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs[i])
@@ -55,9 +55,9 @@ void	ft_unset(t_node *node, t_env *env)
 {
 	int		i;
 
-	if (node->args)
+	if (node->args[1])
 	{
-		i = -1;
+		i = 0;
 		while (node->args[++i])
 		{
 			if (!ft_is_correct_unset(node->args[i]))
@@ -66,7 +66,7 @@ void	ft_unset(t_node *node, t_env *env)
 				return ;
 			}
 		}
-		i = -1;
+		i = 0;
 		while (node->args[++i])
 			ft_unset_env_string(&env->envp, node->args[i]);
 		env->last_status = 0;
