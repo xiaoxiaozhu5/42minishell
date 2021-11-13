@@ -11,6 +11,8 @@ void	ft_process(t_env *env)
 		ft_pwd(env);
 	if (env->cmds->command && !ft_strcmp(env->cmds->command, "cd"))
 		ft_cd(env->cmds, env);
+	if (env->cmds->command && !ft_strcmp(env->cmds->command, "echo"))
+		ft_echo(env->cmds, env);
 
 	// printf("n pipes %d\n", env->n_pipes);
 	// ft_new_pipe(env);

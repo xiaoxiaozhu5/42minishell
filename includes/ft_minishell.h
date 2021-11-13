@@ -132,6 +132,7 @@ void	ft_export(t_node *node, t_env *env);
 void	ft_unset(t_node *node, t_env *env);
 void	ft_pwd(t_env *env);
 void	ft_cd(t_node *node, t_env *env);
+void	ft_echo(t_node *node, t_env *env);
 
 // Envp Utils
 char	*ft_get_key(const char *key_value);
@@ -150,11 +151,11 @@ void	ft_strerror(const char *error_msg1, const char *error_msg2);
 int		ft_is_split(const char *input, int i);
 int		ft_next_word_starts_with(const char *str, const char *set, int s);
 
+// Helper
+int		ft_find_flag(char **flags, char *flag);
+
 // Redir utilities
 int		ft_cmp(char *s1, char *s2);
-//echo
-char	*ft_echo(t_data *data);
-
 
 int		fill_env_path(t_data *data, char **env);
 
