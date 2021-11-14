@@ -59,7 +59,7 @@ void	ft_envp_update(char ***envp, const char *key_value)
 {
 	char	**new_envp;
 
-	new_envp = ft_strscopy_append(*envp, key_value, 1);
+	new_envp = ft_strs_push_back(*envp, key_value);
 	ft_strsfree(*envp);
 	*envp = new_envp;
 }

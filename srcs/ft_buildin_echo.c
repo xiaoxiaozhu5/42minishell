@@ -9,6 +9,7 @@ void	ft_echo(t_node *node, t_env *env)
 	n_flag = 0;
 	(void)n_flag;
 	(void)i;
+	(void)node;
 //	if (node->flags && ft_strnstr(node->flags, "-n", ft_strlen(node->flags)) == 0)
 //	{
 //		n_flag = 1;

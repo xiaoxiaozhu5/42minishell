@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 // #include <limits.h>
 #include <sys/wait.h>
-#define WEXITSTATUS(x)  ((_W_INT(x) >> 8) & 0x000000ff)
+//#define WEXITSTATUS(x)  ((_W_INT(x) >> 8) & 0x000000ff)
 int		exit_status;
 
 void	some_inits(t_data *data)

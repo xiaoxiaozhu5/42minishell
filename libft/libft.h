@@ -6,7 +6,7 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/14 12:56:46 by                  ###   ########.fr       */
+/*   Updated: 2021/11/14 14:30:39 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ char	*ft_rm_whitespace(char *input);
 void	ft_striclear(char *str, int index);
 void	ft_strpclear(char *str, char *address);
 char	**ft_strscreate(char *str);
+int		ft_strslen(char **strs);
 char	**ft_strscopy(char **strs);
-char	**ft_strscopy_append(char **strs, const char *str, int to_end);
+char	**ft_strsjoin(char **strs1, char **strs2);
+char	**ft_strs_push_front(char **strs, const char *str);
+char	**ft_strs_push_back(char **strs, const char *str);
 char	**ft_strscopy_remove(char **strs, int index);
 void	ft_strsfree(char **strs);
 void	ft_strssort(char **strs);
