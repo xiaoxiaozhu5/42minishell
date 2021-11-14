@@ -23,7 +23,7 @@ void	ft_args_append(t_node *node)
 
 	end = ft_args_append_find_end(node);
 	if (node->args)
-		free(node->args);
+		ft_strsfree(node->args);
 	if (node->command)
 	{
 		command = ft_strscreate(node->command);
