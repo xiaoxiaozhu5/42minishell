@@ -3,23 +3,17 @@
 void	ft_echo(t_node *node, t_env *env)
 {
 	int	i;
-	int	n_flag;
 
-	i = 1;
-	n_flag = 0;
-	(void)n_flag;
-	(void)i;
-	(void)node;
-//	if (node->flags && ft_strnstr(node->flags, "-n", ft_strlen(node->flags)) == 0)
-//	{
-//		n_flag = 1;
-//	}
-//	while (node->args && node->args[i])
-//	{
-//		printf("%s ", cmd[i]);
-//		i++;
-//	}
-//	if (n_flag == false)
-//		ft_printf("\n");
+	i = 0;
+	while (node->args && node->args[i])
+	{
+		if (node->args[i + 1])
+			printf("%s ", node->args[i]);
+		else
+			printf("%s", node->args[i]);
+		i++;
+	}
+	if (!node->flags || !ft_strsfind((const char **) node->flags, "-n"))
+		printf("\n");
 	env->last_status = 0;
 }

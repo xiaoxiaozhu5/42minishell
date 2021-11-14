@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-char	**ft_args_append_find_end(t_node *node)
+char	**ft_exec_args_end(t_node *node)
 {
 	char	**end;
 
@@ -15,15 +15,13 @@ char	**ft_args_append_find_end(t_node *node)
 	return (end);
 }
 
-void	ft_args_append(t_node *node)
+void	ft_exec_args(t_node *node)
 {
 	char	**command;
 	char	**new_args;
 	char	**end;
 
-	end = ft_args_append_find_end(node);
-	if (node->args)
-		ft_strsfree(node->args);
+	end = ft_exec_args_end(node);
 	if (node->command)
 	{
 		command = ft_strscreate(node->command);
@@ -32,16 +30,9 @@ void	ft_args_append(t_node *node)
 			new_args = ft_strsjoin(command, end);
 			ft_strsfree(command);
 			ft_strsfree(end);
-			node->args = new_args;
+			node->exec_args = new_args;
 		}
 		else
-			node->args = command;
+			node->exec_args = command;
 	}
-}
-
-int	ft_find_flag(const char **args, const char *flag)
-{
-	(void)args;
-	(void)flag;
-	return (1);
 }

@@ -110,6 +110,6 @@ t_node	*ft_build_cmd(char *input, int *start, int *end)
 	*start = ft_find_redirs(new_node, input, start, end);
 	*start = *end + 1;
 	new_node->c_end = input[*end];
-	ft_args_append(new_node);
+	ft_exec_args(new_node);
 	return (new_node);
 }

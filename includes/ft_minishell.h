@@ -36,6 +36,7 @@ typedef struct s_node
 	char	*command;
 	char	**flags;
 	char	**args;
+	char	**exec_args;
 	char	c_end;
 }	t_node;
 
@@ -151,9 +152,8 @@ void	ft_strerror(const char *error_msg1, const char *error_msg2);
 int		ft_is_split(const char *input, int i);
 int		ft_next_word_starts_with(const char *str, const char *set, int s);
 
-// Helper
-int		ft_find_flag(const char **args, const char *flag);
-void	ft_args_append(t_node *node);
+// Execution Arguments
+void	ft_exec_args(t_node *node);
 
 // Redir utilities
 int		ft_cmp(char *s1, char *s2);

@@ -78,6 +78,8 @@ void	ft_list_print(t_node **lst)
 			ft_strs_print(iter->flags);
 			printf("Аргументы: ");
 			ft_strs_print(iter->args);
+			printf("Аргументы для 'execve': ");
+			ft_strs_print(iter->exec_args);
 			printf("Оканчивается: [%c]\n", iter->c_end);
 			printf("Редиректы:\n");
 			ft_redirs_print((t_redir **) &(iter->redirs));
