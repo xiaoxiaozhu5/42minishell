@@ -13,7 +13,7 @@ void	ft_echo(t_node *node, t_env *env)
 			printf("%s", node->args[i]);
 		i++;
 	}
-	if (!node->flags || !ft_strsfind((const char **) node->flags, "-n"))
+	if (!node->flags || !ft_strsfind(node->flags, "-n"))
 		printf("\n");
 	env->last_status = 0;
 }

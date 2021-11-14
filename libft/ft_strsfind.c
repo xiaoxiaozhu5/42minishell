@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_strsfind(const char **strs, const char *str)
+int	ft_strsfind(char **strs, const char *str)
 {
 	int	i;
 

@@ -79,7 +79,7 @@ char	**ft_strs_push_back(char **strs, const char *str);
 char	**ft_strs_push_front(char **strs, const char *str);
 char	**ft_strscopy(char **strs);
 char	**ft_strscreate(char *str);
-int		ft_strsfind(const char **strs, const char *str);
+int		ft_strsfind(char **strs, const char *str);
 void	ft_strsfree(char **strs);
 char	**ft_strsjoin(char **strs1, char **strs2);
 int		ft_strslen(char **strs);
