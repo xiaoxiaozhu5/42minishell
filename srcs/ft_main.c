@@ -59,7 +59,7 @@ void	ft_initter(t_env **env, char **envp, char **input)
 
 void ft_readline(char **input, t_env *env)
 {
-	*input = readline("42minishell:~$ ");
+	*input = ft_strdup("ls | cat -e | cat -e");
 	if (!*input)
 	{
 		ft_putendl_fd("exit", 1);
@@ -78,7 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	ft_initter(&env, envp, &input);
-	while (1)
+	while (!input)
 	{
 		ft_readline(&input, env);
 		if (ft_preparser(input) == 0)

@@ -31,10 +31,9 @@ char *find_path1(t_env *data, t_node *iter)
 {
 	struct stat	buff;
 	char *needed_cmd;
-	int	i;
+	int	i = 0;
 	int res;
-	i = 0;
-	while(data->execve_paths[i] != NULL)
+	while(data->execve_paths[i])
 	{
 		needed_cmd = ft_strjoin(data->execve_paths[i], "/");
 		needed_cmd = ft_strjoin(needed_cmd, iter->command);
@@ -67,10 +66,24 @@ void	ft_new_pipe(t_env *data)
 
 	iter = data->cmds;
 	pipes = data->n_pipes;
+	//ТЕСТ
+
+	// int r = 0;
+	// while (data->execve_paths[r])
+	// {
+	// 	puts(data->execve_paths[r++]);
+	// }
+	
+	//ТЕСТ КОНЕЦ
+				int r = 0;
+				while (data->execve_paths[r])
+				{
+					puts(data->execve_paths[r++]);
+				}	
 	while(i <= pipes)
 	{
-		cmd = ft_strdup(find_path1(data, iter));
 		pid[i] = fork();
+		cmd = ft_strdup(find_path1(data, iter));
 		if (pid[i] > 0)
 		{
 			close(p[i][1]);
@@ -102,6 +115,7 @@ void	ft_new_pipe(t_env *data)
 		}
 		iter = iter->next;
 		i++;
+		// wait(NULL);
 	}
 // int ier = 0;
 

@@ -13,7 +13,6 @@ void	ft_process(t_env *env)
 		ft_cd(env->cmds, env);
 
 	// printf("n pipes %d\n", env->n_pipes);
-	 ft_new_pipe(env);
 	// t_node *iter;
 	if (env->cmds->command != NULL)
 		ft_new_pipe(env);
