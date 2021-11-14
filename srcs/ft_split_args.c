@@ -71,8 +71,8 @@ char	**ft_split_args(char const *args)
 	char	**strs;
 
 	i = 0;
-	j = 1;
-	strs = malloc(sizeof(char *) * (ft_nbr_args(args) + 2));
+	j = 0;
+	strs = malloc(sizeof(char *) * (ft_nbr_args(args) + 1));
 	if (!strs)
 		return (0);
 	while (args[i] != '\0' && (size_t) i < ft_strlen(args))

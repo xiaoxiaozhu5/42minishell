@@ -7,10 +7,12 @@ void	ft_echo(t_node *node, t_env *env)
 
 	i = 1;
 	n_flag = 0;
-	if (node->flags && ft_strnstr(node->flags, "-n", ft_strlen(node->flags)) == 0)
-	{
-		n_flag = 1;
-	}
+	(void)n_flag;
+	(void)i;
+//	if (node->flags && ft_strnstr(node->flags, "-n", ft_strlen(node->flags)) == 0)
+//	{
+//		n_flag = 1;
+//	}
 //	while (node->args && node->args[i])
 //	{
 //		printf("%s ", cmd[i]);

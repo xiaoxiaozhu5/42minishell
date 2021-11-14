@@ -34,7 +34,7 @@ typedef struct s_node
 	void	*next;
 	void	*redirs;
 	char	*command;
-	char	*flags;
+	char	**flags;
 	char	**args;
 	char	c_end;
 }	t_node;
@@ -152,7 +152,8 @@ int		ft_is_split(const char *input, int i);
 int		ft_next_word_starts_with(const char *str, const char *set, int s);
 
 // Helper
-int		ft_find_flag(char **flags, char *flag);
+int		ft_find_flag(const char **args, const char *flag);
+void	ft_args_append(t_node *node);
 
 // Redir utilities
 int		ft_cmp(char *s1, char *s2);

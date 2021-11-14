@@ -6,16 +6,17 @@
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:36:28 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/07 18:33:09 by                  ###   ########.fr       */
+/*   Updated: 2021/11/14 13:11:31 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_strscopy_append(char **strs, const char *str)
+char	**ft_strscopy_append(char **strs, const char *str, int to_end)
 {
 	int		strs_n;
 	int		i;
+	int		j;
 	char	**result;
 
 	strs_n = 0;
@@ -25,14 +26,17 @@ char	**ft_strscopy_append(char **strs, const char *str)
 	if (!result)
 		return (0);
 	i = 0;
+	j = 0;
+	if (!to_end)
+		result[j++] = ft_strdup(str);
 	while (strs[i])
 	{
-		result[i] = ft_strdup(strs[i]);
+		result[j++] = ft_strdup(strs[i]);
 		i++;
 	}
-	result[i] = ft_strdup(str);
-	i++;
-	result[i] = 0;
+	if (to_end)
+		result[j++] = ft_strdup(str);
+	result[j] = 0;
 	return (result);
 }
 

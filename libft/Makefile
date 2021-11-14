@@ -6,7 +6,7 @@
 #    By: kricky <kricky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/16 14:16:38 by kricky            #+#    #+#              #
-#   Updated: 2021/11/12 11:26:57 by                  ###   ########.fr       # #
+#   Updated: 2021/11/14 12:56:47 by                  ###   ########.fr       # #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRCS = ft_memccpy.c\
 		ft_strfind.c\
 		ft_rm_whitespace.c\
 		ft_striclear.c\
+		ft_strscreate.c\
 		ft_strscopy.c\
 		ft_strsfree.c\
 		ft_strssort.c
