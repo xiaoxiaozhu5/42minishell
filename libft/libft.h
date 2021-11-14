@@ -75,14 +75,14 @@ int		ft_str_find_alnum(char *str, int index_start);
 char	*ft_rm_whitespace(char *input);
 void	ft_striclear(char *str, int index);
 void	ft_strpclear(char *str, char *address);
-char	**ft_strscreate(char *str);
-int		ft_strslen(char **strs);
-char	**ft_strscopy(char **strs);
-char	**ft_strsjoin(char **strs1, char **strs2);
-char	**ft_strs_push_front(char **strs, const char *str);
 char	**ft_strs_push_back(char **strs, const char *str);
-char	**ft_strscopy_remove(char **strs, int index);
+char	**ft_strs_push_front(char **strs, const char *str);
+char	**ft_strscopy(char **strs);
+char	**ft_strscreate(char *str);
+int		ft_strsfind(const char **strs, const char *str);
 void	ft_strsfree(char **strs);
+char	**ft_strsjoin(char **strs1, char **strs2);
+int		ft_strslen(char **strs);
 void	ft_strssort(char **strs);
 
 // Files Functions
