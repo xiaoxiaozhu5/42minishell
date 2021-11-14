@@ -55,9 +55,9 @@ void	ft_unset(t_node *node, t_env *env)
 {
 	int		i;
 
-	if (node->args[1])
+	if (node->args)
 	{
-		i = 0;
+		i = -1;
 		while (node->args[++i])
 		{
 			if (!ft_is_correct_unset(node->args[i]))
@@ -66,7 +66,7 @@ void	ft_unset(t_node *node, t_env *env)
 				return ;
 			}
 		}
-		i = 0;
+		i = -1;
 		while (node->args[++i])
 			ft_unset_env_string(&env->envp, node->args[i]);
 		env->last_status = 0;
