@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-void	ft_update_pwd(t_env *env, char *path)
+int	ft_update_pwd(t_env *env, char *path)
 {
 	char	*pwd;
 	char	*temp;
@@ -17,7 +17,7 @@ void	ft_update_pwd(t_env *env, char *path)
 		error_msg = ft_strjoin("cd: ", path);
 		ft_strerror(error_msg, strerror(errno));
 		free(error_msg);
-		return ;
+		return (1);
 	}
 	ft_envp_add(&(env->envp), temp2);
 	free(temp2);
@@ -27,9 +27,10 @@ void	ft_update_pwd(t_env *env, char *path)
 	free(temp);
 	ft_envp_add(&(env->envp), temp2);
 	free(temp2);
+	return (0);
 }
 
-void	ft_set_home(t_env *env)
+int	ft_set_home(t_env *env)
 {
 	char	*path;
 
@@ -38,10 +39,11 @@ void	ft_set_home(t_env *env)
 	{
 		ft_error_homeless("cd");
 		free(path);
-		return ;
+		return (1);
 	}
 	ft_update_pwd(env, path);
 	free(path);
+	return (0);
 }
 
 void	ft_cd(t_node *node, t_env *env)
@@ -50,15 +52,15 @@ void	ft_cd(t_node *node, t_env *env)
 
 	if (!node->args || ft_strcmp(node->args[0], "~") == 0)
 	{
-		ft_set_home(env);
+		env->last_status = ft_set_home(env);
 		return ;
 	}
 	else if (ft_strcmp(node->args[0], "-") == 0)
 	{
 		path = ft_get_value("OLDPWD", env->envp);
-		ft_update_pwd(env, path);
+		env->last_status = ft_update_pwd(env, path);
 		free(path);
 	}
 	else
-		ft_update_pwd(env, node->args[0]);
+		env->last_status = ft_update_pwd(env, node->args[0]);
 }
