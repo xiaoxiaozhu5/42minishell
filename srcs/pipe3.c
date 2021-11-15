@@ -135,9 +135,9 @@ void	ft_new_pipe(t_env *data)
 					close(p[i - 1][1]);
 					dup2(p[i - 1][0], 0);
 					//команда для чпроверки наша или нет
-					execve(cmd, iter->args, data->envp);//ls, [{ls}]
+					execve(cmd, iter->exec_args, data->envp);//ls, [{ls}]
 				}
-				if ((execve(cmd, iter->args, data->envp)) == -1)
+				if ((execve(cmd, iter->exec_args, data->envp)) == -1)
 					kill(pid[i], SIGTERM);
 			}
 			// data->cmds->args = data->cmds->next;

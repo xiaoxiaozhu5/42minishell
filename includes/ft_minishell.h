@@ -171,7 +171,7 @@ int	ft_get_pwd(t_data *data);
 
 
 int	**arr_of_fd_and_pids(int count_pipes, int **arr_pid);
-
+void	choose_redirrect(t_env *a);
 
 void	ft_new_pipe(t_env *data);
 #endif
