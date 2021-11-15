@@ -22,8 +22,8 @@ void	ft_process(t_env *env)
 
 	// ft_new_pipe(env);
 	// t_node *iter;
-	if (env->cmds->command != NULL)
-		ft_new_pipe(env);
+//	if (env->cmds->command != NULL)
+//		ft_new_pipe(env);
 	// iter = env->cmds;
 	// while (iter)
 	// {
