@@ -22,9 +22,12 @@ void	ft_process(t_env *env)
 
 	// ft_new_pipe(env);
 	// t_node *iter;
+	t_redir *redir;
+
+	redir = env->cmds->redirs;
 	if (env->cmds->command != NULL && env->n_pipes > 0)
 		ft_new_pipe(env);
-	else
+	else if (redir != NULL)
 	{
 		choose_redirrect(env);
 	}
