@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strscopy.c                                      :+:      :+:    :+:   */
+/*   ft_strsjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:36:28 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/14 14:25:37 by                  ###   ########.fr       */
+/*   Updated: 2021/11/14 15:22:24 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_strscopy(char **strs)
+char	**ft_strsjoin(char **strs1, char **strs2)
 {
-	int		strs_n;
+	int		n;
 	int		i;
+	int		j;
 	char	**result;
 
-	strs_n = 0;
-	while (strs[strs_n])
-		strs_n++;
-	result = malloc(sizeof(char *) * (strs_n + 1));
+	n = ft_strslen(strs1) + ft_strslen(strs2);
+	result = malloc(sizeof(char *) * (n + 1));
 	if (!result)
 		return (0);
 	i = 0;
-	while (strs[i])
-	{
-		result[i] = ft_strdup(strs[i]);
-		i++;
-	}
+	j = 0;
+	while (strs1[j])
+		result[i++] = ft_strdup(strs1[j++]);
+	j = 0;
+	while (strs2[j])
+		result[i++] = ft_strdup(strs2[j++]);
 	result[i] = 0;
 	return (result);
 }

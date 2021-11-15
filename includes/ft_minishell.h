@@ -34,8 +34,9 @@ typedef struct s_node
 	void	*next;
 	void	*redirs;
 	char	*command;
-	char	*flags;
+	char	**flags;
 	char	**args;
+	char	**exec_args;
 	char	c_end;
 }	t_node;
 
@@ -109,8 +110,9 @@ char	*ft_unusual_dollar(char *input, t_env *env, int *i);
 void	ft_build_cmds(t_node **cmds, char *input);
 t_node	*ft_build_cmd(char *input, int *start, int *end);
 
-// Builder Cleaner
+// Cleaners
 void	ft_clear_cmds(t_env *env);
+void	ft_destroy_env(t_env *env);
 
 // Builder Utilities
 int		ft_find_flags_length(const char *str, int i);
@@ -133,6 +135,8 @@ void	ft_unset(t_node *node, t_env *env);
 void	ft_pwd(t_env *env);
 void	ft_cd(t_node *node, t_env *env);
 void	ft_echo(t_node *node, t_env *env);
+void	ft_env(t_env *env);
+void	ft_exit(t_env *env);
 
 // Envp Utils
 char	*ft_get_key(const char *key_value);
@@ -151,8 +155,8 @@ void	ft_strerror(const char *error_msg1, const char *error_msg2);
 int		ft_is_split(const char *input, int i);
 int		ft_next_word_starts_with(const char *str, const char *set, int s);
 
-// Helper
-int		ft_find_flag(char **flags, char *flag);
+// Execution Arguments
+void	ft_exec_args(t_node *node);
 
 // Redir utilities
 int		ft_cmp(char *s1, char *s2);

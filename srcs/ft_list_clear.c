@@ -31,7 +31,9 @@ void	ft_clear_nodes(t_node **lst)
 		if (temp->command)
 			free(temp->command);
 		if (temp->flags)
-			free(temp->flags);
+			ft_strsfree(temp->flags);
+		if (temp->exec_args)
+			ft_strsfree(temp->exec_args);
 		if (temp->args)
 			ft_strsfree(temp->args);
 		free(temp);

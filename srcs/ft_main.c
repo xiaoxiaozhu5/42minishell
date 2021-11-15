@@ -2,6 +2,7 @@
 
 void	ft_destroy_env(t_env *env)
 {
+	ft_clear_cmds(env);
 	ft_strsfree(env->envp);
 	ft_strsfree(env->execve_paths);
 	free(env);

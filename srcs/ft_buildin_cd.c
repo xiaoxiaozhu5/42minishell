@@ -48,17 +48,17 @@ void	ft_cd(t_node *node, t_env *env)
 {
 	char	*path;
 
-	if ((!node->args[1]) || ft_strcmp(node->args[1], "~") == 0)
+	if (!node->args || ft_strcmp(node->args[0], "~") == 0)
 	{
 		ft_set_home(env);
 		return ;
 	}
-	else if (ft_strcmp(node->args[1], "-") == 0)
+	else if (ft_strcmp(node->args[0], "-") == 0)
 	{
 		path = ft_get_value("OLDPWD", env->envp);
 		ft_update_pwd(env, path);
 		free(path);
 	}
 	else
-		ft_update_pwd(env, node->args[1]);
+		ft_update_pwd(env, node->args[0]);
 }
