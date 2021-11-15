@@ -87,6 +87,9 @@ typedef struct s_echo_data
 	int		redirect_0;
 }t_data;
 
+// Welcome Message
+void	ft_welcome(void);
+
 // External Libs
 void rl_replace_line(const char *text, int clear_undo);
 

@@ -10,6 +10,7 @@ LFLAGS = -lreadline -L/Users/kricky/.brew/opt/readline/lib
 NAME = minishell
 
 SRCS = srcs/ft_main.c \
+	srcs/ft_welcome.c \
 	srcs/ft_parser.c \
 	srcs/ft_history.c \
 	srcs/ft_preprocess.c \
