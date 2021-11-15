@@ -60,7 +60,7 @@ void	ft_initter(t_env **env, char **envp, char **input)
 
 void ft_readline(char **input, t_env *env)
 {
-	*input = ft_strdup("ls | cat -e | cat -e");
+	*input = readline("\001\033[1;91m\00242minishell $>\001\033[0m\002 ");
 	if (!*input)
 	{
 		ft_putendl_fd("exit", 1);
@@ -79,17 +79,18 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	ft_initter(&env, envp, &input);
-	while (!input)
+	ft_welcome();
+	while (1)
 	{
 		ft_readline(&input, env);
 		if (ft_preparser(input) == 0)
 		{
 			input = ft_rm_whitespace(input);
-			printf("Formatted: [%s]\n", input);
+			//printf("Formatted: [%s]\n", input);
 			input = ft_parser(input, env);
-			printf("Parser: [%s]\n", input);
+			//printf("Parser: [%s]\n", input);
 			ft_build_cmds(&env->cmds, input);
-			ft_list_print(&env->cmds);
+			//ft_list_print(&env->cmds);
 			ft_preprocess(env);
 			ft_process(env);
 			ft_clear_cmds(env);
