@@ -104,16 +104,16 @@ void	choose_right(t_env *a, t_data *data, int flag)
 		right_redirrect(a, data);
 }
 
-void	ft_redir(t_env *a, t_data *data)
+void	ft_redir(t_env *a, t_node *data)
 {
 	int	red_left_or_right;
 	int	i;
 
 	i = 0;
-	if (data->redirr_type[0] == '<')
-		red_left_or_right = 1;
-	else if (data->redirr_type[0] == '>')
-		red_left_or_right = 0;
+	// if (data->redirr_type[0] == '<')
+	// 	red_left_or_right = 1;
+	// else if (data->redirr_type[0] == '>')
+	// 	red_left_or_right = 0;
 	choose_right(a, data, red_left_or_right);
 	
 }

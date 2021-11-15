@@ -16,7 +16,7 @@ static int	ft_next_empty(const char *str, int start)
 	return (i);
 }
 
-static int	ft_next_quote(const char *str, int start)
+static int	ft_next_q(const char *str, int start)
 {
 	int	i;
 
@@ -33,12 +33,12 @@ static int	ft_nbr_args(const char *args)
 
 	i = 0;
 	j = 0;
-	while (args[i] != '\0' && (size_t) i < ft_strlen(args) - 1)
+	while (args[i] != '\0' && (size_t) i < ft_strlen(args))
 	{
 		if (args[i] == STRING_QUOTE)
 		{
 			j++;
-			i += ft_next_quote(args, i) - i;
+			i += ft_next_q(args, i) - i;
 		}
 		if (args[i] != ' ' && args[i] != '\t' && args[i] != STRING_QUOTE)
 		{
@@ -75,12 +75,12 @@ char	**ft_split_args(char const *args)
 	strs = malloc(sizeof(char *) * (ft_nbr_args(args) + 2));
 	if (!strs)
 		return (0);
-	while (args[i] != '\0' && (size_t) i < ft_strlen(args) - 1)
+	while (args[i] != '\0' && (size_t) i < ft_strlen(args))
 	{
 		if (args[i] == STRING_QUOTE)
 		{
-			strs[j++] = ft_substr_q(args, i, ft_next_quote(args, i) - i + 1);
-			i += ft_next_quote(args, i) - i;
+			strs[j++] = ft_substr_q(args, i, ft_next_q(args, i) - i + 1);
+			i += ft_next_q(args, i) - i;
 		}
 		if (args[i] != ' ' && args[i] != '\t' && args[i] != STRING_QUOTE)
 		{

@@ -11,11 +11,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/param.h>
+# include <string.h>
+# include <errno.h>
 
 // Constants
 # define SHELL_NAME				"42minishell"
 # define ERROR_UNEXPECTED_TOKEN	"syntax error near unexpected token"
-# define ERROR_CMD_FAIL			"command not found"
+# define ERROR_CMD_NOT_FOUND	"command not found"
 # define ERROR_IDENTIFIER		"not a valid identifier"
 # define ERROR_HOMELESS			"home path does not exist"
 # define STRING_QUOTE			'*'
@@ -130,6 +132,7 @@ void	ft_export(t_node *node, t_env *env);
 void	ft_unset(t_node *node, t_env *env);
 void	ft_pwd(t_env *env);
 void	ft_cd(t_node *node, t_env *env);
+void	ft_echo(t_node *node, t_env *env);
 
 // Envp Utils
 char	*ft_get_key(const char *key_value);
@@ -142,16 +145,17 @@ int		ft_error_unexpected_token(char token);
 void	ft_error_cmd_fail(const char *cmd_name);
 void	ft_error_identifier(const char *cmd_name, char identifier);
 void	ft_error_homeless(const char *cmd_name);
+void	ft_strerror(const char *error_msg1, const char *error_msg2);
 
 // Utils
 int		ft_is_split(const char *input, int i);
 int		ft_next_word_starts_with(const char *str, const char *set, int s);
 
+// Helper
+int		ft_find_flag(char **flags, char *flag);
+
 // Redir utilities
 int		ft_cmp(char *s1, char *s2);
-//echo
-char	*ft_echo(t_data *data);
-
 
 int		fill_env_path(t_data *data, char **env);
 

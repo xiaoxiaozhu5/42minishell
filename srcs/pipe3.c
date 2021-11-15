@@ -51,35 +51,57 @@ typedef struct pid_s
 	int		status;
 } pidt;
 
+static int **allocate_ar_of_fds_and_pid(int n_pipes, int **pid)
+{
+	int	**fds;
+	int	i;
+
+	i = 0;
+	fds = malloc(sizeof(int *) * (n_pipes + 1));
+	if (!fds)
+		return (NULL);
+	while (i < n_pipes)
+	{
+		fds[i] = (int *) malloc(sizeof (int) * 2);
+		if (!fds[i])
+			return (NULL);
+		pipe(fds[i]);
+		i++;
+	}
+	fds[i] = (int *) malloc(sizeof (int) * 2);
+	*pid = (int *)malloc(sizeof(int) * (n_pipes + 1));
+	return(fds);
+}
 
 void	ft_new_pipe(t_env *data)
 {
-	int	p[2][2];
+	int	**p;
 
-	pipe(p[0]);
-	pipe(p[1]);
-	pid_t	pid[2];
+	// pipe(p[0]);
+	// pipe(p[1]);
+	int	*pid;
 	int	i = 0;
 	char *cmd;
 	int		pipes;
 	t_node *iter;
-
+	p = allocate_ar_of_fds_and_pid(data->n_pipes, &pid);
 	iter = data->cmds;
 	pipes = data->n_pipes;
-	//ТЕСТ
 
-	// int r = 0;
-	// while (data->execve_paths[r])
+	//ТЕСТ
+	// char **new_str;
+	// char *just_str;
+	// just_str = getenv("PATH");
+	// new_str = ft_split(just_str, ':');
+	// int j = -1;
+	// while (new_str[++j] != NULL)
 	// {
-	// 	puts(data->execve_paths[r++]);
+	// 	new_str[j] = ft_strjoin(new_str[j], "/");
+	// 	puts(new_str[j]);
 	// }
-	
+	//дописал пару строк для своего 2д пафа пусть пока будет
 	//ТЕСТ КОНЕЦ
-				int r = 0;
-				while (data->execve_paths[r])
-				{
-					puts(data->execve_paths[r++]);
-				}	
+
 	while(i <= pipes)
 	{
 		pid[i] = fork();
@@ -90,27 +112,34 @@ void	ft_new_pipe(t_env *data)
 		}
 		if (pid[i] == 0)
 		{	
-			if (pid[i] == 0 && i == 0)
+			if (iter->redirs != NULL)
 			{
-				close(p[i][0]);
-				dup2(p[i][1], 1);
+				ft_redir(data, iter);				
 			}
-			else if (i != pipes)
+			else
 			{
-				close(p[i - 1][1]);
-				dup2(p[i - 1][0], 0);
-				close(p[i][0]);
-				dup2(p[i][1], 1);
+				if (pid[i] == 0 && i == 0)
+				{
+					close(p[i][0]);
+					dup2(p[i][1], 1);
+				}
+				else if (i != pipes)
+				{
+					close(p[i - 1][1]);
+					dup2(p[i - 1][0], 0);
+					close(p[i][0]);
+					dup2(p[i][1], 1);
+				}
+				else if (i == pipes)
+				{
+					close(p[i - 1][1]);
+					dup2(p[i - 1][0], 0);
+					//команда для чпроверки наша или нет
+					execve(cmd, iter->args, data->envp);//ls, [{ls}]
+				}
+				if ((execve(cmd, iter->args, data->envp)) == -1)
+					kill(pid[i], SIGTERM);
 			}
-			else if (i == pipes)
-			{
-				close(p[i - 1][1]);
-				dup2(p[i - 1][0], 0);
-				//команда для чпроверки наша или нет
-				execve(cmd, iter->args, data->envp);//ls, [{ls}]
-			}
-			if ((execve(cmd, iter->args, data->envp)) == -1)
-				kill(pid[i], SIGTERM);
 			// data->cmds->args = data->cmds->next;
 		}
 		iter = iter->next;

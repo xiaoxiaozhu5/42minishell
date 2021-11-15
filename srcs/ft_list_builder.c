@@ -18,7 +18,7 @@ int	ft_find_command(t_node *new_node, char *input, int *start, int *end)
 			in_qts = !in_qts;
 		}
 		else if (is_alpha_begins && !in_qts && (!input[k]
-				|| input[k] == ' ' || input[k] == '\t' || input[k] == '|'))
+												|| input[k] == ' ' || input[k] == '\t' || input[k] == '|'))
 			new_node->command = ft_substr(input, *start, k - *start);
 		if (input[k] && input[k] != ' ' && input[k] != '\t')
 			is_alpha_begins = 1;
@@ -40,7 +40,7 @@ int	ft_find_flags(t_node *new_node, char *input, int *start, int *end)
 		if (input[k] == '-' && input[k + 1])
 		{
 			if (!(input[k + 1] == ' ' || input[k + 1] == '\t'
-					|| ft_str_find_in_word(input, '-', k + 1)))
+				  || ft_str_find_in_word(input, '-', k + 1)))
 			{
 				l = ft_find_flags_length(input, k);
 				new_node->flags = ft_substr(input, k, l);
@@ -68,6 +68,8 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 			l = ft_args_end(input, *start, *end);
 			args_not_splitted = ft_substr(input, k, l - k);
 			new_node->args = ft_split_args(args_not_splitted);
+			if (new_node->command)
+				new_node->args[0] = ft_strdup(new_node->command);
 			free(args_not_splitted);
 			return (l);
 		}
@@ -107,11 +109,11 @@ t_node	*ft_build_cmd(char *input, int *start, int *end)
 	*start = ft_find_redirs(new_node, input, start, end);
 	*start = *end + 1;
 	new_node->c_end = input[*end];
-	if (!new_node->args && new_node->command)
+	if (new_node->command && !new_node->args)
 	{
 		new_node->args = malloc(sizeof(char *) * 2);
+		new_node->args[0] = ft_strdup(new_node->command);
 		new_node->args[1] = 0;
 	}
-	new_node->args[0] = ft_strdup(new_node->command);
 	return (new_node);
 }

@@ -60,7 +60,7 @@ void	ft_pipe(t_data *data, char ***arg)
 	pipes = 0;
 	if (data->pipe != 0)
 	{
-		arfds = arr_of_fd_and_pids(1, &pid_s);
+		arfds = arr_of_fd_and_pids(data->count_pipes, &pid_s);
 		while (pipes < al_pipes)
 		{
 			pid_s[pipes] = fork();
