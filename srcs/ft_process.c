@@ -19,10 +19,19 @@ void	ft_process(t_env *env)
 		ft_exit(env);
 
 	// printf("n pipes %d\n", env->n_pipes);
+	t_node *to_modify;
 
-
-	// if (env->cmds->command != NULL && env->n_pipes > 0)
+	to_modify = env->cmds;
+	while (to_modify != NULL)
+	{
+		to_modify->command
+	}
+	if (env->cmds->command != NULL && env->n_pipes > 0)
 		ft_new_pipe(env);
+	else
+	{
+
+	}
 
 	t_redir *redir;
 	char *cmd;
@@ -33,16 +42,8 @@ void	ft_process(t_env *env)
 	pid = fork();
 	if (pid == 0)
 	{
-		make_redirrect(env->cmds);
+		make_redirrect(env->cmds, env);
 		execve(cmd, env->cmds->exec_args, env->envp);
 	}
 	waitpid(0, 0, 0);
-	// dup2(env->cmds->fds[0], env->cmds->redir_0);
-	// dup2(env->cmds->fds[1], env->cmds->redir_1);
-	// dup2(0, env->cmds->redir_0);
-	// close(env->cmds->redir_1);
-	printf("%d	%d\n",env->cmds->redir_1, env->cmds->redir_0);
-	// close(env->cmds->redir_0);
-	// dup2(1, env->cmds->redir_1);
-	// dup2(0,env->cmds->redir_0);	
 }

@@ -138,7 +138,10 @@ void	ft_new_pipe(t_env *data)
 					execve(cmd, iter->exec_args, data->envp);//ls, [{ls}]
 				}
 				if ((execve(cmd, iter->exec_args, data->envp)) == -1)
+				{
+					//твои билдины
 					kill(pid[i], SIGTERM);
+				}
 			}
 			// data->cmds->args = data->cmds->next;
 		}
