@@ -38,7 +38,7 @@ typedef struct s_node
 	char	c_end;
 	int		redir_1;
 	int		redir_0;
-	int		fds[2];
+	char	*path_command;
 }	t_node;
 
 typedef struct s_redir

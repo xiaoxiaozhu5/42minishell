@@ -81,7 +81,7 @@ void	ft_new_pipe(t_env *data)
 	// pipe(p[1]);
 	int	*pid;
 	int	i = 0;
-	char *cmd;
+	// char *cmd;
 	int		pipes;
 	t_node *iter;
 	p = allocate_ar_of_fds_and_pid(data->n_pipes, &pid);
@@ -105,7 +105,7 @@ void	ft_new_pipe(t_env *data)
 	while(i <= pipes)
 	{
 		pid[i] = fork();
-		cmd = ft_strdup(find_path1(data, iter));
+		// cmd = ft_strdup(find_path1(data, iter));
 		if (pid[i] > 0)
 		{
 			close(p[i][1]);
@@ -134,21 +134,23 @@ void	ft_new_pipe(t_env *data)
 				{
 					close(p[i - 1][1]);
 					dup2(p[i - 1][0], 0);
-					//команда для чпроверки наша или нет
-					execve(cmd, iter->exec_args, data->envp);//ls, [{ls}]
+					puts(iter->path_command);
+					ft_execve(data, iter);
 				}
-				if ((execve(cmd, iter->exec_args, data->envp)) == -1)
-				{
-					//твои билдины
-					kill(pid[i], SIGTERM);
-				}
+				
+				if ((ft_execve(data, iter)) == -1)
 			}
-			// data->cmds->args = data->cmds->next;
 		}
 		iter = iter->next;
 		i++;
 		// wait(NULL);
 	}
+	while(i--)
+	{
+		puts("ASSS");
+		waitpid(0,0,0);
+	}
+	puts("OKK");
 // int ier = 0;
 
 // while (ier < 3)

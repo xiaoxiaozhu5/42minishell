@@ -225,7 +225,7 @@ static void choose_redirrect(t_redir *redirs, t_node *cmd)
 void	make_redirrect(t_node *cur_cmd, t_env *env)
 {
 	t_redir	*redirs;
-
+	(void)env;
 	redirs = (t_redir *)cur_cmd->redirs;
 	while (redirs != NULL)
 	{
