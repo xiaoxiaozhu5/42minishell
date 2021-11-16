@@ -145,9 +145,10 @@
 static void simple_right(t_redir *redir, t_node *cmd_info)
 {
 	int	fd;
-
+	// (void)cmd_info;
 	fd = open(redir->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	dup2(fd, cmd_info->redir_1);//(1)
+	// dup2(0, fd);
 }
 
 static void double_right(t_redir *redir, t_node *cmd_info)
@@ -197,7 +198,7 @@ static int double_left(t_redir *redir, t_node *cmd_info)
 		exit(-1);
 	}
 	waitpid(-1, 0, 0);
-	dup2(cmd_info->redir_1, 1);
+	dup2(cmd_info->redir_1, cmd_info->fds[1]);
 	return 1;
 }
 

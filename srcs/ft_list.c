@@ -16,6 +16,8 @@ t_node	*ft_node_create(void)
 	new->c_end = '\0';
 	new->redir_0 = 0;
 	new->redir_1 = 1;
+	new->fds[0] = 0;
+	new->fds[1] = 1;
 	return (new);
 }
 

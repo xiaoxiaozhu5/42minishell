@@ -40,6 +40,7 @@ typedef struct s_node
 	char	c_end;
 	int		redir_1;
 	int		redir_0;
+	int		fds[2];
 }	t_node;
 
 typedef struct s_redir
