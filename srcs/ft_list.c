@@ -13,6 +13,8 @@ t_node	*ft_node_create(void)
 	new->flags = NULL;
 	new->args = NULL;
 	new->c_end = '\0';
+	new->redir_0 = 0;
+	new->redir_1 = 1;
 	return (new);
 }
 

@@ -38,6 +38,8 @@ typedef struct s_node
 	char	**args;
 	char	**exec_args;
 	char	c_end;
+	int		redir_1;
+	int		redir_0;
 }	t_node;
 
 typedef struct s_redir
@@ -174,7 +176,7 @@ int	ft_get_pwd(t_data *data);
 
 
 int	**arr_of_fd_and_pids(int count_pipes, int **arr_pid);
-void	choose_redirrect(t_env *a);
-
+void	make_redirrect(t_node *cur_cmd);
+char *find_path1(t_env *data, t_node *iter);
 void	ft_new_pipe(t_env *data);
 #endif
