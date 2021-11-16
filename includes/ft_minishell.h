@@ -26,8 +26,6 @@
 # define REDIRECT_DOUBLE_LEFT	0b00000100
 # define REDIRECT_DOUBLE_RIGHT	0b00001000
 
-// Typedefs
-
 // Structures
 typedef struct s_node
 {
@@ -93,8 +91,8 @@ typedef struct s_echo_data
 // Welcome Message
 void	ft_welcome(void);
 
-// External Libs
-void rl_replace_line(const char *text, int clear_undo);
+// External functions
+void	rl_replace_line(const char *text, int clear_undo);
 
 // Lists
 t_node	*ft_node_create();

@@ -5,7 +5,7 @@ INCLUDES = ft_minishell.h
 LIBFT_FOLDER = libft
 LIBFT_ARCHIVE = libft.a
 CFLAGS = -Wall -Wextra -Werror -I$(INC) -I$(LIBFT_FOLDER) -g
-LFLAGS = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+LFLAGS = -lreadline -L ~/.brew/opt/readline/lib -I~/.brew/opt/readline/include/readline/
 
 NAME = minishell
 
