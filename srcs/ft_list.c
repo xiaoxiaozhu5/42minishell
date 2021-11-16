@@ -7,11 +7,12 @@ t_node	*ft_node_create(void)
 	new = malloc(sizeof(t_node));
 	if (!new)
 		return (0);
-	new->next = NULL;
-	new->redirs = NULL;
-	new->command = NULL;
-	new->flags = NULL;
-	new->args = NULL;
+	new->next = 0;
+	new->redirs = 0;
+	new->command = 0;
+	new->flags = 0;
+	new->args = 0;
+	new->exec_args = 0;
 	new->c_end = '\0';
 	new->redir_0 = 0;
 	new->redir_1 = 1;
@@ -25,9 +26,9 @@ t_redir	*ft_node_redir_create(void)
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return (0);
-	new->next = NULL;
+	new->next = 0;
 	new->type = 0;
-	new->value = NULL;
+	new->value = 0;
 	return (new);
 }
 
