@@ -88,36 +88,21 @@ void	ft_new_pipe(t_env *data)
 	iter = data->cmds;
 	pipes = data->n_pipes;
 
-	//ТЕСТ
-	// char **new_str;
-	// char *just_str;
-	// just_str = getenv("PATH");
-	// new_str = ft_split(just_str, ':');
-	// int j = -1;
-	// while (new_str[++j] != NULL)
-	// {
-	// 	new_str[j] = ft_strjoin(new_str[j], "/");
-	// 	puts(new_str[j]);
-	// }
-	//дописал пару строк для своего 2д пафа пусть пока будет
-	//ТЕСТ КОНЕЦ
-
 	while(i <= pipes)
 	{
 		pid[i] = fork();
-		// cmd = ft_strdup(find_path1(data, iter));
 		if (pid[i] > 0)
 		{
 			close(p[i][1]);
 		}
 		if (pid[i] == 0)
 		{	
-			if (iter->redirs != NULL)
-			{
-				//ft_redir(data, iter);
-			}
-			else
-			{
+			// if (iter->redirs != NULL)
+			// {
+			// 	//ft_redir(data, iter);
+			// }
+			// else
+			// {
 				if (pid[i] == 0 && i == 0)
 				{
 					close(p[i][0]);
@@ -134,12 +119,12 @@ void	ft_new_pipe(t_env *data)
 				{
 					close(p[i - 1][1]);
 					dup2(p[i - 1][0], 0);
-					puts(iter->path_command);
 					ft_execve(data, iter);
 				}
 				
 				if ((ft_execve(data, iter)) == -1)
-			}
+					kill(pid[i], 0);
+			// }
 		}
 		iter = iter->next;
 		i++;
@@ -147,10 +132,8 @@ void	ft_new_pipe(t_env *data)
 	}
 	while(i--)
 	{
-		puts("ASSS");
 		waitpid(0,0,0);
 	}
-	puts("OKK");
 // int ier = 0;
 
 // while (ier < 3)

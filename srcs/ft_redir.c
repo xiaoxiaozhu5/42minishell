@@ -198,7 +198,7 @@ static int double_left(t_redir *redir, t_node *cmd_info)
 		exit(-1);
 	}
 	waitpid(-1, 0, 0);
-	dup2(cmd_info->redir_1, cmd_info->fds[1]);
+	dup2(cmd_info->redir_1, 1);
 	return 1;
 }
 
@@ -225,8 +225,10 @@ static void choose_redirrect(t_redir *redirs, t_node *cmd)
 void	make_redirrect(t_node *cur_cmd, t_env *env)
 {
 	t_redir	*redirs;
+	// int pid;
 	(void)env;
 	redirs = (t_redir *)cur_cmd->redirs;
+	
 	while (redirs != NULL)
 	{
 		choose_redirrect(redirs, cur_cmd);

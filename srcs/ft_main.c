@@ -60,7 +60,8 @@ void	ft_initter(t_env **env, char **envp, char **input)
 
 void ft_readline(char **input, t_env *env)
 {
-	*input = readline("\001\033[1;91m\00242minishell $>\001\033[0m\002 ");
+	// *input = readline("\001\033[1;91m\00242minishell $>\001\033[0m\002 ");
+	*input = "ls -a > 1 > 2";
 	if (!*input)
 	{
 		ft_putendl_fd("exit", 1);
@@ -79,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	ft_initter(&env, envp, &input);
-	ft_welcome();
+	// ft_welcome();
 	while (1)
 	{
 		ft_readline(&input, env);
@@ -95,6 +96,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_process(env);
 			ft_clear_cmds(env);
 		}
+		// sleep(20);
 		free(input);
 	}
 	ft_destroy_env(env);
