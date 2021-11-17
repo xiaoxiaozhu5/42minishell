@@ -97,16 +97,20 @@ void	ft_new_pipe(t_env *data)
 		}
 		if (pid[i] == 0)
 		{	
-			// if (iter->redirs != NULL)
-			// {
-			// 	//ft_redir(data, iter);
-			// }
+			if (iter->redirs != NULL)
+			{
+				make_redirrect(iter, data);
+			}
 			// else
 			// {
 				if (pid[i] == 0 && i == 0)
 				{
 					close(p[i][0]);
 					dup2(p[i][1], 1);
+					if (iter->redirs != NULL)
+						{
+							make_redirrect(iter, data);
+						}
 				}
 				else if (i != pipes)
 				{
@@ -114,11 +118,19 @@ void	ft_new_pipe(t_env *data)
 					dup2(p[i - 1][0], 0);
 					close(p[i][0]);
 					dup2(p[i][1], 1);
+					if (iter->redirs != NULL)
+						{
+							make_redirrect(iter, data);
+						}
 				}
 				else if (i == pipes)
 				{
 					close(p[i - 1][1]);
 					dup2(p[i - 1][0], 0);
+					if (iter->redirs != NULL)
+						{
+							make_redirrect(iter, data);
+						}
 					ft_execve(data, iter);
 				}
 				

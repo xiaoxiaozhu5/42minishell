@@ -214,7 +214,10 @@ static void choose_redirrect(t_redir *redirs, t_node *cmd)
 	}
 	else if (redirs->type == REDIRECT_LEFT)
 	{
-		simple_left(redirs, cmd);
+		if (simple_left(redirs, cmd) == -1)
+		{
+			exit(0);
+		}
 	}
 	else if (redirs->type == REDIRECT_DOUBLE_LEFT)
 	{
@@ -228,10 +231,18 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 	// int pid;
 	(void)env;
 	redirs = (t_redir *)cur_cmd->redirs;
-	
-	while (redirs != NULL)
+	int pid;
+
+	pid = fork();
+	if (pid == 0)
 	{
-		choose_redirrect(redirs, cur_cmd);
-		redirs = (t_redir *)redirs->next;
+		while (redirs != NULL)
+		{
+			choose_redirrect(redirs, cur_cmd);
+			redirs = (t_redir *)redirs->next;
+		}
+		ft_execve(env, cur_cmd);
 	}
+	waitpid(0,0,0);
+	exit(0);
 }

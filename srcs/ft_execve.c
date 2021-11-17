@@ -45,7 +45,7 @@ void	ft_execve_buildin_2(t_env *env, t_node *node)
 
 int	ft_execve(t_env *env, t_node *node)
 {
-	// ft_execve_buildin_1(env, node);
-	// ft_execve_buildin_2(env, node);
+	ft_execve_buildin_1(env, node);
+	ft_execve_buildin_2(env, node);
 	return (execve(node->path_command, node->exec_args, env->envp));
 }

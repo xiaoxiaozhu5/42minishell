@@ -60,8 +60,8 @@ void	ft_initter(t_env **env, char **envp, char **input)
 
 void ft_readline(char **input, t_env *env)
 {
-	// *input = readline("\001\033[1;91m\00242minishell $>\001\033[0m\002 ");
-	*input = "ls -a > 1 > 2";
+	*input = readline("\001\033[1;91m\00242minishell $>\001\033[0m\002 ");
+	// *input = ft_strdup("ls >> 1 > 2|pwd | cat -e");
 	if (!*input)
 	{
 		ft_putendl_fd("exit", 1);
@@ -96,8 +96,8 @@ int	main(int argc, char **argv, char **envp)
 			ft_process(env);
 			ft_clear_cmds(env);
 		}
-		// sleep(20);
 		free(input);
+		// sleep(20);
 	}
 	ft_destroy_env(env);
 	// TODO remove -g
