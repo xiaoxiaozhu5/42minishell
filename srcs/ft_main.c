@@ -64,7 +64,7 @@ void ft_readline(char **input, t_env *env)
 	// *input = ft_strdup("ls >> 1 > 2|pwd | cat -e");
 	if (!*input)
 	{
-		ft_putendl_fd("exit", 1);
+		// ft_putendl_fd("exit", 1);
 		ft_clear_cmds(env);
 		ft_destroy_env(env);
 		exit(1);

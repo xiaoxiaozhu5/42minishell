@@ -77,17 +77,13 @@ void	ft_new_pipe(t_env *data)
 {
 	int	**p;
 
-	// pipe(p[0]);
-	// pipe(p[1]);
 	int	*pid;
-	int	i = 0;
-	// char *cmd;
+	int		i = 0;
 	int		pipes;
 	t_node *iter;
 	p = allocate_ar_of_fds_and_pid(data->n_pipes, &pid);
 	iter = data->cmds;
 	pipes = data->n_pipes;
-
 	while(i <= pipes)
 	{
 		pid[i] = fork();
@@ -95,22 +91,18 @@ void	ft_new_pipe(t_env *data)
 		{
 			close(p[i][1]);
 		}
-		if (pid[i] == 0)
+		else if (pid[i] == 0)
 		{	
 			if (iter->redirs != NULL)
 			{
-				make_redirrect(iter, data);
+					make_redirrect(iter, data);
 			}
-			// else
-			// {
+			else
+			{
 				if (pid[i] == 0 && i == 0)
 				{
 					close(p[i][0]);
 					dup2(p[i][1], 1);
-					if (iter->redirs != NULL)
-						{
-							make_redirrect(iter, data);
-						}
 				}
 				else if (i != pipes)
 				{
@@ -118,34 +110,25 @@ void	ft_new_pipe(t_env *data)
 					dup2(p[i - 1][0], 0);
 					close(p[i][0]);
 					dup2(p[i][1], 1);
-					if (iter->redirs != NULL)
-						{
-							make_redirrect(iter, data);
-						}
 				}
 				else if (i == pipes)
 				{
 					close(p[i - 1][1]);
 					dup2(p[i - 1][0], 0);
-					if (iter->redirs != NULL)
-						{
-							make_redirrect(iter, data);
-						}
-					ft_execve(data, iter);
 				}
 				
 				if ((ft_execve(data, iter)) == -1)
 					kill(pid[i], 0);
-			// }
+			}
 		}
 		iter = iter->next;
 		i++;
-		// wait(NULL);
 	}
 	while(i--)
 	{
-		waitpid(0,0,0);
+		wait(0);
 	}
+	// sleep(4);
 // int ier = 0;
 
 // while (ier < 3)
