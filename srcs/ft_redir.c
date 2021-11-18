@@ -165,9 +165,7 @@ static int simple_left(t_redir *redir, t_node *cmd_info)
 	fd = open(redir->value, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		write(1, "no such file or directory: ", 29);
-		ft_putstr_fd(redir->value, 1);
-		write(1, "\n", 1);
+		dup2(cmd_info->fds[0], fd);
 		printf("%s: no such file or directory\n", redir->value);
 		return (-1);
 	}
@@ -203,6 +201,9 @@ static int simple_left(t_redir *redir, t_node *cmd_info)
 
 static void choose_redirrect(t_redir *redirs, t_node *cmd)
 {
+	// printf("%d\n", cmd->fds[1]);
+	// dup(cmd->fds[1]);
+	// printf("%d\n",cmd->fds[1]);
 	if (redirs->type == REDIRECT_RIGHT)
 	{
 		simple_right(redirs, cmd);
