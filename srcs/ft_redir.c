@@ -145,7 +145,6 @@
 static void simple_right(t_redir *redir, t_node *cmd_info)
 {
 	int	fd;
-	// (void)cmd_info;
 	fd = open(redir->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	dup2(fd, cmd_info->redir_1);//(1)
 	// dup2(0, fd);
@@ -174,33 +173,33 @@ static int simple_left(t_redir *redir, t_node *cmd_info)
 	}
 	else
 	{
-		dup2(cmd_info->redir_0, fd);
+		dup2(fd, cmd_info->redir_0);
 		return 1;
 	}
 }
 
-static int double_left(t_redir *redir, t_node *cmd_info)
-{
-	int		pid;
-	char	*heredock;
+// static int double_left(t_redir *redir, t_node *cmd_info)
+// {
+// 	int		pid;
+// 	char	*heredock;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		while (1)
-		{
-			heredock = readline("> ");
-			if ((ft_strcmp(heredock, redir->value)) == 0)
-			{
-				break;
-			}
-		}
-		exit(-1);
-	}
-	waitpid(-1, 0, 0);
-	dup2(cmd_info->redir_1, 1);
-	return 1;
-}
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		while (1)
+// 		{
+// 			heredock = readline("> ");
+// 			if ((ft_strcmp(heredock, redir->value)) == 0)
+// 			{
+// 				break;
+// 			}
+// 		}
+// 		exit(-1);
+// 	}
+// 	waitpid(-1, 0, 0);
+// 	dup2(cmd_info->redir_1, 1);
+// 	return 1;
+// }
 
 static void choose_redirrect(t_redir *redirs, t_node *cmd)
 {
@@ -219,10 +218,10 @@ static void choose_redirrect(t_redir *redirs, t_node *cmd)
 			exit(0);
 		}
 	}
-	else if (redirs->type == REDIRECT_DOUBLE_LEFT)
-	{
-		double_left(redirs, cmd);
-	}
+	// else if (redirs->type == REDIRECT_DOUBLE_LEFT)
+	// {
+	// 	double_left(redirs, cmd);
+	// }
 }
 
 void	make_redirrect(t_node *cur_cmd, t_env *env)
@@ -231,18 +230,31 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 	// int pid;
 	(void)env;
 	redirs = (t_redir *)cur_cmd->redirs;
-	int pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
+	// int pid;
+	// pid = fork();
+	// if (pid == 0)
+	// {
+	// 	while(redirs != NULL)
+	// 	{
+	// 		if (redirs->type == REDIRECT_DOUBLE_LEFT)
+	// 		{
+	// 			double_left(redirs, cur_cmd);
+	// 		}
+	// 	}
+	// 	exit(0);
+	// }
+	// waitpid(0,0,0);
+	// pid = fork();
+	// if (pid == 0)
+	// {
+		redirs = (t_redir *)cur_cmd->redirs;
 		while (redirs != NULL)
 		{
 			choose_redirrect(redirs, cur_cmd);
 			redirs = (t_redir *)redirs->next;
 		}
 		ft_execve(env, cur_cmd);
-	}
-	waitpid(0,0,0);
-	exit(0);
+		// exit(0);
+	// }
+	// waitpid(0,0,0);
 }

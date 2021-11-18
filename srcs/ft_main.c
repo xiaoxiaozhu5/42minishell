@@ -64,7 +64,7 @@ void ft_readline(char **input, t_env *env)
 	// *input = ft_strdup("ls >> 1 > 2|pwd | cat -e");
 	if (!*input)
 	{
-		// ft_putendl_fd("exit", 1);
+		ft_putendl_fd("exit", 1);
 		ft_clear_cmds(env);
 		ft_destroy_env(env);
 		exit(1);
@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 			input = ft_parser(input, env);
 			//printf("Parser: [%s]\n", input);
 			ft_build_cmds(&env->cmds, input);
-			ft_list_print(&env->cmds);
+			// ft_list_print(&env->cmds);
 			ft_preprocess(env);
 			ft_process(env);
 			ft_clear_cmds(env);

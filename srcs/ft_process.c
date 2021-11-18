@@ -2,7 +2,6 @@
 
 void	ft_process(t_env *env)
 {
-	int	pid;
 	// printf("n pipes %d\n", env->n_pipes);
 	t_node *to_modify;
 
@@ -15,17 +14,14 @@ void	ft_process(t_env *env)
 	to_modify = env->cmds;
 	if (env->cmds->command != NULL && env->n_pipes > 0)
 	{
-		pid = fork();
-		if (pid == 0)
+		// pid = fork();
+		// if (pid == 0)
 			ft_new_pipe(env);
-		waitpid(0,0,0);
+		// waitpid(0,0,0);
 	}
 	else
 	{
-		pid = fork();
-		if (pid == 0)
-			make_redirrect(to_modify, env);
-		waitpid(0,0,0);
+		make_redirrect(to_modify, env);
 	}
 	// waitpid(0, 0, 0);
 	// sleep(10);

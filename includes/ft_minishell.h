@@ -132,7 +132,7 @@ void	ft_preprocess(t_env *env);
 
 // Process
 void	ft_process(t_env *env);
-int		ft_execve(t_env *env, t_node *node);
+void	ft_execve(t_env *env, t_node *node);
 
 // Build-in(s)
 void	ft_export(t_node *node, t_env *env);
