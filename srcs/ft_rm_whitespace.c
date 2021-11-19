@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft/libft.h"
 
 static void	ft_skip_quotes(const char *input, int *i, const char c)
 {

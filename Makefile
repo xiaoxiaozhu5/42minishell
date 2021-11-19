@@ -25,6 +25,8 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_list_builder_utils.c \
 	srcs/ft_split_args.c \
 	srcs/ft_utils.c \
+	srcs/ft_rm_whitespace.c \
+	srcs/ft_strfind.c \
 	srcs/ft_envp_utils.c \
 	srcs/ft_exec_args.c \
 	srcs/ft_buildin_export.c \
@@ -35,8 +37,8 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_buildin_env.c \
 	srcs/ft_buildin_exit.c \
 	srcs/ft_execve.c \
-	srcs/pipe3.c\
-	srcs/ft_redir.c\
+	srcs/pipe3.c \
+	srcs/ft_redir.c \
 	srcs/utils.c
 
 OBJS = $(SRCS:%.c=%.o)

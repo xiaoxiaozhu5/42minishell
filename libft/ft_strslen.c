@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strslen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/01 10:36:28 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/14 14:30:39 by                  ###   ########.fr       */
+/*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/19 22:55:00 by kricky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strslen(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs[i])

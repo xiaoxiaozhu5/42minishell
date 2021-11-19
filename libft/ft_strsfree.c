@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsfree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/01 10:36:28 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/06 16:46:47 by                  ###   ########.fr       */
+/*   Created: 2021/04/16 14:22:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/19 22:55:00 by kricky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_strsfree(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs[i])

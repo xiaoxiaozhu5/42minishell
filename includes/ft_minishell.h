@@ -162,6 +162,12 @@ void	ft_strerror(const char *error_msg1, const char *error_msg2);
 // Utils
 int		ft_is_split(const char *input, int i);
 int		ft_next_word_starts_with(const char *str, const char *set, int s);
+char	*ft_rm_whitespace(char *input);
+
+// Helpers
+int		ft_str_find_alnum(char *str, int index_start);
+int		ft_str_find_in_word(char *str, char c, int start);
+char	*ft_rm_whitespace(char *input);
 
 // Execution Arguments
 void	ft_exec_args(t_node *node);
