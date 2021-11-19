@@ -155,7 +155,8 @@ static void double_right(t_redir *redir, t_node *cmd_info)
 	int	fd;
 
 	fd = open(redir->value, O_WRONLY | O_CREAT| O_APPEND, 0644);
-	dup2(cmd_info->redir_1, fd);
+	if (redir->next == NULL)
+		dup2(cmd_info->redir_1, fd);
 }
 
 static int simple_left(t_redir *redir, t_node *cmd_info)
@@ -165,7 +166,6 @@ static int simple_left(t_redir *redir, t_node *cmd_info)
 	fd = open(redir->value, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		dup2(cmd_info->fds[0], fd);
 		printf("%s: no such file or directory\n", redir->value);
 		return (-1);
 	}
@@ -228,7 +228,7 @@ static void choose_redirrect(t_redir *redirs, t_node *cmd)
 void	make_redirrect(t_node *cur_cmd, t_env *env)
 {
 	t_redir	*redirs;
-	// int pid;
+	int pid;
 	(void)env;
 	redirs = (t_redir *)cur_cmd->redirs;
 	// int pid;
@@ -245,9 +245,9 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 	// 	exit(0);
 	// }
 	// waitpid(0,0,0);
-	// pid = fork();
-	// if (pid == 0)
-	// {
+	pid = fork();
+	if (pid == 0)
+	{
 		redirs = (t_redir *)cur_cmd->redirs;
 		while (redirs != NULL)
 		{
@@ -255,7 +255,9 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 			redirs = (t_redir *)redirs->next;
 		}
 		ft_execve(env, cur_cmd);
-		// exit(0);
-	// }
-	// waitpid(0,0,0);
+		exit(0);
+	}
+	waitpid(0,0,0);
+	if (env->n_pipes > 0)
+		exit(0);
 }

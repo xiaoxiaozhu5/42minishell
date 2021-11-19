@@ -76,7 +76,7 @@ void	ft_new_pipe(t_env *data)
 		{	
 			if (iter->redirs != NULL)
 			{
-					make_redirrect(iter, data);
+				make_redirrect(iter, data);
 			}
 			else
 			{

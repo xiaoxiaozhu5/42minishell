@@ -23,6 +23,6 @@ void	ft_process(t_env *env)
 	{
 		make_redirrect(to_modify, env);
 	}
-	// waitpid(0, 0, 0);
+	waitpid(0, 0, 0);
 	// sleep(10);
 }

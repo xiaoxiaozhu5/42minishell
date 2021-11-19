@@ -62,21 +62,23 @@ int	ft_execve_buildin_2(t_env *env, t_node *node)
 
 void	ft_execve(t_env *env, t_node *node)
 {
-	int	pid;
+	// int	pid;
 
 	if (env->n_pipes > 0)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
+		// pid = fork();
+		// if (pid == 0)
+		// {
 			ft_execve_buildin_1(env, node);
 			ft_execve_buildin_2(env, node);
 			if (execve(node->path_command, node->exec_args, env->envp) == -1)
 				exit(0);
-		}
-		waitpid(0,0,0);
+		// }
+		// waitpid(0,0,0);
 		if (env->n_pipes > 0)
+		{
 			exit(0);
+		}
 	}
 	else
 	{
@@ -86,13 +88,13 @@ void	ft_execve(t_env *env, t_node *node)
 			return;
 		else
 		{
-			pid = fork();
-			if (pid == 0)
-			{
+			// pid = fork();
+			// if (pid == 0)
+			// {
 				if (execve(node->path_command, node->exec_args, env->envp) == -1)
 					exit(0);
-			}
-			waitpid(0,0,0);
+			// }
+			// waitpid(0,0,0);
 		}
 	}
 }
