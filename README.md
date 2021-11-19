@@ -2,13 +2,13 @@
 
 ### About
 
-This project is all about creating a simplified shell program that can run binaries, have a working history, built-in functionality like echo or export, and more.
+This project is all about creating a simplified shell program that can run binaries, have a working history, builtins functionality like echo or export and more.
 
 Shell capabilities:
 * Have a working History with saving after reboot.
 * Search and launch the right executable (based on the PATH variable or by using
 relative or absolute path)
-* It must implement the builtins:
+* Implements the builtins:
   * echo with option -n
   * cd with only a relative or absolute path
   * pwd with no options
@@ -16,17 +16,17 @@ relative or absolute path)
   * unset with no options
   * env with no options or arguments
   * exit with no options
-* ' inhibit all interpretation of a sequence of characters.
-* " inhibit all interpretation of a sequence of characters except for $.
+* ' inhibits all interpretation of a sequence of characters.
+* " inhibits all interpretation of a sequence of characters except for $.
 * Redirections:
-  * "<" should redirect input.
-  * ">" should redirect output.
+  * "<" redirect input.
+  * ">" redirect output.
   * "<<" read input from the current source until a line containing only the delimiter is seen.
-  * ">>" should redirect output with append mode.
+  * ">>" redirect output with append mode.
 * Pipes | the output of each command in the pipeline is connected via a pipe to the
 input of the next command.
-* Environment variables ($ followed by characters) should expand to their values.
-* $? should expand to the exit status of the most recently executed foreground
+* Environment variables ($ followed by characters) expands to their values.
+* $? expands to the exit status of the most recently executed foreground
 pipeline.
 * ctrl-C ctrl-D ctrl-\ works like in bash.
 * When interactive:
