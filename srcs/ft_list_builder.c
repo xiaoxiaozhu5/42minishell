@@ -86,7 +86,6 @@ int	ft_find_redirs(t_node *new_node, char *input, int *start, int *end)
 	if (!ft_next_redir(input, *start, *end))
 		return (*start);
 	k = *start;
-	printf("Start poiska: %d\n", k);
 	while (k < *end)
 	{
 		if (input[k] && (input[k] != ' ' && input[k] != '\t')

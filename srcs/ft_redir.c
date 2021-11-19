@@ -166,6 +166,7 @@ static int simple_left(t_redir *redir, t_node *cmd_info)
 	fd = open(redir->value, O_RDONLY, 0644);
 	if (fd == -1)
 	{
+		dup2(cmd_info->fds[1], cmd_info->redir_1);
 		printf("%s: no such file or directory\n", redir->value);
 		return (-1);
 	}
@@ -245,6 +246,8 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 	// 	exit(0);
 	// }
 	// waitpid(0,0,0);
+	cur_cmd->fds[1] = 2;
+	cur_cmd->fds[1] = dup(cur_cmd->redir_1);
 	pid = fork();
 	if (pid == 0)
 	{
