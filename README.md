@@ -21,7 +21,7 @@ relative or absolute path)
 * Redirections:
   * "<" should redirect input.
   * ">" should redirect output.
-  * "<<" read input from the current source until a line containing only the delimiter is seen. it doesn’t need to update history!
+  * "<<" read input from the current source until a line containing only the delimiter is seen.
   * ">>" should redirect output with append mode.
 * Pipes | the output of each command in the pipeline is connected via a pipe to the
 input of the next command.
