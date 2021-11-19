@@ -38,7 +38,7 @@ void	pipe_realise(t_data *data, char **cmd, int pipes, int **arfds)
 	while (data->path[i])
 	{
 		needed_cmd = ft_strjoin(data->path[i], cmd[0]);
-		puts(data->flags[0]);
+		// puts(data->flags[0]);
 
 		res = stat(needed_cmd, &buff);
 		if (res == 0 && (buff.st_mode))

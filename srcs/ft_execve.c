@@ -62,7 +62,7 @@ int	ft_execve_buildin_2(t_env *env, t_node *node)
 
 void	ft_execve(t_env *env, t_node *node)
 {
-	// int	pid;
+	int	pid;
 
 	if (env->n_pipes > 0)
 	{
@@ -88,13 +88,16 @@ void	ft_execve(t_env *env, t_node *node)
 			return;
 		else
 		{
-			// pid = fork();
-			// if (pid == 0)
-			// {
+			pid = fork();
+			if (pid == 0)
+			{
 				if (execve(node->path_command, node->exec_args, env->envp) == -1)
+				{
+					printf("Command not found!\n");
 					exit(0);
-			// }
-			// waitpid(0,0,0);
+				}
+			}
+			waitpid(0,0,0);
 		}
 	}
 }

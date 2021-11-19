@@ -248,19 +248,24 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 	// waitpid(0,0,0);
 	cur_cmd->fds[1] = 2;
 	cur_cmd->fds[1] = dup(cur_cmd->redir_1);
-	pid = fork();
-	if (pid == 0)
+	if (cur_cmd->redirs != NULL)
 	{
-		redirs = (t_redir *)cur_cmd->redirs;
-		while (redirs != NULL)
+		pid = fork();
+		if (pid == 0)
 		{
-			choose_redirrect(redirs, cur_cmd);
-			redirs = (t_redir *)redirs->next;
+			redirs = (t_redir *)cur_cmd->redirs;
+			while (redirs != NULL)
+			{
+				choose_redirrect(redirs, cur_cmd);
+				redirs = (t_redir *)redirs->next;
+			}
+			ft_execve(env, cur_cmd);
+			exit(0);
 		}
-		ft_execve(env, cur_cmd);
-		exit(0);
+		waitpid(0,0,0);
+		if (env->n_pipes > 0)
+			exit(0);
 	}
-	waitpid(0,0,0);
-	if (env->n_pipes > 0)
-		exit(0);
+	else
+		ft_execve(env, cur_cmd);
 }
