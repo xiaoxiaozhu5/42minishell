@@ -1,11 +1,4 @@
-#include "../includes/ft_minishell.h"
-#include <string.h>
-#include <sys/stat.h>
-// #include <limits.h>
-#include <sys/wait.h>
-//#define WEXITSTATUS(x)  ((_W_INT(x) >> 8) & 0x000000ff)
-int		exit_status;
-
+#include "ft_minishell.h"
 
 char *find_path1(t_env *data, t_node *iter)
 {

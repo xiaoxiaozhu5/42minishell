@@ -13,6 +13,8 @@
 # include <sys/param.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
 
 // Constants
 # define SHELL_NAME				"42minishell"
