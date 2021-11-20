@@ -169,9 +169,7 @@ char	*ft_rm_whitespace(char *input);
 // Execution Arguments
 void	ft_exec_args(t_node *node);
 
-// Redir utilities
-int		ft_cmp(char *s1, char *s2);
-
+// Redirects utilities
 int		fill_env_path(t_data *data, char **env);
 
 //		PIPE
