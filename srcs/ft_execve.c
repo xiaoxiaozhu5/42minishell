@@ -93,7 +93,7 @@ void	ft_execve(t_env *env, t_node *node)
 			{
 				if (execve(node->path_command, node->exec_args, env->envp) == -1)
 				{
-					printf("Command not found!\n");
+					ft_error_cmd_fail(node->command);
 					exit(0);
 				}
 			}
