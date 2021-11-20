@@ -155,8 +155,8 @@ static void double_right(t_redir *redir, t_node *cmd_info)
 	int	fd;
 
 	fd = open(redir->value, O_WRONLY | O_CREAT| O_APPEND, 0644);
-	if (redir->next == NULL)
-		dup2(cmd_info->redir_1, fd);
+	// if (redir->next == NULL)
+		dup2(fd,cmd_info->redir_1);
 }
 
 static int simple_left(t_redir *redir, t_node *cmd_info)
@@ -177,34 +177,40 @@ static int simple_left(t_redir *redir, t_node *cmd_info)
 	}
 }
 
-// static int double_left(t_redir *redir, t_node *cmd_info)
-// {
-// 	int		pid;
-// 	char	*heredock;
+//					HEREDOCK FIXS
 
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		while (1)
-// 		{
-// 			heredock = readline("> ");
-// 			if ((ft_strcmp(heredock, redir->value)) == 0)
-// 			{
-// 				break;
-// 			}
-// 		}
-// 		exit(-1);
-// 	}
-// 	waitpid(-1, 0, 0);
-// 	dup2(cmd_info->redir_1, 1);
-// 	return 1;
-// }
+
+static int double_left(t_redir *redir, t_node *cmd_info)
+{
+	int		pid;
+	char	*heredock;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		while (1)
+		{
+			heredock = readline("heredock> ");
+			if ((ft_strcmp(heredock, redir->value)) == 0)
+			{
+				break;
+			}
+		}
+		exit(0);
+	}
+	waitpid(0, 0, 0);
+	exit(0);
+	// dup2(cmd_info->redir_1, 1);
+	(void) cmd_info;
+	return 1;
+}
+
+
+//					HEREDOCK FIXS
+
 
 static void choose_redirrect(t_redir *redirs, t_node *cmd)
 {
-	// printf("%d\n", cmd->fds[1]);
-	// dup(cmd->fds[1]);
-	// printf("%d\n",cmd->fds[1]);
 	if (redirs->type == REDIRECT_RIGHT)
 	{
 		simple_right(redirs, cmd);
@@ -220,10 +226,6 @@ static void choose_redirrect(t_redir *redirs, t_node *cmd)
 			exit(0);
 		}
 	}
-	// else if (redirs->type == REDIRECT_DOUBLE_LEFT)
-	// {
-	// 	double_left(redirs, cmd);
-	// }
 }
 
 void	make_redirrect(t_node *cur_cmd, t_env *env)
@@ -232,7 +234,9 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 	int pid;
 	(void)env;
 	redirs = (t_redir *)cur_cmd->redirs;
-	// int pid;
+
+	//HEREDOCK FIXS
+
 	// pid = fork();
 	// if (pid == 0)
 	// {
@@ -246,6 +250,21 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 	// 	exit(0);
 	// }
 	// waitpid(0,0,0);
+	
+	while (redirs != NULL)
+	{
+		if (redirs->type == REDIRECT_DOUBLE_LEFT)
+		{
+			pid = fork();
+			if (pid == 0)
+				double_left(redirs, cur_cmd);
+			waitpid(0,0,0);
+		}
+		redirs = (t_redir *)redirs->next;
+	}
+	
+	//HEREDOCK FIXS
+	
 	cur_cmd->fds[1] = 2;
 	cur_cmd->fds[1] = dup(cur_cmd->redir_1);
 	if (cur_cmd->redirs != NULL)
