@@ -19,6 +19,8 @@ void	ft_process(t_env *env)
 	// printf("n pipes %d\n", env->n_pipes);
 	t_node *to_modify;
 
+	if (!env->cmds->command)
+		return;
 	to_modify = env->cmds;
 	// find_path12(env);
 	while (to_modify != NULL)
