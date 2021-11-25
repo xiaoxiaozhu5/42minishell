@@ -41,7 +41,6 @@ void	ft_unset_env_string(char ***envp, const char *key_value)
 	char	**exists_address;
 
 	exists_index = ft_find_key(*envp, key_value);
-	printf("Такой существует? %d\n", exists_index);
 	if (exists_index != -1)
 	{
 		last_address = ft_last_address(*envp);
