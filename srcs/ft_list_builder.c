@@ -18,7 +18,8 @@ int	ft_find_command(t_node *new_node, char *input, int *start, int *end)
 			in_qts = !in_qts;
 		}
 		else if (is_alpha_begins && !in_qts && (!input[k]
-												|| input[k] == ' ' || input[k] == '\t' || input[k] == '|'))
+			|| input[k] == ' ' || input[k] == '\t' || input[k] == '|'
+			|| input[k] == '>' || input[k] == '<'))
 			new_node->command = ft_substr(input, *start, k - *start);
 		if (input[k] && input[k] != ' ' && input[k] != '\t')
 			is_alpha_begins = 1;
