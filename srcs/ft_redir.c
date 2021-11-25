@@ -1,165 +1,22 @@
 #include "../includes/ft_minishell.h"
 
-// int	exec_cmd1(t_node *data, int fd, t_env *a)
-// {
-// 	// char	**a;
-// 	int		i;
-// 	char	*needed_cmd;
-
-// 	int	ew;
-// 	i = 0;
-// 	// int pides;
-// 	// some subj cmd//
-// 	//....//
-// 	// fd = 1;
-// 	// if (pides == 0)
-// 	// {
-// 		dup2(fd, 1);
-// 		while (a->execve_paths[i] != NULL)
-// 		{
-// 			needed_cmd = ft_strjoin(a->execve_paths[i], "/");
-// 			needed_cmd= ft_strjoin(needed_cmd, data->command);
-// 			// puts(data->flags[0]);
-// 			if ((ew = execve(needed_cmd, data->exec_args, a->envp)) == -1)
-// 				i++;
-// 			else
-// 			{
-// 				break ;
-// 			}
-// 			free(needed_cmd);
-// 			// printf("%d\n", ew);
-// 		// }
-// 		// if(pides != 0)
-// 		// {
-// 			// kill(pides, 1);
-// 		// }
-// 	}
-// 		return (0);
-// }
-
-// void	right_redirrect(t_redir *cur_redir, t_node *data)
-// {
-// 	int		fd;
-// 	int		i;
-	
-// 	// (void)a;
-// 	i = 0;
-// 		if (cur_redir->type == REDIRECT_DOUBLE_RIGHT)
-// 		{
-// 			fd = open(cur_redir->value, O_WRONLY | O_CREAT| O_APPEND, 0644);
-// 			dup2(data->redir_1, fd);
-// 		}
-// 		else
-// 		{
-// 			fd = open(cur_redir->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 			dup2(data->redir_1, fd);
-// 		}
-// 	// if (exec_cmd1(data, fd, a) == 1)
-// 	// {
-// 	// 	// write(fd, ft_echo(data), ft_strlen(data->str));
-// 	// 	//сделать для пипов
-// 	// }
-// 	// TODO переписать фдшники
-// }
-
-
-// void	left_redirrect(t_redir *cur_redir, t_node *data)
-// {
-// 	int	fd;
-// 	// int	or_or = 1;
-// 	char *heredock;
-// 	pid_t pid;
-
-
-// 	if (cur_redir->type == REDIRECT_DOUBLE_LEFT)
-// 	{
-// 		pid = fork();
-// 		if (pid == 0)
-// 		{
-// 			while (1)
-// 			{
-// 				heredock = readline("> ");
-// 				if ((ft_cmp(heredock, cur_redir->value)) == 0)
-// 				{
-// 					exec_cmd1(data, -1, a);
-// 					break;
-// 				}
-// 			}
-// 		}
-// 		else
-// 		{
-// 			kill(pid, 15);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		fd = open(cur_redir->value, O_RDONLY, 0644);
-// 		if (fd == -1)
-// 		{
-// 			write(1, "no such file or directory: ", 29);
-// 			ft_putstr_fd(cur_redir->value, 1);
-// 			write(1, "\n", 1);
-// 		}
-// 		else
-// 		{
-// 			// exec_cmd1(data, fd, a);
-// 			// execlp("ls", "-a", NULL);//нужно записать в файл результат выполнения команды
-// 		}
-// 	}
-// }
-
-// void	choose_redirrect(t_node *a, t_redir *b)
-// {
-// 	t_redir	*cur_redir;
-
-// 	cur_redir = NULL;
-	
-// 	if (b->type == REDIRECT_LEFT || b->type == REDIRECT_DOUBLE_LEFT)
-// 	{
-// 		left_redirrect(cur_redir, a);
-// 	}
-// 	else
-// 	{
-// 		puts("GOOD");
-// 		right_redirrect(cur_redir, a);
-// 	}
-// }
-
-// // void	ft_redir(t_env *a, t_node *data)
-// // {
-// // 	int	red_left_or_right;
-// // 	int	i;
-
-// // 	i = 0;
-// // 	// if (data->redirr_type[0] == '<')
-// // 	// 	red_left_or_right = 1;
-// // 	// else if (data->redirr_type[0] == '>')
-// // 	// 	red_left_or_right = 0;
-// // 	choose_right(a, data, red_left_or_right);
-	
-// // }
-
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-
-static void simple_right(t_redir *redir, t_node *cmd_info)
+static void	simple_right(t_redir *redir, t_node *cmd_info)
 {
 	int	fd;
+
 	fd = open(redir->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	dup2(fd, cmd_info->redir_1);//(1)
-	// dup2(0, fd);
+	dup2(fd, cmd_info->redir_1);
 }
 
-static void double_right(t_redir *redir, t_node *cmd_info)
+static void	double_right(t_redir *redir, t_node *cmd_info)
 {
 	int	fd;
 
-	fd = open(redir->value, O_WRONLY | O_CREAT| O_APPEND, 0644);
-	// if (redir->next == NULL)
-		dup2(fd,cmd_info->redir_1);
+	fd = open(redir->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	dup2(fd, cmd_info->redir_1);
 }
 
-static int simple_left(t_redir *redir, t_node *cmd_info)
+static int	simple_left(t_redir *redir, t_node *cmd_info)
 {
 	int	fd;
 
@@ -173,14 +30,11 @@ static int simple_left(t_redir *redir, t_node *cmd_info)
 	else
 	{
 		dup2(fd, cmd_info->redir_0);
-		return 1;
+		return (1);
 	}
 }
 
-//					HEREDOCK FIXS
-
-
-static int double_left(t_redir *redir, t_node *cmd_info)
+static int	double_left(t_redir *redir, t_node *cmd_info)
 {
 	int		pid;
 	char	*heredock;
@@ -193,23 +47,18 @@ static int double_left(t_redir *redir, t_node *cmd_info)
 			heredock = readline("heredock> ");
 			if ((ft_strcmp(heredock, redir->value)) == 0)
 			{
-				break;
+				break ;
 			}
 		}
 		exit(0);
 	}
 	waitpid(0, 0, 0);
 	exit(0);
-	// dup2(cmd_info->redir_1, 1);
 	(void) cmd_info;
-	return 1;
+	return (1);
 }
 
-
-//					HEREDOCK FIXS
-
-
-static void choose_redirrect(t_redir *redirs, t_node *cmd)
+static void	choose_redirrect(t_redir *redirs, t_node *cmd)
 {
 	if (redirs->type == REDIRECT_RIGHT)
 	{
@@ -228,29 +77,10 @@ static void choose_redirrect(t_redir *redirs, t_node *cmd)
 	}
 }
 
-void	make_redirrect(t_node *cur_cmd, t_env *env)
+static int	check_redirs(t_node *cur_cmd, t_redir	*redirs)
 {
-	t_redir	*redirs;
-	int pid;
-	(void)env;
-	redirs = (t_redir *)cur_cmd->redirs;
+	int	pid;
 
-	//HEREDOCK FIXS
-
-	// pid = fork();
-	// if (pid == 0)
-	// {
-	// 	while(redirs != NULL)
-	// 	{
-	// 		if (redirs->type == REDIRECT_DOUBLE_LEFT)
-	// 		{
-	// 			double_left(redirs, cur_cmd);
-	// 		}
-	// 	}
-	// 	exit(0);
-	// }
-	// waitpid(0,0,0);
-	
 	while (redirs != NULL)
 	{
 		if (redirs->type == REDIRECT_DOUBLE_LEFT)
@@ -258,32 +88,60 @@ void	make_redirrect(t_node *cur_cmd, t_env *env)
 			pid = fork();
 			if (pid == 0)
 				double_left(redirs, cur_cmd);
-			waitpid(0,0,0);
+			waitpid(0, 0, 0);
 		}
 		redirs = (t_redir *)redirs->next;
 	}
-	
-	//HEREDOCK FIXS
-	
+	redirs = (t_redir *)cur_cmd->redirs;
+	while (redirs != NULL)
+	{
+		if (redirs->value[0] == '\0')
+		{
+			printf("error!\n");
+			if (cur_cmd->next == NULL)
+				return (-1);
+			exit (-1);
+		}
+		redirs = (t_redir *)redirs->next;
+	}
+	return (0);
+}
+
+static void	all_redir_things(t_node *cur_cmd, t_env *env)
+{
+	t_redir	*redirs;
+	int		pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		redirs = (t_redir *)cur_cmd->redirs;
+		while (redirs != NULL)
+		{
+			choose_redirrect(redirs, cur_cmd);
+			redirs = (t_redir *)redirs->next;
+		}
+		ft_execve(env, cur_cmd);
+		exit(0);
+	}
+	waitpid(0, 0, 0);
+	if (env->n_pipes > 0)
+		exit(0);
+}
+
+void	make_redirrect(t_node *cur_cmd, t_env *env)
+{
+	t_redir	*redirs;
+
+	redirs = (t_redir *)cur_cmd->redirs;
+	if (check_redirs(cur_cmd, redirs) == -1)
+		return ;
+	redirs = (t_redir *)cur_cmd->redirs;
 	cur_cmd->fds[1] = 2;
 	cur_cmd->fds[1] = dup(cur_cmd->redir_1);
 	if (cur_cmd->redirs != NULL)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			redirs = (t_redir *)cur_cmd->redirs;
-			while (redirs != NULL)
-			{
-				choose_redirrect(redirs, cur_cmd);
-				redirs = (t_redir *)redirs->next;
-			}
-			ft_execve(env, cur_cmd);
-			exit(0);
-		}
-		waitpid(0,0,0);
-		if (env->n_pipes > 0)
-			exit(0);
+		all_redir_things(cur_cmd, env);
 	}
 	else
 		ft_execve(env, cur_cmd);
