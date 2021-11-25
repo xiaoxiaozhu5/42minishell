@@ -47,4 +47,5 @@ void	ft_clear_cmds(t_env *env)
 	ft_clear_nodes(&env->cmds);
 	env->cmds = 0;
 	env->n_pipes = 0;
+	ft_strsfree(env->execve_paths);
 }
