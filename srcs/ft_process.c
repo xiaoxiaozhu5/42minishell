@@ -37,8 +37,6 @@ void	ft_process(t_env *env)
 		ft_new_pipe(env);
 	}
 	else
-	{
 		make_redirrect(to_modify, env);
-	}
 	waitpid(0, 0, 0);
 }
