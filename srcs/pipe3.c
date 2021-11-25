@@ -8,13 +8,19 @@ char	*find_path1(t_env *data, t_node *iter)
 	int			res;
 
 	i = 0;
+	res = stat(iter->command, &buff);
+	if (res == 0 && (buff.st_mode))
+	{
+		return (iter->command);
+	}
+	needed_cmd = iter->command;
 	while (data->execve_paths[i])
 	{
-		needed_cmd = ft_strjoin(data->execve_paths[i], "/");
-		needed_cmd = ft_strjoin(needed_cmd, iter->command);
 		res = stat(needed_cmd, &buff);
 		if (res == 0 && (buff.st_mode))
 			return (needed_cmd);
+		needed_cmd = ft_strjoin(data->execve_paths[i], "/");
+		needed_cmd = ft_strjoin(needed_cmd, iter->command);
 		i++;
 	}
 	return (NULL);
