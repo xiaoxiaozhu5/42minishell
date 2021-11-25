@@ -101,14 +101,23 @@ void	ft_add_redir(t_redir **list, char *input, int *k, int *end)
 int	ft_args_end(const char *input, int start, int end)
 {
 	int	i;
+	int	in_qts;
 
 	i = start;
+	in_qts = 0;
 	while (i <= end)
 	{
-		if ((input[i] == '>' || input[i] == '<')
-			|| ((input[i] == ' ' || input[i] == '\t')
-				&& (ft_next_word_starts_with(input, "><|\0", i))))
-			return (i);
+		if (input[i] == STRING_QUOTE)
+			in_qts = !in_qts;
+		if (!in_qts)
+		{
+			if ((input[i] == '>' || input[i] == '<')
+				|| ((input[i] == ' ' || input[i] == '\t')
+					&& (ft_next_word_starts_with(input, "><|\0", i))))
+			{
+				return (i);
+			}
+		}
 		i++;
 	}
 	return (i);
