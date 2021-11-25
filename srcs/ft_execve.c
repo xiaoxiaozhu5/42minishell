@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_execve.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 13:13:14 by faggar            #+#    #+#             */
+/*   Updated: 2021/11/25 13:40:36 by faggar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 int	ft_execve_buildin_1(t_env *env, t_node *node)
@@ -64,7 +76,7 @@ void	ft_execve_p2(t_env *env, t_node *node)
 	int	pid;
 
 	if (ft_execve_buildin_1(env, node) == 1)
-			return ;
+		return ;
 	else if (ft_execve_buildin_2(env, node) == 1)
 		return ;
 	else
@@ -78,7 +90,7 @@ void	ft_execve_p2(t_env *env, t_node *node)
 				exit(0);
 			}
 		}
-		waitpid(0,0,0);
+		waitpid(0, 0, 0);
 	}
 }
 
@@ -103,3 +115,7 @@ void	ft_execve(t_env *env, t_node *node)
 			ft_execve_p2(env, node);
 	}
 }
+
+
+// /bin/ls
+// /bin/pwd

@@ -48,6 +48,7 @@ void	ft_initter(t_env **env, char **envp, char **input)
 void ft_readline(char **input, t_env *env)
 {
 	*input = readline("\001\033[1;91m\00242minishell $>\001\033[0m\002 ");
+	// *input = "bin/ls";
 	if (!*input)
 	{
 		ft_putendl_fd("exit", 1);
