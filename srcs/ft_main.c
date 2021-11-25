@@ -47,6 +47,7 @@ void	ft_initter(t_env **env, char **envp, char **input)
 
 void ft_readline(char **input, t_env *env)
 {
+	(void)env;
 	*input = readline("\001\033[1;91m\00242minishell $>\001\033[0m\002 ");
 	if (!*input)
 	{
@@ -80,6 +81,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_preprocess(env);
 			ft_process(env);
 			ft_clear_cmds(env);
+			ft_strsfree(env->execve_paths);
 		}
 		free(input);
 	}
