@@ -18,7 +18,8 @@ void	ft_process(t_env *env)
 {
 	t_node *to_modify;
 
-	
+	if (!env->cmds->command)
+		return ;
 	to_modify = env->cmds;
 	while (to_modify != NULL)
 	{
