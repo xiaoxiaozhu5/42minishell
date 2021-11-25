@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:13:14 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/25 13:40:36 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/25 15:56:16 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,3 @@ void	ft_execve(t_env *env, t_node *node)
 			ft_execve_p2(env, node);
 	}
 }
-
-
-// /bin/ls
-// /bin/pwd

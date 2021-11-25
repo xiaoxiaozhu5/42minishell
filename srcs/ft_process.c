@@ -18,8 +18,7 @@ void	ft_process(t_env *env)
 {
 	t_node *to_modify;
 
-	if (!env->cmds->command)
-		return ;
+	
 	to_modify = env->cmds;
 	while (to_modify != NULL)
 	{
@@ -41,4 +40,5 @@ void	ft_process(t_env *env)
 		make_redirrect(to_modify, env);
 	}
 	waitpid(0, 0, 0);
+	// sleep(10);
 }
