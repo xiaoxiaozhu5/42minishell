@@ -141,7 +141,7 @@ void	ft_pwd(t_env *env);
 void	ft_cd(t_node *node, t_env *env);
 void	ft_echo(t_node *node, t_env *env);
 void	ft_env(t_env *env);
-void	ft_exit(t_env *env);
+void	ft_exit(t_node *node, t_env *env);
 
 // Envp Utils
 char	*ft_get_key(const char *key_value);

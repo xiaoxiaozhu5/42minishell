@@ -51,7 +51,7 @@ int	ft_execve_buildin_2(t_env *env, t_node *node)
 	}
 	if (node->command && !ft_strcmp(node->command, "exit"))
 	{
-		ft_exit(env);
+		ft_exit(node, env);
 		if (env->n_pipes > 0)
 			exit(0);
 		return (1);
