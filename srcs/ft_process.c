@@ -18,7 +18,7 @@ void	ft_process(t_env *env)
 {
 	t_node *to_modify;
 
-
+	
 	to_modify = env->cmds;
 	while (to_modify != NULL)
 	{

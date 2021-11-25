@@ -43,7 +43,7 @@ int	ft_find_key(char **envp, const char *key_value)
 		}
 	}
 	free(key);
-	return (0);
+	return (-1);
 }
 
 void	ft_envp_replace(char **old_address, const char *key_value)
@@ -69,7 +69,7 @@ void	ft_envp_add(char ***envp, const char *key_value)
 	int	exists_index;
 
 	exists_index = ft_find_key(*envp, key_value);
-	if (exists_index)
+	if (exists_index != -1)
 		ft_envp_replace(*envp + exists_index, key_value);
 	else
 		ft_envp_update(envp, key_value);
