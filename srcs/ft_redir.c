@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 17:12:57 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/26 17:12:58 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:16:40 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static int	double_left(t_redir *redir, t_node *cmd_info)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, sigint_r);
-		signal(SIGQUIT, sigquit_r);
-		kill(0, SIGUSR1);
+		redir_sig();
 		while (1)
 		{
 			heredock = readline("heredock> ");
