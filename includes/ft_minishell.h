@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 16:22:24 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/26 17:31:18 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:38:14 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,6 @@ void	double_right(t_redir *redir, t_node *cmd_info);
 void	sigint_r(int signal);
 void	sigquit_r(int signal);
 void	redir_sig();
-void	check_heredock(t_redir *redirs, t_node *cur_cmd);
+void	check_heredock(t_redir *redirs);
 int		double_left(t_redir *redir);
 #endif
