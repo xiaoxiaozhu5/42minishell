@@ -25,6 +25,7 @@ char	*find_path1(t_env *data, t_node *iter)
 	res = stat(needed_cmd, &buff);
 	if (res == 0 && (buff.st_mode))
 		return (needed_cmd);
+	free(needed_cmd);
 	while (data->execve_paths[i])
 	{
 		temp_str = ft_strjoin(data->execve_paths[i], "/");
