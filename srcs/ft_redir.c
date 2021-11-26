@@ -30,7 +30,10 @@ static int	double_left(t_redir *redir, t_node *cmd_info)
 				exit(0);
 			}
 			if ((ft_strcmp(heredock, redir->value)) == 0)
+			{
+				free(heredock);
 				break ;
+			}
 		}
 		exit(0);
 	}
