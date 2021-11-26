@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe3.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 16:41:22 by faggar            #+#    #+#             */
+/*   Updated: 2021/11/26 16:41:23 by faggar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 char	*find_path1(t_env *data, t_node *iter)
@@ -9,7 +21,7 @@ char	*find_path1(t_env *data, t_node *iter)
 	char		*temp_str;
 
 	i = 0;
-	needed_cmd = iter->command;
+	needed_cmd = ft_strdup(iter->command);
 	res = stat(needed_cmd, &buff);
 	if (res == 0 && (buff.st_mode))
 		return (needed_cmd);
@@ -51,34 +63,34 @@ static int	**allocate_ar_of_fds_and_pid(int n_pipes, int **pid)
 	return (fds);
 }
 
-static void	close_open_things(int i, int *pid, int **p, int pipes)
+static void	close_open_things(t_lol *kek, int pipes)
 {
-	if (pid[i] == 0 && i == 0)
+	if (kek->pid[kek->i] == 0 && kek->i == 0)
 	{
-		close(p[i][0]);
-		dup2(p[i][1], 1);
+		close(kek->p[kek->i][0]);
+		dup2(kek->p[kek->i][1], 1);
 	}
-	else if (i != pipes)
+	else if (kek->i != pipes)
 	{
-		close(p[i - 1][1]);
-		dup2(p[i - 1][0], 0);
-		close(p[i][0]);
-		dup2(p[i][1], 1);
+		close(kek->p[kek->i - 1][1]);
+		dup2(kek->p[kek->i - 1][0], 0);
+		close(kek->p[kek->i][0]);
+		dup2(kek->p[kek->i][1], 1);
 	}
-	else if (i == pipes)
+	else if (kek->i == pipes)
 	{
-		close(p[i - 1][1]);
-		dup2(p[i - 1][0], 0);
+		close(kek->p[kek->i - 1][1]);
+		dup2(kek->p[kek->i - 1][0], 0);
 	}
 }
 
-static void	pipe_v2(int i, int *pid, int **p, int pipes, t_env *data, t_node *iter)
+static void	pipe_v2(t_lol *kek, t_env *data, t_node *iter)
 {
-	if (pid[i] > 0)
+	if (kek->pid[kek->i] > 0)
 	{
-		close(p[i][1]);
+		close(kek->p[kek->i][1]);
 	}
-	else if (pid[i] == 0)
+	else if (kek->pid[kek->i] == 0)
 	{	
 		if (iter->redirs != NULL)
 		{
@@ -86,7 +98,7 @@ static void	pipe_v2(int i, int *pid, int **p, int pipes, t_env *data, t_node *it
 		}
 		else
 		{
-			close_open_things(i, pid, p, pipes);
+			close_open_things(kek, data->n_pipes);
 			ft_execve(data, iter);
 		}
 	}
@@ -94,28 +106,24 @@ static void	pipe_v2(int i, int *pid, int **p, int pipes, t_env *data, t_node *it
 
 void	ft_new_pipe(t_env *data)
 {
-	int		**p;
-	int		*pid;
-	int		i;
-	int		pipes;
 	t_node	*iter;
+	t_lol	kek;
 
-	p = allocate_ar_of_fds_and_pid(data->n_pipes, &pid);
+	kek.p = allocate_ar_of_fds_and_pid(data->n_pipes, &kek.pid);
 	iter = data->cmds;
-	pipes = data->n_pipes;
-	i = 0;
-	while (i <= pipes)
+	kek.i = 0;
+	while (kek.i <= data->n_pipes)
 	{
-		pid[i] = fork();
-		pipe_v2(i, pid, p, pipes, data, iter);
+		kek.pid[kek.i] = fork();
+		pipe_v2(&kek, data, iter);
 		iter = iter->next;
-		i++;
+		kek.i++;
 	}
-	while (i--)
+	while (kek.i--)
 		waitpid(0, 0, 0);
-	free(pid);
-	i = -1;
-	while (++i <= data->n_pipes)
-		free(p[i]);
-	free(p);
+	free(kek.pid);
+	kek.i = -1;
+	while (++kek.i <= data->n_pipes)
+		free(kek.p[kek.i]);
+	free(kek.p);
 }

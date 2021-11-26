@@ -37,7 +37,8 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_buildin_exit.c \
 	srcs/ft_execve.c \
 	srcs/pipe3.c \
-	srcs/ft_redir.c
+	srcs/ft_redir.c\
+	srcs/ft_redir2.c
 
 OBJS = $(SRCS:%.c=%.o)
 

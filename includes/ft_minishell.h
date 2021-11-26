@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_minishell.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 16:22:24 by faggar            #+#    #+#             */
+/*   Updated: 2021/11/26 16:43:36 by faggar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 
@@ -29,6 +41,15 @@
 # define REDIRECT_DOUBLE_RIGHT	0b00001000
 
 // Structures
+
+typedef struct s_lol
+{
+	int	i;
+	int	*pid;
+	int	**p;
+}t_lol;
+
+
 typedef struct s_node
 {
 	void	*next;
@@ -59,37 +80,6 @@ typedef struct s_env
 	int		last_status;
 	int		n_pipes;
 }	t_env;
-
-typedef struct s_echo_data
-{
-	char	*cmd;
-	char	*flag;
-	char	*str;
-	char	*redirr_type;
-	char	*file_name;
-	int		pipe;
-	int		fd;
-
-	char	**path;
-	char	**flags;
-	char	**env;
-	int		fds[2];
-	pid_t	pid;
-
-	// cd
-	char	**args;
-	char	*pwd_old;
-	char	*pwd_cur;
-
-	int		count_pipes;
-
-	//temp variables for tests pipe
-	char	***commands;
-	int 	exit;
-
-	int		redirect_1;
-	int		redirect_0;
-}t_data;
 
 // External functions
 void	rl_replace_line(const char *text, int clear_undo);
@@ -169,18 +159,12 @@ char	*ft_rm_whitespace(char *input);
 // Execution Arguments
 void	ft_exec_args(t_node *node);
 
-// Redirects utilities
-int		fill_env_path(t_data *data, char **env);
-
-//		PIPE
-void	ft_pipe(t_data *data, char ***args);
-//*********************
-int	ft_get_env(t_data *data);
-int	ft_get_pwd(t_data *data);
-
-
 int	**arr_of_fd_and_pids(int count_pipes, int **arr_pid);
 void	make_redirrect(t_node *cur_cmd, t_env *env);
 char *find_path1(t_env *data, t_node *iter);
 void	ft_new_pipe(t_env *data);
+
+void	simple_right(t_redir *redir, t_node *cmd_info);
+int		simple_left(t_redir *redir, t_node *cmd_info);
+void	double_right(t_redir *redir, t_node *cmd_info);
 #endif
