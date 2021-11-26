@@ -1,18 +1,4 @@
-#include "../includes/ft_minishell.h"
-
-// void	sigint(int signal)
-// {
-// 	(void)signal;
-// 	exit(130);
-// }
-
-// void	sigquit(int signal)
-// {
-// 	(void)signal;
-// 	rl_on_new_line();
-// 	rl_redisplay();
-// 	exit(130);
-// }
+#include "ft_minishell.h"
 
 static int	double_left(t_redir *redir, t_node *cmd_info)
 {
