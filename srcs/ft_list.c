@@ -14,6 +14,7 @@ t_node	*ft_node_create(void)
 	new->args = 0;
 	new->exec_args = 0;
 	new->c_end = '\0';
+	new->path_command = 0;
 	new->redir_0 = 0;
 	new->redir_1 = 1;
 	new->fds[0] = 0;

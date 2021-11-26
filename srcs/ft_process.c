@@ -3,14 +3,11 @@
 char	*find_path12(t_env *env)
 {
 	char	*str;
-	int		i;
+	char	*temp;
 
-	i = 0;
-	while (ft_strncmp(env->envp[i], "PWD", 3) != 0)
-	{
-		i++;
-	}
-	str = ft_strjoin(env->envp[i] + 4, "/");
+	temp = ft_get_value("PWD", env->envp);
+	str = ft_strjoin(temp, "/");
+	free(temp);
 	return (str);
 }
 

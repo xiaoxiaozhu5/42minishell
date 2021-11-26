@@ -112,7 +112,10 @@ void	ft_new_pipe(t_env *data)
 		i++;
 	}
 	while (i--)
-	{
 		waitpid(0, 0, 0);
-	}
+	free(pid);
+	i = -1;
+	while (++i <= data->n_pipes)
+		free(p[i]);
+	free(p);
 }
