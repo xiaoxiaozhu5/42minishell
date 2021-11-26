@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 17:12:57 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/26 17:39:20 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:45:50 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,12 @@
 int	double_left(t_redir *redir)
 {
 	int		pid;
-	char	*heredock;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		redir_sig();
-		while (1)
-		{
-			heredock = readline("heredock> ");
-			if (!heredock)
-			{
-				printf("heredock> %s\n", redir->value);
-				exit(0);
-			}
-			if ((ft_strcmp(heredock, redir->value)) == 0)
-			{
-				free(heredock);
-				break ;
-			}
-			else
-				free(heredock);
-		}
+		make_heredeock(redir);
 		exit(0);
 	}
 	waitpid(0, 0, 0);
