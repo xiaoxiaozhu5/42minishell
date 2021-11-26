@@ -28,10 +28,17 @@ void	ft_modify(t_env *env, t_node *to_modify)
 	}
 }
 
+void	no_newline_for_sigquit(int sig)
+{
+	if (sig == SIGUSR1)
+		signal(SIGQUIT, SIG_IGN);
+}
+
 void	ft_process(t_env *env)
 {
 	t_node *to_modify;
 
+	signal(SIGUSR1, no_newline_for_sigquit);
 	if (!env->cmds->command)
 		return ;
 	to_modify = env->cmds;

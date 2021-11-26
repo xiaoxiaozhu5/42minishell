@@ -60,37 +60,6 @@ typedef struct s_env
 	int		n_pipes;
 }	t_env;
 
-typedef struct s_echo_data
-{
-	char	*cmd;
-	char	*flag;
-	char	*str;
-	char	*redirr_type;
-	char	*file_name;
-	int		pipe;
-	int		fd;
-
-	char	**path;
-	char	**flags;
-	char	**env;
-	int		fds[2];
-	pid_t	pid;
-
-	// cd
-	char	**args;
-	char	*pwd_old;
-	char	*pwd_cur;
-
-	int		count_pipes;
-
-	//temp variables for tests pipe
-	char	***commands;
-	int 	exit;
-
-	int		redirect_1;
-	int		redirect_0;
-}t_data;
-
 // External functions
 void	rl_replace_line(const char *text, int clear_undo);
 
@@ -168,16 +137,6 @@ char	*ft_rm_whitespace(char *input);
 
 // Execution Arguments
 void	ft_exec_args(t_node *node);
-
-// Redirects utilities
-int		fill_env_path(t_data *data, char **env);
-
-//		PIPE
-void	ft_pipe(t_data *data, char ***args);
-//*********************
-int	ft_get_env(t_data *data);
-int	ft_get_pwd(t_data *data);
-
 
 int	**arr_of_fd_and_pids(int count_pipes, int **arr_pid);
 void	make_redirrect(t_node *cur_cmd, t_env *env);
