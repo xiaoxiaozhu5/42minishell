@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 16:22:24 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/26 17:14:56 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:31:18 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ char	*ft_rm_whitespace(char *input);
 // Execution Arguments
 void	ft_exec_args(t_node *node);
 
-int	**arr_of_fd_and_pids(int count_pipes, int **arr_pid);
+int		**arr_of_fd_and_pids(int count_pipes, int **arr_pid);
 void	make_redirrect(t_node *cur_cmd, t_env *env);
-char *find_path1(t_env *data, t_node *iter);
+char	*find_path1(t_env *data, t_node *iter);
 void	ft_new_pipe(t_env *data);
 
 void	simple_right(t_redir *redir, t_node *cmd_info);
@@ -170,4 +170,6 @@ void	double_right(t_redir *redir, t_node *cmd_info);
 void	sigint_r(int signal);
 void	sigquit_r(int signal);
 void	redir_sig();
+void	check_heredock(t_redir *redirs, t_node *cur_cmd);
+int		double_left(t_redir *redir);
 #endif

@@ -6,13 +6,13 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 17:12:57 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/26 17:16:40 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:36:35 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-static int	double_left(t_redir *redir, t_node *cmd_info)
+int	double_left(t_redir *redir)
 {
 	int		pid;
 	char	*heredock;
@@ -34,12 +34,13 @@ static int	double_left(t_redir *redir, t_node *cmd_info)
 				free(heredock);
 				break ;
 			}
+			else
+				free(heredock);
 		}
 		exit(0);
 	}
 	waitpid(0, 0, 0);
 	exit(0);
-	(void) cmd_info;
 	return (1);
 }
 
@@ -64,19 +65,7 @@ static void	choose_redirrect(t_redir *redirs, t_node *cmd)
 
 static int	check_redirs(t_node *cur_cmd, t_redir	*redirs)
 {
-	int	pid;
-
-	while (redirs != NULL)
-	{
-		if (redirs->type == REDIRECT_DOUBLE_LEFT)
-		{
-			pid = fork();
-			if (pid == 0)
-				double_left(redirs, cur_cmd);
-			waitpid(0, 0, 0);
-		}
-		redirs = (t_redir *)redirs->next;
-	}
+	check_heredock(redirs, cur_cmd);
 	redirs = (t_redir *)cur_cmd->redirs;
 	while (redirs != NULL)
 	{
