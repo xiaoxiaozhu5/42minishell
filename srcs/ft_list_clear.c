@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_list_clear.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 void	ft_clear_redirs(t_redir **lst)
 {
+	t_redir	*next_ptr;
 	t_redir	*iter;
-	t_redir	*temp;
 
-	temp = *lst;
-	while (temp)
+	iter = *lst;
+	while (iter)
 	{
-		iter = temp->next;
-		free(temp->value);
-		free(temp);
-		temp = iter;
+		next_ptr = iter->next;
+		free(iter->value);
+		free(iter);
+		iter = next_ptr;
 	}
 	*lst = 0;
 }
@@ -26,7 +38,7 @@ void	ft_clear_nodes(t_node **lst)
 	{
 		iter = temp->next;
 		if (temp->redirs)
-			ft_clear_redirs(temp->redirs);
+			ft_clear_redirs((t_redir **)&(temp->redirs));
 		if (temp->command)
 			free(temp->command);
 		if (temp->flags)

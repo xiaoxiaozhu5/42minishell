@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_process.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 char	*find_path12(t_env *env)
@@ -36,7 +48,7 @@ void	no_newline_for_sigquit(int sig)
 
 void	ft_process(t_env *env)
 {
-	t_node *to_modify;
+	t_node	*to_modify;
 
 	signal(SIGUSR1, no_newline_for_sigquit);
 	if (!env->cmds->command)

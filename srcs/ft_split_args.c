@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_args.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 static int	ft_next_empty(const char *str, int start)
@@ -54,6 +66,7 @@ static char	*ft_substr_q(char const *s, unsigned int start, size_t len)
 {
 	char	*result;
 	char	*qt;
+
 	result = ft_substr(s, start, len);
 	qt = ft_strchr(result, STRING_QUOTE);
 	while (qt)

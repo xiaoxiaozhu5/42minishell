@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_list_builders.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 int	ft_find_command(t_node *new_node, char *input, int *start, int *end)
@@ -7,10 +19,10 @@ int	ft_find_command(t_node *new_node, char *input, int *start, int *end)
 	int	in_qts;
 
 	*start = ft_str_find_alnum(input, *start);
-	k = *start;
+	k = *start - 1;
 	is_alpha_begins = 0;
 	in_qts = 0;
-	while (k <= *end)
+	while (++k <= *end)
 	{
 		if (input[k] == STRING_QUOTE)
 		{
@@ -18,22 +30,21 @@ int	ft_find_command(t_node *new_node, char *input, int *start, int *end)
 			in_qts = !in_qts;
 		}
 		else if (is_alpha_begins && !in_qts && (!input[k]
-			|| input[k] == ' ' || input[k] == '\t' || input[k] == '|'
-			|| input[k] == '>' || input[k] == '<'))
+				|| input[k] == ' ' || input[k] == '\t' || input[k] == '|'
+				|| input[k] == '>' || input[k] == '<'))
 			new_node->command = ft_substr(input, *start, k - *start);
 		if (input[k] && input[k] != ' ' && input[k] != '\t')
 			is_alpha_begins = 1;
 		if (new_node->command)
 			break ;
-		k++;
 	}
 	return (k);
 }
 
 int	ft_find_flags(t_node *new_node, char *input, int *start, int *end)
 {
-	int	k;
-	int	l;
+	int		k;
+	int		l;
 	char	*flags_not_splitted;
 
 	k = *start;
@@ -42,7 +53,7 @@ int	ft_find_flags(t_node *new_node, char *input, int *start, int *end)
 		if (input[k] == '-' && input[k + 1])
 		{
 			if (!(input[k + 1] == ' ' || input[k + 1] == '\t'
-				  || ft_str_find_in_word(input, '-', k + 1)))
+					|| ft_str_find_in_word(input, '-', k + 1)))
 			{
 				l = ft_find_flags_length(input, k);
 				flags_not_splitted = ft_substr(input, k, l);
@@ -80,53 +91,7 @@ int	ft_find_args(t_node *new_node, char *input, int *start, int *end)
 	return (*start);
 }
 
-char	*ft_redir_value(char *input, int *k, int end)
-{
-	char	*value;
-	int		start;
-	int		in_qts;
-
-	start = *k;
-	in_qts = 0;
-	if (input[start] == STRING_QUOTE)
-		in_qts = !in_qts;
-	while (*k <= end && ((input[*k] && input[*k] != ' '
-						  && input[*k] != '\t' && input[*k] != '>'
-						  && input[*k] != '<' && input[*k] != '|') || in_qts))
-	{
-		(*k)++;
-		if (input[*k] == STRING_QUOTE)
-			in_qts = !in_qts;
-	}
-	value = ft_substr(input, start, *k - start);
-	while (ft_strchr(value, STRING_QUOTE))
-		ft_strpclear(value, ft_strchr(value, STRING_QUOTE));
-	return (value);
-}
-
-t_redir	*ft_add_redir(char *input, int *k, int *end)
-{
-	t_redir	*new_redir;
-	int		type;
-
-	new_redir = ft_node_redir_create();
-	if (input[*k] == '<' && input[*k + 1] == '<')
-		type = REDIRECT_DOUBLE_LEFT;
-	else if (input[*k] == '>' && input[*k + 1] == '>')
-		type = REDIRECT_DOUBLE_RIGHT;
-	else if (input[*k] == '<')
-		type = REDIRECT_LEFT;
-	else if (input[*k] == '>')
-		type = REDIRECT_RIGHT;
-	while (*k < *end && (input[*k] == ' ' || input[*k] == '\t'
-						 || input[*k] == '<' || input[*k] == '>'))
-		(*k)++;
-	new_redir->type = type;
-	new_redir->value = ft_redir_value(input, k, *end);
-	return (new_redir);
-}
-
-int	ft_find_redirs(t_node *new_node, char *input, int *start, int *end)
+int	ft_find_redirs(t_node *new_node, char *input, const int *start, int *end)
 {
 	int		k;
 

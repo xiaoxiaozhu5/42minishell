@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe3.c                                            :+:      :+:    :+:   */
+/*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -64,7 +64,7 @@ static int	**allocate_ar_of_fds_and_pid(int n_pipes, int **pid)
 	return (fds);
 }
 
-static void	close_open_things(t_lol *kek, int pipes)
+static void	close_open_things(t_pids *kek, int pipes)
 {
 	if (kek->pid[kek->i] == 0 && kek->i == 0)
 	{
@@ -85,7 +85,7 @@ static void	close_open_things(t_lol *kek, int pipes)
 	}
 }
 
-static void	pipe_v2(t_lol *kek, t_env *data, t_node *iter)
+static void	pipe_v2(t_pids *kek, t_env *data, t_node *iter)
 {
 	if (kek->pid[kek->i] > 0)
 	{
@@ -108,7 +108,7 @@ static void	pipe_v2(t_lol *kek, t_env *data, t_node *iter)
 void	ft_new_pipe(t_env *data)
 {
 	t_node	*iter;
-	t_lol	kek;
+	t_pids	kek;
 
 	kek.p = allocate_ar_of_fds_and_pid(data->n_pipes, &kek.pid);
 	iter = data->cmds;

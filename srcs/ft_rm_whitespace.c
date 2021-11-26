@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rm_whitespace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kricky <kricky@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/01 10:36:37 by kricky            #+#    #+#             */
-/*   Updated: 2021/11/14 12:56:47 by                  ###   ########.fr       */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
+
+static void	ft_free(char *str1, char *str2)
+{
+	free(str1);
+	free(str2);
+}
 
 static void	ft_skip_quotes(const char *input, int *i, const char c)
 {
@@ -43,8 +49,7 @@ static char	*ft_rm_spaces(char *input, int *i)
 	tmp3 = ft_strjoin(tmp1, tmp2);
 	if (tmp3[ft_strlen(tmp3) - 1] == ' ')
 		tmp3[ft_strlen(tmp3) - 1] = '\0';
-	free(tmp1);
-	free(tmp2);
+	ft_free(tmp1, tmp2);
 	free(input);
 	*i = start;
 	return (tmp3);

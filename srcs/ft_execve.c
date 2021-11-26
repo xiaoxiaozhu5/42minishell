@@ -61,6 +61,11 @@ int	ft_execve_buildin_2(t_env *env, t_node *node)
 			exit(0);
 		return (1);
 	}
+	return (0);
+}
+
+int	ft_execve_buildin_3(t_env *env, t_node *node)
+{
 	if (node->command && !ft_strcmp(node->command, "exit"))
 	{
 		ft_exit(node, env);
@@ -78,6 +83,8 @@ void	ft_execve_p2(t_env *env, t_node *node)
 	if (ft_execve_buildin_1(env, node) == 1)
 		return ;
 	else if (ft_execve_buildin_2(env, node) == 1)
+		return ;
+	else if (ft_execve_buildin_3(env, node) == 1)
 		return ;
 	else
 	{
@@ -100,6 +107,7 @@ void	ft_execve(t_env *env, t_node *node)
 	{
 		ft_execve_buildin_1(env, node);
 		ft_execve_buildin_2(env, node);
+		ft_execve_buildin_3(env, node);
 		if (execve(node->path_command, node->exec_args, env->envp) == -1)
 			exit(0);
 		if (env->n_pipes > 0)
@@ -110,6 +118,8 @@ void	ft_execve(t_env *env, t_node *node)
 		if (ft_execve_buildin_1(env, node) == 1)
 			return ;
 		else if (ft_execve_buildin_2(env, node) == 1)
+			return ;
+		else if (ft_execve_buildin_3(env, node) == 1)
 			return ;
 		else
 			ft_execve_p2(env, node);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 void	ft_destroy_env(t_env *env)
@@ -19,33 +31,14 @@ t_env	*ft_init_env(char **envp)
 	return (env);
 }
 
-void	ft_sigint(int sig)
-{
-	(void)sig;
-	ft_putchar_fd('\n', 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	ft_sigquit(int sig)
-{
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
 void	ft_initter(t_env **env, char **envp, char **input)
 {
 	*env = ft_init_env(envp);
 	ft_init_history();
-	signal(SIGINT, ft_sigint);
-	signal(SIGQUIT, ft_sigquit);
 	*input = 0;
 }
 
-void ft_readline(char **input, t_env *env)
+void	ft_readline(char **input, t_env *env)
 {
 	*input = readline("42minishell $> ");
 	if (!*input)
@@ -68,15 +61,13 @@ int	main(int argc, char **argv, char **envp)
 	ft_initter(&env, envp, &input);
 	while (1)
 	{
+		ft_init_signals();
 		ft_readline(&input, env);
 		if (ft_preparser(input) == 0)
 		{
 			input = ft_rm_whitespace(input);
-			// printf("Formatted: [%s]\n", input);
 			input = ft_parser(input, env);
-			// printf("Parser: [%s]\n", input);
 			ft_build_cmds(&env->cmds, input);
-			// ft_list_print(&env->cmds);
 			ft_preprocess(env);
 			ft_process(env);
 			ft_clear_cmds(env);
@@ -84,6 +75,4 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(input);
 	}
-	ft_destroy_env(env);
-	// TODO remove -g
 }

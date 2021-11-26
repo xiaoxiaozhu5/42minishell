@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list.c                                          :+:      :+:    :+:   */
+/*   ft_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,56 +12,25 @@
 
 #include "ft_minishell.h"
 
-t_node	*ft_node_create(void)
+void	ft_sigint(int sig)
 {
-	t_node	*new;
-
-	new = malloc(sizeof(t_node));
-	if (!new)
-		return (0);
-	new->next = 0;
-	new->redirs = 0;
-	new->command = 0;
-	new->flags = 0;
-	new->args = 0;
-	new->exec_args = 0;
-	new->c_end = '\0';
-	new->path_command = 0;
-	new->redir_0 = 0;
-	new->redir_1 = 1;
-	new->fds[0] = 0;
-	new->fds[1] = 1;
-	return (new);
+	(void)sig;
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-t_redir	*ft_node_redir_create(void)
+void	ft_sigquit(int sig)
 {
-	t_redir	*new;
-
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (0);
-	new->next = 0;
-	new->type = 0;
-	new->value = 0;
-	return (new);
+	(void)sig;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-void	*ft_list_create_back(void **lst, void *new)
+void	ft_init_signals(void)
 {
-	t_node	*iter;
-
-	if (*lst != 0)
-	{
-		iter = *lst;
-		while (iter->next != 0)
-		{
-			iter = iter->next;
-		}
-		iter->next = new;
-		return (iter->next);
-	}
-	else
-		*lst = new;
-	return (*lst);
+	signal(SIGINT, ft_sigint);
+	signal(SIGQUIT, ft_sigquit);
 }

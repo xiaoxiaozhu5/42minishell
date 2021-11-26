@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
 
 int	ft_error_unexpected_token(const char token)
@@ -31,11 +43,4 @@ void	ft_error_homeless(const char *cmd_name)
 	printf("%s: ", SHELL_NAME);
 	printf("%s: ", cmd_name);
 	printf("%s\n", ERROR_HOMELESS);
-}
-
-void	ft_strerror(const char *error_msg1, const char *error_msg2)
-{
-	printf("%s: ", SHELL_NAME);
-	printf("%s: ", error_msg1);
-	printf("%s\n", error_msg2);
 }

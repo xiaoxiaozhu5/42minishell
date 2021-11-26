@@ -4,12 +4,13 @@ INC = includes
 INCLUDES = ft_minishell.h
 LIBFT_FOLDER = libft
 LIBFT_ARCHIVE = libft.a
-CFLAGS = -Wall -Wextra -Werror -I$(INC) -I$(LIBFT_FOLDER) -g
+CFLAGS = -Wall -Wextra -Werror -I$(INC) -I$(LIBFT_FOLDER)
 LFLAGS = -lreadline -L ~/.brew/opt/readline/lib -I~/.brew/opt/readline/include/readline/
 
 NAME = minishell
 
 SRCS = srcs/ft_main.c \
+	srcs/ft_signals.c \
 	srcs/ft_parser.c \
 	srcs/ft_history.c \
 	srcs/ft_preprocess.c \
@@ -36,7 +37,7 @@ SRCS = srcs/ft_main.c \
 	srcs/ft_buildin_env.c \
 	srcs/ft_buildin_exit.c \
 	srcs/ft_execve.c \
-	srcs/pipe3.c \
+	srcs/ft_pipe.c \
 	srcs/ft_redir.c\
 	srcs/ft_redir2.c\
 	srcs/ft_redir3.c

@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_buildin_cd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:25:00 by kricky            #+#    #+#             */
+/*   Updated: 2021/11/27 14:53:00 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_minishell.h"
+
+void	ft_strerror_free(char *error_msg1, const char *error_msg2)
+{
+	printf("%s: ", SHELL_NAME);
+	printf("%s: ", error_msg1);
+	printf("%s\n", error_msg2);
+	free(error_msg1);
+}
 
 int	ft_update_pwd(t_env *env, char *path)
 {
@@ -15,8 +35,7 @@ int	ft_update_pwd(t_env *env, char *path)
 	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
 	{
 		error_msg = ft_strjoin("cd: ", path);
-		ft_strerror(error_msg, strerror(errno));
-		free(error_msg);
+		ft_strerror_free(error_msg, strerror(errno));
 		return (1);
 	}
 	ft_envp_add(&(env->envp), temp2);
