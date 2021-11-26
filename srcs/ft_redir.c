@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 17:12:57 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/26 17:36:35 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:39:20 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	choose_redirrect(t_redir *redirs, t_node *cmd)
 
 static int	check_redirs(t_node *cur_cmd, t_redir	*redirs)
 {
-	check_heredock(redirs, cur_cmd);
+	check_heredock(redirs);
 	redirs = (t_redir *)cur_cmd->redirs;
 	while (redirs != NULL)
 	{
