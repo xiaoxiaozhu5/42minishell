@@ -1,5 +1,19 @@
 #include "../includes/ft_minishell.h"
 
+// void	sigint(int signal)
+// {
+// 	(void)signal;
+// 	exit(130);
+// }
+
+// void	sigquit(int signal)
+// {
+// 	(void)signal;
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// 	exit(130);
+// }
+
 static int	double_left(t_redir *redir, t_node *cmd_info)
 {
 	int		pid;
@@ -8,13 +22,19 @@ static int	double_left(t_redir *redir, t_node *cmd_info)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, sigint_r);
+		signal(SIGQUIT, sigquit_r);
+		kill(0, SIGUSR1);
 		while (1)
 		{
 			heredock = readline("heredock> ");
-			if ((ft_strcmp(heredock, redir->value)) == 0)
+			if (!heredock)
 			{
-				break ;
+				printf("heredock> %s\n", redir->value);
+				exit(0);
 			}
+			if ((ft_strcmp(heredock, redir->value)) == 0)
+				break ;
 		}
 		exit(0);
 	}

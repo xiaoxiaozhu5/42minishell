@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 16:22:24 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/26 16:43:36 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/26 16:53:00 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,4 +167,6 @@ void	ft_new_pipe(t_env *data);
 void	simple_right(t_redir *redir, t_node *cmd_info);
 int		simple_left(t_redir *redir, t_node *cmd_info);
 void	double_right(t_redir *redir, t_node *cmd_info);
+void	sigint_r(int signal);
+void	sigquit_r(int signal);
 #endif
