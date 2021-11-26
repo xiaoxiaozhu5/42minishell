@@ -1,4 +1,4 @@
-#include "../includes/ft_minishell.h"
+#include "ft_minishell.h"
 
 static int	double_left(t_redir *redir, t_node *cmd_info)
 {
