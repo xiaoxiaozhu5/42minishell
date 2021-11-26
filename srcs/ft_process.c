@@ -17,19 +17,18 @@ char	*find_path12(t_env *env)
 void	ft_modify(t_env *env, t_node *to_modify)
 {
 	char	*temp_str;
+
 	while (to_modify != NULL)
 	{
 		to_modify->path_command = find_path1(env, to_modify);
 		if (to_modify->path_command == NULL)
 		{
-			to_modify->path_command = find_path12(env);
-			temp_str = to_modify->path_command;
-			free(to_modify->path_command);
+			temp_str = find_path12(env);
 			to_modify->path_command = ft_strjoin(temp_str, to_modify->command);
+			free(temp_str);
 		}
 		to_modify = (t_node *)to_modify->next;
 	}
-	to_modify = env->cmds;
 }
 
 void	ft_process(t_env *env)

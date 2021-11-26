@@ -36,6 +36,8 @@ void	ft_clear_nodes(t_node **lst)
 			ft_strsfree(temp->exec_args);
 		if (temp->args)
 			ft_strsfree(temp->args);
+		if (temp->path_command)
+			free(temp->path_command);
 		free(temp);
 		temp = iter;
 	}

@@ -10,17 +10,18 @@ char	*find_path1(t_env *data, t_node *iter)
 
 	i = 0;
 	needed_cmd = iter->command;
+	res = stat(needed_cmd, &buff);
+	if (res == 0 && (buff.st_mode))
+		return (needed_cmd);
 	while (data->execve_paths[i])
 	{
+		temp_str = ft_strjoin(data->execve_paths[i], "/");
+		needed_cmd = ft_strjoin(temp_str, iter->command);
+		free(temp_str);
 		res = stat(needed_cmd, &buff);
 		if (res == 0 && (buff.st_mode))
-		{
 			return (needed_cmd);
-		}
-		needed_cmd = ft_strjoin(data->execve_paths[i], "/");
-		temp_str = needed_cmd;
 		free(needed_cmd);
-		needed_cmd = ft_strjoin(temp_str, iter->command);
 		temp_str = NULL;
 		i++;
 	}
