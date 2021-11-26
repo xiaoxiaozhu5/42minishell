@@ -112,7 +112,7 @@ void	ft_destroy_env(t_env *env);
 int		ft_find_flags_length(const char *str, int i);
 int		ft_next_redir(const char *input, int start, int end);
 int		ft_args_end(const char *input, int start, int end);
-void	ft_add_redir(t_redir **list, char *input, int *k, int *end);
+// sfdfss
 
 // Builder Utilities Second
 char	**ft_split_args(char const *args);

@@ -9,8 +9,7 @@ void	ft_clear_redirs(t_redir **lst)
 	while (temp)
 	{
 		iter = temp->next;
-		if (temp->value)
-			free(temp->value);
+		free(temp->value);
 		free(temp);
 		temp = iter;
 	}
