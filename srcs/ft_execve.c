@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:13:14 by faggar            #+#    #+#             */
-/*   Updated: 2021/11/25 15:56:16 by faggar           ###   ########.fr       */
+/*   Updated: 2021/11/27 14:14:36 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ void	ft_execve(t_env *env, t_node *node)
 		ft_execve_buildin_2(env, node);
 		ft_execve_buildin_3(env, node);
 		if (execve(node->path_command, node->exec_args, env->envp) == -1)
+		{
+			printf("%s: command not found\n", node->command);
 			exit(0);
+		}
 		if (env->n_pipes > 0)
 			exit(0);
 	}
