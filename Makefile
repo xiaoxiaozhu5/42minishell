@@ -44,11 +44,11 @@ SRCS = srcs/ft_main.c \
 
 OBJS = $(SRCS:%.c=%.o)
 
-.c.o:
+%.o: %.c $(INC)/$(INCLUDES)
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 	@echo "Building: \033[0;34m$<\033[0m"
 
-$(NAME):  $(INC)/$(INCLUDES) $(OBJS)
+$(NAME): $(OBJS)
 	@echo "Building: \033[0;34m$>$(LIBFT_ARCHIVE)\033[0m"
 	@make -s -C libft
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS) $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
